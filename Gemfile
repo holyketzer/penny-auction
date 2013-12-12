@@ -46,3 +46,5 @@ end
 
 gem "rspec-rails", group: [:development, :test]
 gem 'shoulda-matchers', group: [:development, :test]
+
+gem "ancestry"
