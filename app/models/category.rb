@@ -4,4 +4,6 @@ class Category < ActiveRecord::Base
   validates :name, :presence => true
   validates :name, uniqueness: { case_sensitive: false }
   validates :description, :presence => true
+
+  has_many :products
 end

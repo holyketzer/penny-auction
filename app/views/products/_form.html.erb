@@ -23,6 +23,10 @@
     <%= f.label :shop_price %><br>
     <%= f.text_field :shop_price %>
   </div>
+  <div class="field">
+    <%= f.label :category_id %><br>
+    <%= f.collection_select :category_id, Category.order(:name), :id, :name %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
