@@ -5,9 +5,9 @@ class FractionalityValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     if value
-	    value = value.modulo(1)
+      value = value.modulo(1)
 
-			options.slice(*CHECKS.keys).each do |option, option_value|        
+      options.slice(*CHECKS.keys).each do |option, option_value|        
         case option_value
         when Proc
           option_value = option_value.call(record)
@@ -19,6 +19,6 @@ class FractionalityValidator < ActiveModel::EachValidator
           record.errors[attribute] << (options[:message] || "fractional part should be #{option} #{option_value}")
         end
       end
-	  end
+    end
   end
 end
