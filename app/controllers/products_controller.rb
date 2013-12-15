@@ -10,6 +10,8 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+    @imageable = @product
+    @image = Image.new
   end
 
   # GET /products/new

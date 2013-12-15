@@ -4,7 +4,6 @@
   <thead>
     <tr>
       <th>Image</th>
-      <th>Description</th>
       <th>Imageable</th>
       <th></th>
       <th></th>
@@ -16,7 +15,6 @@
     <% @images.each do |image| %>
       <tr>
         <td><%= image_tag image.source.thumb.url %></td>
-        <td><%= image.description %></td>
         <td><%= image.imageable %></td>
         <td><%= link_to 'Show', image %></td>
         <td><%= link_to 'Edit', edit_image_path(image) %></td>

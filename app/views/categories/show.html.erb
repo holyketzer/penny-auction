@@ -15,5 +15,16 @@
   <%= @category.ancestry %>
 </p>
 
+<div>
+  <% if @category.image %>
+    <%= image_tag @category.image.thumb_url %>
+    <br />
+    <%= link_to 'Delete image', [@category, @category.image], method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% else %>
+    <%= render "images/form" %>
+  <% end %>
+</div>
+<br />
+
 <%= link_to 'Edit', edit_category_path(@category) %> |
 <%= link_to 'Back', categories_path %>

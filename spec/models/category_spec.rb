@@ -9,5 +9,6 @@ describe Category do
 
   describe "associations" do
     it { should have_many(:products) }
+    it { should have_one(:image) }
   end
 end

@@ -3,7 +3,8 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th>
+      <th>Image</th>
+      <th>Name</th>      
       <th>Description</th>
       <th>Ancestry</th>
       <th></th>
@@ -15,7 +16,10 @@
   <tbody>
     <% @categories.each do |category| %>
       <tr>
-        <td><%= category.name %></td>
+        <td>  
+          <%= image_tag category.image.thumb_url if category.image %>
+        </td>
+        <td><%= category.name %></td>        
         <td><%= category.description %></td>
         <td><%= category.ancestry %></td>
         <td><%= link_to 'Show', category %></td>
