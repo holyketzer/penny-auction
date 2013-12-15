@@ -5,4 +5,5 @@ class Product < ActiveRecord::Base
   validates :shop_price, fractionality: { multiplier: 0.01 }
 
   belongs_to :category
+  has_many :images, as: :imageable
 end

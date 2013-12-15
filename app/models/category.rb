@@ -6,4 +6,5 @@ class Category < ActiveRecord::Base
   validates :description, :presence => true
 
   has_many :products
+  has_one :image, as: :imageable
 end

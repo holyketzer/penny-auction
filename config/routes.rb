@@ -1,4 +1,6 @@
 GitLearning::Application.routes.draw do
+  resources :images
+
   resources :categories
 
   resources :products

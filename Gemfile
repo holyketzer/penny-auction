@@ -44,7 +44,9 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem "rspec-rails", group: [:development, :test]
+gem 'rspec-rails', group: [:development, :test]
 gem 'shoulda-matchers', group: [:development, :test]
 
-gem "ancestry"
+gem 'ancestry'
+gem 'carrierwave'
+gem 'mini_magick' # ensure that imagemagick is installed: 'sudo apt-get install imagemagick'
