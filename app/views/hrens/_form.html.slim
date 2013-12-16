@@ -1,9 +1,0 @@
-= form_for @hren do |f|
-  - if @hren.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@hren.errors.count, "error")} prohibited this hren from being saved:"
-      ul
-        - @hren.errors.full_messages.each do |message|
-          li = message
-
-  .actions = f.submit 'Save'

@@ -35,10 +35,8 @@ class ImagesController < ApplicationController
     respond_to do |format|
       if @image.save
         format.html { redirect_to @imageable, notice: 'Image was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @image }
       else
         format.html { redirect_to @imageable, notice: 'Image validation is failed' }
-        format.json { render json: @image.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -52,7 +50,6 @@ class ImagesController < ApplicationController
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @image.errors, status: :unprocessable_entity }
       end
     end
   end

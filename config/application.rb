@@ -22,5 +22,18 @@ module GitLearning
 
     # add custom validators path
     config.autoload_paths += %W["#{config.root}/app/validators/"]
+
+    # Disable generation of helpers, javascripts, css, and view specs
+    config.generators do |generate|
+      generate.assets false
+      generate.jbuilder false
+      generate.helper false      
+      
+      # specs
+      generate.controller_specs false
+      generate.helper_specs false
+      generate.routing_specs false
+      generate.view_specs false
+    end
   end
 end
