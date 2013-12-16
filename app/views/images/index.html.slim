@@ -1,0 +1,19 @@
+h1 Listing images
+table
+  thead
+    tr
+      th Image
+      th Imageable
+      th
+      th
+      th
+  tbody
+    - @images.each do |image|
+      tr
+        td= image_tag image.source.thumb.url
+        td= image.imageable
+        td= link_to 'Show', image
+        td= link_to 'Edit', edit_image_path(image)
+        td= link_to 'Destroy', image, method: :delete, data: { confirm: 'Are you sure?' }
+br
+= link_to 'New Image', new_image_path

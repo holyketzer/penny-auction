@@ -1,0 +1,23 @@
+h1 Listing categories
+table
+  thead
+    tr
+      th Image
+      th Name
+      th Description
+      th Ancestry
+      th
+      th
+      th
+  tbody
+    - @categories.each do |category|
+      tr
+        td = image_tag category.image.thumb_url if category.image
+        td = category.name
+        td = category.description
+        td = category.ancestry
+        td = link_to 'Show', category
+        td = link_to 'Edit', edit_category_path(category)
+        td = link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }
+br
+= link_to 'New Category', new_category_path

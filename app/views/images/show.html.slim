@@ -1,0 +1,9 @@
+p#notice = notice
+p
+  = image_tag @image.source.thumb.url
+p
+  strong Imageable:
+  = @image.imageable
+= link_to 'Edit', edit_image_path(@image)
+'|
+= link_to 'Back', images_path

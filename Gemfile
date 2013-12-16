@@ -50,3 +50,4 @@ gem 'shoulda-matchers', group: [:development, :test]
 gem 'ancestry'
 gem 'carrierwave'
 gem 'mini_magick' # ensure that imagemagick is installed: 'sudo apt-get install imagemagick'
+gem 'slim-rails'

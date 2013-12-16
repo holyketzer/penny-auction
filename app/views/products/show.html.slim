@@ -1,0 +1,23 @@
+p#notice = notice
+p
+  strong Name:
+  = @product.name
+p
+  strong Description:
+  = @product.description
+p
+  strong Shop price:
+  = @product.shop_price
+p
+  strong Category:
+  = @product.category.name
+div
+  - @product.images.each do |image|
+    = image_tag image.thumb_url
+    = link_to 'Delete image', [@product, image], method: :delete, data: { confirm: 'Are you sure?' }
+    br
+  == render "images/form"
+br
+= link_to 'Edit', edit_product_path(@product)
+'|
+= link_to 'Back', products_path
