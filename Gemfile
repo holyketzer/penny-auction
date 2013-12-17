@@ -48,8 +48,13 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'rspec-rails', group: [:development, :test]
-gem 'shoulda-matchers', group: [:development, :test]
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
+  gem 'letter_opener'
+  gem 'pry-rails'
+  gem 'pry-plus'
+end
 
 gem 'ancestry'
 gem 'carrierwave'
