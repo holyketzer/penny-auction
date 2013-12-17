@@ -1,23 +1,26 @@
-= form_for(@category) do |f|
+= form_for @category, :html => { :class => "form-horizontal" } do |f|
   - if @category.errors.any?
     #error_explanation
-      h2
-        = pluralize(@category.errors.count, "error")
+      h2.alert
+        =' pluralize(@category.errors.count, "error")
         | prohibited this category from being saved:
       ul
         - @category.errors.full_messages.each do |msg|
-          li = msg
-  .field
-    = f.label :name
-    br
-    = f.text_field :name
-  .field
-    = f.label :description
-    br
-    = f.text_field :description
-  .field
-    = f.label :parent_id
-    br
-    = f.collection_select :parent_id, Category.order(:name), :id, :name, include_blank: true
-  .actions
-    = f.submit
+          li class="alert alert-error"= msg
+  .control-group
+    = f.label :name, :class => 'control-label'
+    .controls
+      = f.text_field :name, :class => 'text_field'
+  .control-group
+    = f.label :description, :class => 'control-label'
+    .controls
+      = f.text_field :description, :class => 'text_field'
+  .control-group
+    = f.label :parent_id, :class => 'control-label'
+    .controls
+      = f.collection_select :parent_id, Category.order(:name), :id, :name, { include_blank: true }, class: 'selectpicker'
+
+  .form-actions
+    = f.submit nil, :class => 'btn btn-primary'
+    '
+    = link_to t('.cancel', :default => t("helpers.links.cancel")), categories_path, :class => 'btn'

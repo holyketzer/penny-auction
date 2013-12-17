@@ -1,10 +1,14 @@
-= form_for [@imageable, @image] do |f|
+= form_for [@imageable, @image], :html => { :class => "form-horizontal" } do |f|
   - if @image.errors.any?
     #error_explanation
-      h2 = pluralize(@image.errors.count, "error")
+      h2.alert =' pluralize(@image.errors.count, "error")
         | prohibited this image from being saved:
       ul
         - @image.errors.full_messages.each do |msg|
-          li = msg
-  .field = f.file_field :source
-  .actions = f.submit
+          li class="alert alert-error" = msg
+  h2 Load new image
+  .control-group
+    = f.label :source
+    .field = f.file_field :source, :class => 'text_field'
+
+  = f.submit 'Upload image', :class => 'btn btn-primary'
