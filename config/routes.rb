@@ -1,11 +1,13 @@
 GitLearning::Application.routes.draw do  
 
-  resources :categories do
-    resources :images
-  end
+  namespace :admin do
+    resources :categories do
+      resources :images
+    end
 
-  resources :products do
-    resources :images
+    resources :products do
+      resources :images
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

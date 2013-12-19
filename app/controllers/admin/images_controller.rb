@@ -1,4 +1,4 @@
-class ImagesController < ApplicationController
+class Admin::ImagesController < Admin::BaseController
   before_action :set_image, only: [:show, :edit, :update, :destroy]
   before_filter :load_imageable
 
@@ -34,9 +34,9 @@ class ImagesController < ApplicationController
 
     respond_to do |format|
       if @image.save
-        format.html { redirect_to @imageable, notice: 'Image was successfully created.' }
+        format.html { redirect_to [:admin, @imageable], notice: 'Image was successfully created.' }
       else
-        format.html { redirect_to @imageable, notice: 'Image validation is failed' }
+        format.html { redirect_to [:admin, @imageable], notice: 'Image validation is failed' }
       end
     end
   end
@@ -46,7 +46,7 @@ class ImagesController < ApplicationController
   def update
     respond_to do |format|
       if @image.update(image_params)
-        format.html { redirect_to @imageable, notice: 'Image was successfully updated.' }
+        format.html { redirect_to [:admin, @imageable], notice: 'Image was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -59,14 +59,14 @@ class ImagesController < ApplicationController
   def destroy
     @image.destroy
     respond_to do |format|
-      format.html { redirect_to @imageable }
+      format.html { redirect_to [:admin, @imageable], notice: 'Image was successfully deleted.' }
       format.json { head :no_content }
     end
   end
 
   private
     def load_imageable
-      resource, id = request.path.split('/')[1, 2]
+      resource, id = request.path.split('/')[2, 3]
       @imageable = resource.singularize.classify.constantize.find(id)
     end
 
