@@ -31,6 +31,8 @@ html lang="en"
             ul.nav
               li= link_to "Products", admin_products_path
               li= link_to "Categroies", admin_categories_path
+            
+            = render 'shared/user_panel'
 
     .container-fluid
 
@@ -38,6 +40,7 @@ html lang="en"
         .span9
           = bootstrap_flash
           = yield
+
         .span3
           .well.sidebar-nav
             ul.nav.nav-list

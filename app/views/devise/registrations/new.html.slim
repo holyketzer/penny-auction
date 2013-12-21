@@ -1,0 +1,24 @@
+h2 Sign up
+
+= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "form-horizontal" }) do |f|
+  = render 'shared/validation_errors', locals: { resource: resource }
+
+  .control-group
+    = f.label :email, class: 'control-label'
+    .controls
+      = f.email_field :email, autofocus: true
+
+  .control-group
+    = f.label :password, class: 'control-label'
+    .controls
+      = f.password_field :password
+
+  .control-group
+    = f.label :password_confirmation, class: 'control-label'
+    .controls
+      = f.password_field :password_confirmation
+
+  .form-actions
+    = f.submit "Sign up", class: 'btn btn-primary'
+
+= render "devise/shared/links"

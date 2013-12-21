@@ -29,8 +29,8 @@ html lang="en"
           a.brand href="#"Penny auction
           .container-fluid.nav-collapse
             ul.nav
-              li= link_to "Products", products_path
-              li= link_to "Categroies", categories_path
+
+            = render 'shared/user_panel'
 
     .container-fluid
 
@@ -42,8 +42,6 @@ html lang="en"
           .well.sidebar-nav
             ul.nav.nav-list
               li.nav-header Menu
-              li= link_to "Products", products_path
-              li= link_to "Categroies", categories_path        
     
       footer
         p &copy; Alex Emelyanov 2013

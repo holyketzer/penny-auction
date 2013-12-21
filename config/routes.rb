@@ -1,5 +1,8 @@
 GitLearning::Application.routes.draw do  
 
+  devise_for :users
+  root to: 'site#index'
+
   namespace :admin do
     resources :categories do
       resources :images

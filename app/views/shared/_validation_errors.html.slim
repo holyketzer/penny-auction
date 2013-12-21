@@ -1,0 +1,4 @@
+#error_explanation
+  ul
+    - resource.errors.full_messages.each do |msg|
+      li class="alert alert-error"= msg
