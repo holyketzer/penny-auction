@@ -1,11 +1,9 @@
 class Image < ActiveRecord::Base
-  #validates :source, presence: true
+  scope :unengaged, -> { where("imageable_id IS NULL") }
 
   belongs_to :imageable, polymorphic: true
 
-  mount_uploader :source, ImageUploader
-
-  scope :unengaged, -> { where("imageable_id IS NULL") }
+  mount_uploader :source, ImageUploader  
 
   def thumb_url
     source.thumb.url

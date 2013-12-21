@@ -1,4 +1,4 @@
-= form_for [:admin, @category], :html => { :class => "form-horizontal" } do |f|
+= form_for [:admin, @category], html: { class: "form-horizontal" } do |f|
   - if @category.errors.any?
     #error_explanation
       h2.alert
@@ -8,19 +8,19 @@
         - @category.errors.full_messages.each do |msg|
           li class="alert alert-error"= msg
   .control-group
-    = f.label :name, :class => 'control-label'
+    = f.label :name, class: 'control-label'
     .controls
-      = f.text_field :name, :class => 'text_field'
+      = f.text_field :name, class: 'text_field'
   .control-group
-    = f.label :description, :class => 'control-label'
+    = f.label :description, class: 'control-label'
     .controls
-      = f.text_field :description, :class => 'text_field'
+      = f.text_field :description, class: 'text_field'
   .control-group
-    = f.label :parent_id, :class => 'control-label'
+    = f.label :parent_id, class: 'control-label'
     .controls
       = f.collection_select :parent_id, Category.order(:name), :id, :name, { include_blank: true }, class: 'selectpicker'
 
   .form-actions
-    = f.submit nil, :class => 'btn btn-primary'
+    = f.submit nil, class: 'btn btn-primary'
     '
-    = link_to t('.cancel', :default => t("helpers.links.cancel")), admin_categories_path, :class => 'btn'
+    = link_to t('.cancel', default: t("helpers.links.cancel")), admin_categories_path, class: 'btn'
