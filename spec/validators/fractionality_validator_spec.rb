@@ -8,7 +8,7 @@ describe FractionalityValidator do
     Topic.reset_callbacks(:validate)
   end
 
-  NIL = [nil]
+  NULL = [nil]
   BLANK = ["", " ", " \t \r \n"]
   BIGDECIMAL_STRINGS = %w(12345678901234567890.1234567890) # 30 significant digits
   FLOAT_STRINGS = %w(0.0 +0.0 -0.0 10.0 10.5 -10.5 -0.0001 -090.1 90.1e1 -90.1e5 -90.1e-5 90e-5)
@@ -26,7 +26,7 @@ describe FractionalityValidator do
       end
 
       it "should be invalid with wrong values" do      
-        expect_to_be_invalid(NIL + BLANK + JUNK + INTEGERS)
+        expect_to_be_invalid(NULL + BLANK + JUNK + INTEGERS)
       end
 
       it "should be valid with right values" do
@@ -44,7 +44,7 @@ describe FractionalityValidator do
       end
 
       it "should be valid with right values" do
-        expect_to_be_valid(NIL + FLOATS + BIGDECIMAL + INFINITY) 
+        expect_to_be_valid(NULL + FLOATS + BIGDECIMAL + INFINITY) 
       end
     end
 

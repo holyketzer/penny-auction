@@ -4,6 +4,8 @@ GitLearning::Application.routes.draw do
   root to: 'site#index'
 
   namespace :admin do
+    root to: 'site#index'
+
     resources :categories do
       resources :images
     end

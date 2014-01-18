@@ -17,6 +17,6 @@ h2 Sign in
       .controls
         = f.check_box :remember_me, class: 'checkbox'  
 
-  .form-actions= f.submit "Sign in", class: 'btn btn-primary'
+  .form-actions= f.submit t('devise.buttons.login'), class: 'btn btn-primary'
 
 = render "devise/shared/links"

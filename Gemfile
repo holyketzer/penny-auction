@@ -49,11 +49,16 @@ end
 # gem 'debugger', group: [:development, :test]
 
 group :development, :test do
+  gem 'zeus'
   gem 'rspec-rails'
-  gem 'shoulda-matchers'
   gem 'letter_opener'
   gem 'pry-rails'
   gem 'pry-plus'
+end
+
+group :test do
+  gem 'shoulda-matchers'
+  gem 'capybara'
 end
 
 gem 'ancestry'

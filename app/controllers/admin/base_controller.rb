@@ -1,17 +1,13 @@
 class Admin::BaseController < ApplicationController
+  before_action :authenticate_user!
+  before_action :check_admin
+
   layout 'admin'
 
-  before_filter :authenticate_admin!
+  protected
 
-  private
-
-  def authenticate_admin!    
-    unless current_user && current_user.is_admin
-      if current_user
-        redirect_to :root, notice: "You haven't enough permissions"
-      else
-        redirect_to new_user_session_path, notice: "You should login"
-      end
-    end
+  def check_admin
+    redirect_to :root, notice: t('devise.failure.unauthorized') unless current_user.is_admin?
+    false
   end
 end
