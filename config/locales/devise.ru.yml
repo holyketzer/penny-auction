@@ -2,8 +2,17 @@
 
 ru:
   devise:
+    forms:
+      emial: "Email"
+      password: "Пароль"
+      password_confirmation: "Подтверждение пароля"      
+      remember_me: "Запомнить меня"
     buttons:
-      login: "Вход"
+      go: "Войти"
+      signin: "Вход"
+      signup: "Регистрация"
+      signout: "Выход"
+      forgot_password: "Забыли пароль?"
     confirmations:
       confirmed: "Your account was successfully confirmed."
       send_instructions: "You will receive an email with instructions about how to confirm your account in a few minutes."
@@ -11,7 +20,7 @@ ru:
     failure:
       already_authenticated: "You are already signed in."
       inactive: "Your account is not activated yet."
-      invalid: "Invalid email or password."
+      invalid: "email или пароль неверен"
       locked: "Your account is locked."
       last_attempt: "You have one more attempt before your account will be locked."
       not_found_in_database: "Неверное имя пользователя или пароль"
@@ -44,8 +53,8 @@ ru:
       update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and click on the confirm link to finalize confirming your new email address."
       updated: "You updated your account successfully."
     sessions:
-      signed_in: "Signed in successfully."
-      signed_out: "Signed out successfully."
+      signed_in: "Вход выполнен"
+      signed_out: "Выход выполнен"
     unlocks:
       send_instructions: "You will receive an email with instructions about how to unlock your account in a few minutes."
       send_paranoid_instructions: "If your account exists, you will receive an email with instructions about how to unlock it in a few minutes."

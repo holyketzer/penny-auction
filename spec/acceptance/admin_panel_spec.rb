@@ -13,30 +13,29 @@ feature "Admin panel", %q{
     visit admin_root_path
   end
 
-  context 'Admin' do
-    scenario "Unauthenticated user tries to get an access to admin area" do
-      expect(current_path).to eq(new_user_session_path)
-      page.should have_content 'Вам необходимо войти или зарегистрироваться'
-    end
-
-    scenario "Admin successfully logging into admin area" do
-      sign_in_with admin.email, admin.password
-      page.should have_content 'Панель управления'
-    end
-
-    scenario "Login with wrong credentials" do
-      sign_in_with 'wrong', 'wrong'
-
-      current_path.should == new_user_session_path
-      page.should have_content 'Неверное имя пользователя или пароль'
-    end
+  scenario "Unauthenticated user tries to get an access to admin area" do
+    expect(current_path).to eq(new_user_session_path)
+    expect(page).to have_content 'Вам необходимо войти или зарегистрироваться'
   end
 
-  context 'User' do
-    scenario "Non-admin user tries to log in" do      
-      sign_in_with user.email, user.password
+  scenario "Admin successfully logging into admin area" do
+    sign_in_with admin.email, admin.password
+    
+    expect(current_path).to eq(admin_root_path)
+    expect(page).to have_content 'Панель управления'
+  end
 
-      page.should have_content "У вас нет прав доступа к этой странице"
-    end
+  scenario "Login with wrong credentials" do
+    sign_in_with 'wrong@mail.com', 'wrong'
+
+    expect(current_path).to eq(new_user_session_path)
+    expect(page).to have_content 'Неверное имя пользователя или пароль'
+  end
+
+  scenario "Non-admin user tries to log in" do      
+    sign_in_with user.email, user.password
+
+    expect(current_path).to_not eq(admin_root_path)
+    expect(page).to have_content "У вас нет прав доступа к этой странице"
   end
 end
