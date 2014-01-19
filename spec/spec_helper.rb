@@ -41,4 +41,6 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.include Features::SessionsHelpers, type: :feature
+
+  config.include FactoryGirl::Syntax::Methods
 end

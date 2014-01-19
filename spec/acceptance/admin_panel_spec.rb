@@ -6,22 +6,21 @@ feature "Admin panel", %q{
   I want to logging into admin area
  } do
 
+  let(:user) { create(:user) }
+  let(:admin) { create(:admin) }
+
   background do
     visit admin_root_path
   end
 
   context 'Admin' do
-    background do
-      User.create!(email: 'admin@test.com', password: '12345678', password_confirmation: '12345678', is_admin: true)
-    end
-
     scenario "Unauthenticated user tries to get an access to admin area" do
       expect(current_path).to eq(new_user_session_path)
       page.should have_content 'Вам необходимо войти или зарегистрироваться'
     end
 
     scenario "Admin successfully logging into admin area" do
-      sign_in_with 'admin@test.com', '12345678'
+      sign_in_with admin.email, admin.password
       page.should have_content 'Панель управления'
     end
 
@@ -34,9 +33,8 @@ feature "Admin panel", %q{
   end
 
   context 'User' do
-    scenario "Non-admin user tries to log in" do
-      User.create!(email: 'user@test.com', password: '12345678', password_confirmation: '12345678', is_admin: false)
-      sign_in_with 'user@test.com', '12345678'
+    scenario "Non-admin user tries to log in" do      
+      sign_in_with user.email, user.password
 
       page.should have_content "У вас нет прав доступа к этой странице"
     end

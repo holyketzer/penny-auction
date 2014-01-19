@@ -54,6 +54,7 @@ group :development, :test do
   gem 'letter_opener'
   gem 'pry-rails'
   gem 'pry-plus'
+  gem 'factory_girl_rails'
 end
 
 group :test do
