@@ -5,12 +5,13 @@ ru:
     forms:
       emial: "Email"
       password: "Пароль"
-      password_confirmation: "Подтверждение пароля"      
+      password_confirmation: "Подтверждение пароля"
       remember_me: "Запомнить меня"
     buttons:
       go: "Войти"
       signin: "Вход"
       signup: "Регистрация"
+      signup_go: "Зарегистрироваться"
       signout: "Выход"
       forgot_password: "Забыли пароль?"
     confirmations:
