@@ -27,7 +27,7 @@ feature 'User login', %q{
       fill_in 'Подтверждение пароля', with: 'secret'
       click_on 'Зарегистрироваться'
 
-      expect(current_path).to eq(root_path)    
+      expect(current_path).to eq(root_path)
       expect(page).to have_link 'user@mail.com'
       expect(page).to have_link 'Выход'
     end
