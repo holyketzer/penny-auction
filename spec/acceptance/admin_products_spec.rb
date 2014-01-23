@@ -10,7 +10,9 @@ feature "Admin can manage products", %q{
   let(:admin) { create(:admin) }  
     
   let!(:product) { create(:product) }
+  let!(:new_product) { build(:new_product) }
   let!(:category) { product.category }
+  let!(:new_category) { new_product.category }
 
   it_behaves_like "Admin accessible"
 
@@ -18,6 +20,20 @@ feature "Admin can manage products", %q{
     background do
       visit new_user_session_path
       sign_in_with admin.email, admin.password
+    end
+
+    def expect_product_show_page(product)
+      expect(current_path).to match(admin_product_path(id: '.+'))
+
+      expect(page).to have_content 'Название'
+      expect(page).to have_content 'Описание'
+      expect(page).to have_content 'Цена'
+      expect(page).to have_content 'Категория'
+
+      expect(page).to have_content product.name
+      expect(page).to have_content product.description
+      expect(page).to have_content product.shop_price
+      expect(page).to have_content product.category.name      
     end
 
     scenario 'Admin can view products list' do
@@ -45,23 +61,43 @@ feature "Admin can manage products", %q{
 
       expect(page).to have_content 'Новый товар'
 
-      fill_in 'Название', with: 'iPhone 5U'
-      fill_in 'Описание', with: 'Новый мега-смартфон'
-      fill_in 'Цена', with: '19999.99'
-      select category.name, from: 'product[category_id]'
-      click_on 'Создать'
+      fill_in 'Название', with: new_product.name
+      fill_in 'Описание', with: new_product.description
+      fill_in 'Цена', with: new_product.shop_price
+      select new_product.category.name, from: 'product[category_id]'
+      click_on 'Сохранить'
 
-      expect(current_path).to match(admin_product_path(id: '.+'))
+      expect_product_show_page new_product
+    end
 
-      expect(page).to have_content 'Название'
-      expect(page).to have_content 'Описание'
-      expect(page).to have_content 'Цена'
-      expect(page).to have_content 'Категория'
+    scenario 'Admin can update existing product' do
+      visit edit_admin_product_path(product)
 
-      expect(page).to have_content 'iPhone 5U'
-      expect(page).to have_content 'Новый мега-смартфон'
-      expect(page).to have_content '19999.99'
-      expect(page).to have_content category.name
+      expect(page).to have_content 'Редактирование товара'
+      expect(page).to have_field 'Название', :with => product.name
+      expect(page).to have_field 'Описание', :with => product.description
+      expect(page).to have_field 'Цена', :with => product.shop_price
+      expect(page).to have_select 'product[category_id]', :selected => product.category.name
+
+      fill_in 'Название', with: new_product.name
+      fill_in 'Описание', with: new_product.description
+      fill_in 'Цена', with: new_product.shop_price
+      select new_product.category.name, from: 'product[category_id]'
+      click_on 'Сохранить'
+      
+      expect_product_show_page new_product
+    end
+
+    scenario 'Admin can delete existing product' do
+      visit path
+      
+      expect(page).to have_content product.name
+      click_on 'Удалить'
+
+      expect(current_path).to match(admin_products_path)
+      expect(page).to_not have_content product.name
+
+      expect { visit admin_product_path(product) }.to raise_error ActiveRecord::RecordNotFound
     end
   end
 end

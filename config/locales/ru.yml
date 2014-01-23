@@ -280,6 +280,7 @@ ru:
   helpers:
     links:
       new: 'Создать'
+      save: 'Сохранить'
       edit: 'Изменить'
       destroy: 'Удалить'
       confirm: 'Вы уверены?'
@@ -292,6 +293,8 @@ ru:
         title: 'Список товаров'
       new:
         title: 'Новый товар'
+      edit:
+        title: 'Редактирование товара'
   activerecord:
     attributes:
       product:

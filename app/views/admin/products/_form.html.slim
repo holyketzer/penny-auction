@@ -18,6 +18,6 @@
       = f.collection_select :category_id, Category.order(:name), :id, :name, {}, class: 'selectpicker'
 
   .form-actions
-    = f.submit t('helpers.links.new'), class: 'btn btn-primary'
+    = f.submit t('helpers.links.save'), class: 'btn btn-primary'
     '
     = link_to t('helpers.links.cancel'), admin_products_path, class: 'btn'

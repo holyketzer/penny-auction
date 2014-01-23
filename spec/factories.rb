@@ -18,10 +18,22 @@ FactoryGirl.define do
     description 'Телефоны с большим сенсорным экраном'
   end
 
+  factory :new_category, class: Category do
+    name 'КПК'
+    description 'Карманые компьютеры'
+  end
+
   factory :product do
     name 'Телефон Nexus 4'
     description 'Всегда последняяверсия Android'
     shop_price 9999.99
     category
+  end
+
+  factory :new_product, class: Product do
+    name 'iPhone 5U'
+    description 'Новый мега-смартфон'
+    shop_price 18888.88    
+    association :category, factory: :new_category
   end
 end
