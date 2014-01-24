@@ -6,9 +6,9 @@
       ul
         - @image.errors.full_messages.each do |msg|
           li class="alert alert-error" = msg
-  h2 Load new image
+  h2 = t('.title')
   .control-group
     = f.label :source
     .field = f.file_field :source, class: 'text_field'
 
-  = f.submit 'Upload image', class: 'btn btn-primary'
+  = f.submit t('helpers.links.upload_image'), class: 'btn btn-primary'

@@ -34,7 +34,7 @@ class Admin::ImagesController < Admin::BaseController
 
     respond_to do |format|
       if @image.save
-        format.html { redirect_to [:admin, @imageable], notice: 'Image was successfully created.' }
+        format.html { redirect_to [:admin, @imageable], notice: t('activerecord.successful.messages.image_saved') }
       else
         format.html { redirect_to [:admin, @imageable], notice: 'Image validation is failed' }
       end
@@ -46,7 +46,7 @@ class Admin::ImagesController < Admin::BaseController
   def update
     respond_to do |format|
       if @image.update(image_params)
-        format.html { redirect_to [:admin, @imageable], notice: 'Image was successfully updated.' }
+        format.html { redirect_to [:admin, @imageable], notice: t('activerecord.successful.messages.image_saved') }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -59,7 +59,7 @@ class Admin::ImagesController < Admin::BaseController
   def destroy
     @image.destroy
     respond_to do |format|
-      format.html { redirect_to [:admin, @imageable], notice: 'Image was successfully deleted.' }
+      format.html { redirect_to [:admin, @imageable], notice: t('activerecord.successful.messages.image_deleted') }
       format.json { head :no_content }
     end
   end

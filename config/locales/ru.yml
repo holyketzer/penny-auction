@@ -285,9 +285,14 @@ ru:
       destroy: 'Удалить'
       confirm: 'Вы уверены?'
       cancel: 'Отмена'
+      back: 'Назад'
+      upload_image: 'Загрузить изображение'
   index:
     auctions: 'Текущие аукционы'
   admin:
+    images:
+      form:
+        title: 'Добавить изображение'
     products:
       index:
         title: 'Список товаров'
@@ -297,8 +302,18 @@ ru:
         title: 'Редактирование товара'
   activerecord:
     attributes:
+      image:
+        source: 'Картинка'
       product:
         name: 'Название'
         description: 'Описание'
         shop_price: 'Цена'
         category: 'Категория'
+    models:
+      image: 'Изображение'
+      product: 'Товар'
+    successful:
+      messages:
+        created: '%{model} сохранён'
+        image_saved: 'Изобажение сохранено'
+        image_deleted: 'Изобажение удалено'

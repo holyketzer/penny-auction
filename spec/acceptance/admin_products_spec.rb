@@ -36,7 +36,18 @@ feature "Admin can manage products", %q{
       expect(page).to have_content product.category.name      
     end
 
-    scenario 'Admin can view products list' do
+    def expect_to_upload_image(image_path)
+      visit admin_product_path(product)
+
+      expect(page).to have_content 'Добавить изображение'
+      attach_file 'Картинка', image_path
+      click_on 'Загрузить изображение'
+
+      expect(page).to have_content 'Изобажение сохранено'
+      expect(page).to have_xpath("//img[contains(@src, '#{File.basename(image_path).gsub(' ', '_')}')]")
+    end
+
+    scenario 'Admin views products list' do
       visit path
 
       expect(page).to have_link 'Создать', href: new_admin_product_path
@@ -56,7 +67,7 @@ feature "Admin can manage products", %q{
       expect(page).to have_link 'Удалить', href: admin_product_path(product)
     end
 
-    scenario 'Admin can create new product' do
+    scenario 'Admin creates new product' do
       visit new_admin_product_path
 
       expect(page).to have_content 'Новый товар'
@@ -68,9 +79,10 @@ feature "Admin can manage products", %q{
       click_on 'Сохранить'
 
       expect_product_show_page new_product
+      expect(page).to have_content 'Товар сохранён'
     end
 
-    scenario 'Admin can update existing product' do
+    scenario 'Admin updates existing product' do
       visit edit_admin_product_path(product)
 
       expect(page).to have_content 'Редактирование товара'
@@ -83,12 +95,25 @@ feature "Admin can manage products", %q{
       fill_in 'Описание', with: new_product.description
       fill_in 'Цена', with: new_product.shop_price
       select new_product.category.name, from: 'product[category_id]'
-      click_on 'Сохранить'
+      click_on 'Сохранить'      
       
       expect_product_show_page new_product
+      expect(page).to have_content 'Товар сохранён'
+    end
+    
+    scenario 'Admin upload two images and associate it with existing product, then deletes first one' do
+      # TODO: Looks like CarrierWave doesn't support russian file names, fix it
+      # expect_to_upload_image 'spec/support/images/красивая картинка.jpg'
+      expect_to_upload_image 'spec/support/images/another image.jpg'      
+
+      expect(page).to have_selector 'img', count: 1
+      click_link 'Удалить', match: :first
+
+      expect(page).to have_content 'Изобажение удалено'
+      expect(page).to have_selector 'img', count: 0
     end
 
-    scenario 'Admin can delete existing product' do
+    scenario 'Admin deletes existing product' do
       visit path
       
       expect(page).to have_content product.name

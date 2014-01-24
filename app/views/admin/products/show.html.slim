@@ -18,7 +18,7 @@ p
   strong= model_class.human_attribute_name(:category) + ':'
   br
   = @product.category.name
-div
+div.images
   - @product.images.each do |image|
     = image_tag image.thumb_url
     '
