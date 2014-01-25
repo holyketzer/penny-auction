@@ -52,7 +52,7 @@ feature "Admin can manage products", %q{
 
       expect(page).to have_link 'Создать', href: new_admin_product_path
 
-      expect(page).to have_content 'Список товаров'
+      expect(page).to have_content 'Товары'
       expect(page).to have_selector 'th', :text => 'Название'
       expect(page).to have_selector 'th', :text => 'Описание'
       expect(page).to have_selector 'th', :text => 'Цена'

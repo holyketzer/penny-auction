@@ -23,6 +23,8 @@ feature "Admin panel", %q{
     
     expect(current_path).to eq(admin_root_path)
     expect(page).to have_content 'Панель управления'
+    expect(page).to have_link 'Категории', href: admin_categories_path, count: 2
+    expect(page).to have_link 'Товары', href: admin_products_path, count: 2
   end
 
   scenario "Login with wrong credentials" do

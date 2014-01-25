@@ -302,7 +302,7 @@ ru:
         title: 'Добавить изображение'    
     products:
       index:
-        title: 'Список товаров'
+        title: 'Товары'
       new:
         title: 'Новый товар'
       edit:
