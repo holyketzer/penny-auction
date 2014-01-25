@@ -33,7 +33,7 @@ feature "Admin can manage products", %q{
       expect(page).to have_content product.name
       expect(page).to have_content product.description
       expect(page).to have_content product.shop_price
-      expect(page).to have_content product.category.name      
+      expect(page).to have_content product.category.name
     end
 
     def expect_to_upload_image(image_path)
@@ -43,7 +43,7 @@ feature "Admin can manage products", %q{
       attach_file 'Картинка', image_path
       click_on 'Загрузить изображение'
 
-      expect(page).to have_content 'Изобажение сохранено'
+      expect(page).to have_content 'Изображение сохранено'
       expect(page).to have_xpath("//img[contains(@src, '#{File.basename(image_path).gsub(' ', '_')}')]")
     end
 
@@ -109,7 +109,7 @@ feature "Admin can manage products", %q{
       expect(page).to have_selector 'img', count: 1
       click_link 'Удалить', match: :first
 
-      expect(page).to have_content 'Изобажение удалено'
+      expect(page).to have_content 'Изображение удалено'
       expect(page).to have_selector 'img', count: 0
     end
 

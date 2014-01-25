@@ -1,12 +1,5 @@
 = form_for [:admin, @category], html: { class: "form-horizontal" } do |f|
-  - if @category.errors.any?
-    #error_explanation
-      h2.alert
-        =' pluralize(@category.errors.count, "error")
-        | prohibited this category from being saved:
-      ul
-        - @category.errors.full_messages.each do |msg|
-          li class="alert alert-error"= msg
+  = render 'shared/validation_errors', resource: @category
   .control-group
     = f.label :name, class: 'control-label'
     .controls
@@ -16,11 +9,11 @@
     .controls
       = f.text_field :description, class: 'text_field'
   .control-group
-    = f.label :parent_id, class: 'control-label'
+    = f.label :parent, class: 'control-label'
     .controls
       = f.collection_select :parent_id, Category.order(:name), :id, :name, { include_blank: true }, class: 'selectpicker'
 
   .form-actions
-    = f.submit nil, class: 'btn btn-primary'
+    = f.submit t('helpers.links.save'), class: 'btn btn-primary'
     '
-    = link_to t('.cancel', default: t("helpers.links.cancel")), admin_categories_path, class: 'btn'
+    = link_to t('helpers.links.cancel'), admin_categories_path, class: 'btn'

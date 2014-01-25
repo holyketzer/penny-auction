@@ -1,25 +1,25 @@
 - model_class = Category
 div class="page-header"
-  h1= t '.title', default: model_class.model_name.human.pluralize.titleize
+  h1 = t '.title'
 table class="table table-striped"
   thead
     tr
-      th= model_class.human_attribute_name(:name)
-      th= model_class.human_attribute_name(:description)
-      th= model_class.human_attribute_name(:ancestry)
-      th= model_class.human_attribute_name(:image)
-      th= t '.actions', default: t("helpers.actions")
+      th = model_class.human_attribute_name(:name)
+      th = model_class.human_attribute_name(:image)
+      th = model_class.human_attribute_name(:description)
+      th = model_class.human_attribute_name(:parent)      
+      th
   tbody
     - @categories.each do |category|
-      tr
-        td= link_to((image_tag category.image.thumb_url), [:admin, category]) if category.image 
-        td= link_to category.name, [:admin, category]
-        td= category.description
-        td= category.ancestry        
+      tr        
+        td = link_to category.name, [:admin, category]
+        td = link_to((image_tag category.image.thumb_url), [:admin, category]) if category.image 
+        td = category.description
+        td = category.parent.name if category.parent
         td
-          = link_to t('.edit', default: t("helpers.links.edit")), edit_admin_category_path(category), class: 'btn btn-mini'
+          = link_to t('helpers.links.edit'), edit_admin_category_path(category), class: 'btn btn-mini'
           '
-          = link_to t('.destroy', default: t("helpers.links.destroy")), admin_category_path(category), method: :delete, data: { confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?')) }, class: 'btn btn-mini btn-danger'
+          = link_to t('helpers.links.destroy'), admin_category_path(category), method: :delete, data: { confirm: t('helpers.links.confirm') }, class: 'btn btn-mini btn-danger'
 
-= link_to t('.new', default: t("helpers.links.new")), new_admin_category_path, class: 'btn btn-primary'
+= link_to t('helpers.links.new'), new_admin_category_path, class: 'btn btn-primary'
 

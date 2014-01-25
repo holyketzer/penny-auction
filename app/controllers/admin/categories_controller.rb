@@ -30,7 +30,7 @@ class Admin::CategoriesController < Admin::BaseController
 
     respond_to do |format|
       if @category.save
-        format.html { redirect_to [:admin, @category], notice: 'Category was successfully created.' }
+        format.html { redirect_to [:admin, @category], notice: t('activerecord.successful.messages.category_saved') }
       else
         format.html { render action: 'new' }
       end
@@ -42,7 +42,7 @@ class Admin::CategoriesController < Admin::BaseController
   def update
     respond_to do |format|
       if @category.update(category_params)
-        format.html { redirect_to [:admin, @category], notice: 'Category was successfully updated.' }
+        format.html { redirect_to [:admin, @category], notice: t('activerecord.successful.messages.category_saved') }
       else
         format.html { render action: 'edit' }
       end
@@ -54,7 +54,7 @@ class Admin::CategoriesController < Admin::BaseController
   def destroy
     @category.destroy
     respond_to do |format|
-      format.html { redirect_to admin_categories_url }
+      format.html { redirect_to admin_categories_url, notice: t('activerecord.successful.messages.category_deleted') }
     end
   end
 

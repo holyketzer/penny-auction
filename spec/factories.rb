@@ -13,14 +13,27 @@ FactoryGirl.define do
     is_admin true
   end
 
+  factory :main_category, class: Category do
+    name 'Электроника'
+    description 'Всякая разная'
+  end
+
   factory :category do
     name 'Смарфтоны'
     description 'Телефоны с большим сенсорным экраном'
+    #association :parent, factory: :main_category
+  end
+
+  factory :sub_category, class: Category do
+    name 'Android'
+    description 'Телефоны с Android'
+    association :parent, factory: :category
   end
 
   factory :new_category, class: Category do
     name 'КПК'
     description 'Карманые компьютеры'
+    association :parent, factory: :main_category
   end
 
   factory :product do
