@@ -1,71 +1,22 @@
 class Admin::ProductsController < Admin::BaseController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  respond_to :html
 
-  # GET /products
-  # GET /products.json
-  def index
-    @products = Product.all
-  end
-
-  # GET /products/1
-  # GET /products/1.json
   def show
-    @imageable = @product
+    @imageable = resource
     @image = Image.new
   end
 
-  # GET /products/new
-  def new
-    @product = Product.new
-  end
-
-  # GET /products/1/edit
-  def edit
-  end
-
-  # POST /products
-  # POST /products.json
   def create
-    @product = Product.new(product_params)
-
-    respond_to do |format|
-      if @product.save
-        format.html { redirect_to [:admin, @product], notice: t('activerecord.successful.messages.created', :model => @product.class.model_name.human) }
-      else
-        format.html { render action: 'new' }
-      end
-    end
+    create!(notice: t('activerecord.successful.messages.product_saved'))
   end
 
-  # PATCH/PUT /products/1
-  # PATCH/PUT /products/1.json
   def update
-    respond_to do |format|
-      if @product.update(product_params)
-        format.html { redirect_to [:admin, @product], notice: t('activerecord.successful.messages.created', :model => @product.class.model_name.human) }
-      else
-        format.html { render action: 'edit' }
-      end
-    end
-  end
-
-  # DELETE /products/1
-  # DELETE /products/1.json
-  def destroy
-    @product.destroy
-    respond_to do |format|
-      format.html { redirect_to admin_products_url }
-    end
+    update!(notice: t('activerecord.successful.messages.product_saved'))
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_product
-      @product = Product.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def product_params
-      params.require(:product).permit(:name, :description, :shop_price, :category_id)
-    end
+  def build_resource_params
+    [params.fetch(:product, {}).permit(:name, :description, :shop_price, :category_id)]
+  end
 end

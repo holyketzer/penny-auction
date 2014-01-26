@@ -328,7 +328,7 @@ ru:
     successful:
       messages:
         category_saved: 'Категория сохранена'
-        category_deleted: 'Категория удалена'
-        created: '%{model} сохранён'        
+        category_deleted: 'Категория удалена'        
         image_saved: 'Изображение сохранено'
         image_deleted: 'Изображение удалено'
+        product_saved: 'Товар сохранён'

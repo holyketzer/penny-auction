@@ -1,4 +1,4 @@
-class Admin::BaseController < ApplicationController
+class Admin::BaseController < InheritedResources::Base
   before_action :authenticate_user!
   before_action :check_admin
 

@@ -31,6 +31,13 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+gem 'ancestry'
+gem 'carrierwave'
+gem 'mini_magick' # ensure that imagemagick is installed: 'sudo apt-get install imagemagick'
+gem 'slim-rails'
+gem 'devise'
+gem 'inherited_resources'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -61,9 +68,3 @@ group :test do
   gem 'shoulda-matchers'
   gem 'capybara'
 end
-
-gem 'ancestry'
-gem 'carrierwave'
-gem 'mini_magick' # ensure that imagemagick is installed: 'sudo apt-get install imagemagick'
-gem 'slim-rails'
-gem 'devise'
