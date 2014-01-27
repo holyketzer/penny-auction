@@ -7,7 +7,7 @@ table class="table table-striped"
       th= model_class.human_attribute_name(:name)
       th= model_class.human_attribute_name(:description)
       th= model_class.human_attribute_name(:shop_price)
-      th= model_class.human_attribute_name(:category)
+      th= model_class.human_attribute_name(:category_id)
       th
   tbody
     - @products.each do |product|

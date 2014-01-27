@@ -75,8 +75,8 @@ feature "Admin can manage products", %q{
       fill_in 'Название', with: new_product.name
       fill_in 'Описание', with: new_product.description
       fill_in 'Цена', with: new_product.shop_price
-      select new_product.category.name, from: 'product[category_id]'
-      click_on 'Сохранить'
+      select new_product.category.name, from: 'Категория'
+      expect { click_on 'Сохранить' }.to change(Product, :count).by(1)
 
       expect_product_show_page new_product
       expect(page).to have_content 'Товар сохранён'
@@ -89,13 +89,13 @@ feature "Admin can manage products", %q{
       expect(page).to have_field 'Название', :with => product.name
       expect(page).to have_field 'Описание', :with => product.description
       expect(page).to have_field 'Цена', :with => product.shop_price
-      expect(page).to have_select 'product[category_id]', :selected => product.category.name
+      expect(page).to have_select 'Категория', :selected => product.category.name
 
       fill_in 'Название', with: new_product.name
       fill_in 'Описание', with: new_product.description
       fill_in 'Цена', with: new_product.shop_price
-      select new_product.category.name, from: 'product[category_id]'
-      click_on 'Сохранить'      
+      select new_product.category.name, from: 'Категория'
+      expect { click_on 'Сохранить'  }.to change(Product, :count).by(0)
       
       expect_product_show_page new_product
       expect(page).to have_content 'Товар сохранён'
@@ -117,12 +117,10 @@ feature "Admin can manage products", %q{
       visit path
       
       expect(page).to have_content product.name
-      click_on 'Удалить'
+      expect { click_on 'Удалить' }.to change(Product, :count).by(-1)
 
       expect(current_path).to match(admin_products_path)
       expect(page).to_not have_content product.name
-
-      expect { visit admin_product_path(product) }.to raise_error ActiveRecord::RecordNotFound
     end
   end
 end

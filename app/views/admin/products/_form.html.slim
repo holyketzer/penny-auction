@@ -13,7 +13,7 @@
     .controls
       = f.text_field :shop_price, class: 'text_field'
   .control-group
-    = f.label :category, class: 'control-label'
+    = f.label :category_id, class: 'control-label'
     .controls
       = f.collection_select :category_id, Category.order(:name), :id, :name, {}, class: 'selectpicker'
 

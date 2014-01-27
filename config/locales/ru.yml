@@ -320,7 +320,7 @@ ru:
         name: 'Название'
         description: 'Описание'
         shop_price: 'Цена'
-        category: 'Категория'
+        category_id: 'Категория'
     models:
       category: 'Категория'
       image: 'Изображение'

@@ -80,7 +80,7 @@ feature "Admin can manage categories", %q{
       fill_in 'Название', with: new_category.name
       fill_in 'Описание', with: new_category.description      
       select new_category.parent.name, from: 'category[parent_id]'
-      click_on 'Сохранить'
+      expect { click_on 'Сохранить' }.to change(Category, :count).by(1)
 
       expect_to_have_category_show_page new_category
       expect(page).to have_content 'Категория сохранена'
@@ -97,7 +97,7 @@ feature "Admin can manage categories", %q{
       fill_in 'Название', with: new_category.name
       fill_in 'Описание', with: new_category.description      
       select new_category.parent.name, from: 'category[parent_id]'
-      click_on 'Сохранить'      
+      expect { click_on 'Сохранить' }.to change(Category, :count).by(0)
       
       expect_to_have_category_show_page new_category
       expect(page).to have_content 'Категория сохранена'
@@ -116,13 +116,13 @@ feature "Admin can manage categories", %q{
     end
 
     scenario 'Admin deletes existing category' do
-      visit admin_category_path(category)      
-      click_on 'Удалить'
+      visit admin_category_path(sub_category)      
+      
+      expect(page).to have_content sub_category.name
+      expect { click_on 'Удалить' }.to change(Category, :count).by(-1)
 
       expect(current_path).to match(admin_categories_path)
-      expect(page).to_not have_content category.name
-
-      expect { visit admin_category_path(category) }.to raise_error ActiveRecord::RecordNotFound
+      expect(page).to_not have_content sub_category.name
     end
   end
 end
