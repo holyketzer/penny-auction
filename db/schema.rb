@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131221180158) do
+ActiveRecord::Schema.define(version: 20140128082442) do
+
+  create_table "auctions", force: true do |t|
+    t.integer "product_id"
+    t.integer "image_id"
+    t.decimal "start_price",    precision: 8, scale: 2
+    t.decimal "min_price",      precision: 8, scale: 2
+    t.time    "duration"
+    t.time    "bid_time_step"
+    t.decimal "bid_price_step", precision: 8, scale: 2
+  end
+
+  add_index "auctions", ["image_id"], name: "index_auctions_on_image_id"
+  add_index "auctions", ["product_id"], name: "index_auctions_on_product_id"
 
   create_table "categories", force: true do |t|
     t.string   "name"
