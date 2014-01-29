@@ -290,6 +290,9 @@ ru:
   index:
     auctions: 'Текущие аукционы'
   admin:
+    auctions:
+      index:
+        title: 'Аукционы'
     categories:
       index:
         title: 'Категории'
@@ -309,6 +312,11 @@ ru:
         title: 'Редактирование товара'
   activerecord:
     attributes:
+      auction:
+        product_id: 'Товар'
+        image_id: 'Изображение'
+        start_price: 'Начальная цена'
+        duration: 'Длительность'
       category:
         name: 'Название'
         description: 'Описание'

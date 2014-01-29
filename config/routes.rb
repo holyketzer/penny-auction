@@ -13,6 +13,8 @@ GitLearning::Application.routes.draw do
     resources :products do
       resources :images
     end
+
+    resources :auctions
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

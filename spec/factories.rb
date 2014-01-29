@@ -49,4 +49,10 @@ FactoryGirl.define do
     shop_price 18888.88    
     association :category, factory: :new_category
   end
+
+  factory :auction do
+    association :product, factory: :product
+    start_price 199.78
+    duration 567
+  end
 end

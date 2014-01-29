@@ -26,11 +26,12 @@ html lang="en"
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.brand href="#"Penny auction (admin mode)
+          a.brand href=admin_root_path Penny auction (admin mode)
           .container-fluid.nav-collapse
             ul.nav
               li= link_to t('admin.products.index.title'), admin_products_path
               li= link_to t('admin.categories.index.title'), admin_categories_path
+              li= link_to t('admin.auctions.index.title'), admin_auctions_path
             
             = render 'shared/user_panel'
 
@@ -46,6 +47,7 @@ html lang="en"
             ul.nav.nav-list
               li.nav-header Menu
               li= link_to t('admin.products.index.title'), admin_products_path
-              li= link_to t('admin.categories.index.title'), admin_categories_path        
+              li= link_to t('admin.categories.index.title'), admin_categories_path
+              li= link_to t('admin.auctions.index.title'), admin_auctions_path
     
       = render 'shared/footer'

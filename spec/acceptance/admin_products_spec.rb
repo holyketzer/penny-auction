@@ -7,7 +7,7 @@ feature "Admin can manage products", %q{
  } do
 
   let(:path) { admin_products_path }
-  let(:admin) { create(:admin) }  
+  let(:admin) { create(:admin) }
     
   let!(:product) { create(:product) }
   let!(:new_product) { build(:new_product) }

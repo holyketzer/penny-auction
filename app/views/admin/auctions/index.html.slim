@@ -1,0 +1,24 @@
+- model_class = Auction
+div class="page-header"
+  h1 = t '.title'
+table class="table table-striped"
+  thead
+    tr
+      th= model_class.human_attribute_name(:product_id)
+      th= model_class.human_attribute_name(:image_id)
+      th= model_class.human_attribute_name(:start_price)      
+      th= model_class.human_attribute_name(:duration)      
+      th
+  tbody
+    - @auctions.each do |auction|
+      tr
+        td= link_to auction.product.name, [:admin, auction]
+        td= auction.image.source if auction.image
+        td= auction.start_price
+        td= auction.duration
+        td
+          = link_to t('helpers.links.edit'), edit_admin_auction_path(auction), class: 'btn btn-mini'
+          '
+          = link_to t('helpers.links.destroy'), admin_auction_path(auction), method: :delete, data: { confirm: t('helpers.links.confirm') }, class: 'btn btn-mini btn-danger'
+
+= link_to t('helpers.links.new'), new_admin_auction_path, class: 'btn btn-primary'
