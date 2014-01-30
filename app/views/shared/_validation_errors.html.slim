@@ -1,4 +1,6 @@
 #error_explanation
   ul
-    - resource.errors.full_messages.each do |msg|
-      li class="alert alert-error"= msg
+    - model_class = resource.class
+    - resource.errors.each do |attr, msg|
+      - if resource.errors[attr].first == msg
+        li class="alert alert-error" = "#{model_class.human_attribute_name(attr)} #{msg}"

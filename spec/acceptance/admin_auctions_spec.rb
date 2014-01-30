@@ -49,7 +49,7 @@ feature "Admin can manage auctions", %q{
       fill_in 'Минимальная цена продажи', with: 7770.90
       fill_in 'Длительность', with: 3600
       select '1 минута', from: 'Шаг увеличения времени'
-      fill_in 'Шаг увеличения цены', with: 100
+      fill_in 'Шаг увеличения цены', with: 100.0
       
       expect { click_on 'Сохранить' }.to change(Auction, :count).by(1)
 

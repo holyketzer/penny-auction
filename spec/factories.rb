@@ -51,8 +51,11 @@ FactoryGirl.define do
   end
 
   factory :auction do
-    association :product, factory: :product
+    association :product
     start_price 199.78
+    min_price 8999.78 
     duration 567
+    bid_time_step 120
+    bid_price_step 20.5
   end
 end
