@@ -293,6 +293,8 @@ ru:
     auctions:
       index:
         title: 'Аукционы'
+      new:
+        title: 'Новый аукцион'
     categories:
       index:
         title: 'Категории'
@@ -316,7 +318,10 @@ ru:
         product_id: 'Товар'
         image_id: 'Изображение'
         start_price: 'Начальная цена'
+        min_price: 'Минимальная цена продажи'
         duration: 'Длительность'
+        bid_time_step: 'Шаг увеличения времени'
+        bid_price_step: 'Шаг увеличения цены'
       category:
         name: 'Название'
         description: 'Описание'
@@ -335,6 +340,7 @@ ru:
       product: 'Товар'
     successful:
       messages:
+        auction_saved: 'Аукцион сохранён'
         category_saved: 'Категория сохранена'
         category_deleted: 'Категория удалена'        
         image_saved: 'Изображение сохранено'

@@ -22,7 +22,7 @@ feature "Admin can manage products", %q{
       sign_in_with admin.email, admin.password
     end
 
-    def expect_product_show_page(product)
+    def expect_to_be_on_product_show_page(product)
       expect(current_path).to match(admin_product_path(id: '.+'))
 
       expect(page).to have_content 'Название'
@@ -78,7 +78,7 @@ feature "Admin can manage products", %q{
       select new_product.category.name, from: 'Категория'
       expect { click_on 'Сохранить' }.to change(Product, :count).by(1)
 
-      expect_product_show_page new_product
+      expect_to_be_on_product_show_page new_product
       expect(page).to have_content 'Товар сохранён'
     end
 
@@ -97,7 +97,7 @@ feature "Admin can manage products", %q{
       select new_product.category.name, from: 'Категория'
       expect { click_on 'Сохранить'  }.to change(Product, :count).by(0)
       
-      expect_product_show_page new_product
+      expect_to_be_on_product_show_page new_product
       expect(page).to have_content 'Товар сохранён'
     end
     

@@ -38,7 +38,7 @@ FactoryGirl.define do
 
   factory :product do
     name 'Телефон Nexus 4'
-    description 'Всегда последняяверсия Android'
+    description 'Всегда последняя версия Android'
     shop_price 9999.99
     category
   end

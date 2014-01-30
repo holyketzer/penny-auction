@@ -29,7 +29,7 @@ feature "Admin can manage categories", %q{
       # to check img
     end
 
-    def expect_to_have_category_show_page(category)
+    def expect_to_be_on_category_show_page(category)
       expect(current_path).to match(admin_category_path(id: '.+'))
 
       expect(page).to have_content 'Название'
@@ -82,7 +82,7 @@ feature "Admin can manage categories", %q{
       select new_category.parent.name, from: 'category[parent_id]'
       expect { click_on 'Сохранить' }.to change(Category, :count).by(1)
 
-      expect_to_have_category_show_page new_category
+      expect_to_be_on_category_show_page new_category
       expect(page).to have_content 'Категория сохранена'
     end
 
@@ -99,7 +99,7 @@ feature "Admin can manage categories", %q{
       select new_category.parent.name, from: 'category[parent_id]'
       expect { click_on 'Сохранить' }.to change(Category, :count).by(0)
       
-      expect_to_have_category_show_page new_category
+      expect_to_be_on_category_show_page new_category
       expect(page).to have_content 'Категория сохранена'
     end
 
