@@ -43,4 +43,5 @@ RSpec.configure do |config|
   config.include Features::SessionsHelpers, type: :feature
 
   config.include FactoryGirl::Syntax::Methods
+  config.include ApplicationHelper
 end

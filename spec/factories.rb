@@ -58,7 +58,7 @@ FactoryGirl.define do
     product
     image
     start_price 199.78
-    min_price 8999.78 
+    min_price 8990.10
     duration 567
     bid_time_step 120
     bid_price_step 20.5

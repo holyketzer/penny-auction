@@ -4,13 +4,14 @@ feature "Admin can manage auctions", %q{
   In order to sell the products
   As an admin
   I want to be able to manage auctions
- } do
+ } do  
 
   let(:path) { admin_auctions_path }
   let(:admin) { create(:admin) }
   
   let!(:auction) { create(:auction) }
   let!(:product) { auction.product }
+  let!(:new_product) { create(:new_product) }
 
   it_behaves_like "Admin accessible"
 
@@ -45,7 +46,7 @@ feature "Admin can manage auctions", %q{
     end
 
     scenario 'Admin creates new auction' do
-      new_auction = { 
+      new_auction = {
         product_name: product.name, 
         start_price: 1.90, 
         min_price: 7770.90,
@@ -68,6 +69,40 @@ feature "Admin can manage auctions", %q{
       expect { click_on 'Сохранить' }.to change(Auction, :count).by(1)
 
       expect_to_be_on_auction_show_page new_auction
+      expect(page).to have_content 'Аукцион сохранён'
+    end
+
+    scenario 'Admin updates existing auction' do
+      updated_auction = {
+        product_name: new_product.name,
+        start_price: 1.90, 
+        min_price: 7770.90,
+        duration: 3600, 
+        bid_time_step: '1:00',
+        bid_price_step: 100.0 
+      }
+
+      visit edit_admin_auction_path(auction)
+
+      expect(page).to have_content 'Редактирование аукциона'
+      expect(page).to have_select 'Товар', :selected => auction.product.name
+      # todo expect(page).to have_select 'Изображение', :selected => auction.product.images.first.source_url      
+      expect(page).to have_field 'Начальная цена', :with => auction.start_price      
+      expect(page).to have_field 'Минимальная цена продажи', :with => auction.min_price
+      expect(page).to have_field 'Длительность', :with => auction.duration
+      expect(page).to have_select 'Шаг увеличения времени', :selected => bid_time_step_description(auction.bid_time_step)
+      expect(page).to have_field 'Шаг увеличения цены', :with => auction.bid_price_step      
+
+      select updated_auction[:product_name], from: 'Товар'
+      fill_in 'Начальная цена', with: updated_auction[:start_price]
+      fill_in 'Минимальная цена продажи', with: updated_auction[:min_price]
+      fill_in 'Длительность', with: updated_auction[:duration]
+      select updated_auction[:bid_time_step], from: 'Шаг увеличения времени'
+      fill_in 'Шаг увеличения цены', with: updated_auction[:bid_price_step]
+      
+      expect { click_on 'Сохранить'  }.to change(Product, :count).by(0)
+      
+      expect_to_be_on_auction_show_page updated_auction
       expect(page).to have_content 'Аукцион сохранён'
     end
   end

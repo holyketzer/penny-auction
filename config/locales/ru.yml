@@ -295,6 +295,8 @@ ru:
         title: 'Аукционы'
       new:
         title: 'Новый аукцион'
+      edit:
+        title: 'Редактирование аукциона'
     categories:
       index:
         title: 'Категории'
