@@ -23,7 +23,7 @@
   .control-group
     = f.label :bid_time_step, class: 'control-label'
     .controls
-      = f.select :bid_time_step, [['30 секунд', 30], ['1 минута', 60], ['2 минуты', 120]], {}, class: 'selectpicker'
+      = f.select :bid_time_step, bid_time_step_for_select, {}, class: 'selectpicker'
   .control-group
     = f.label :bid_price_step, class: 'control-label'
     .controls

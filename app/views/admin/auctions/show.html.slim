@@ -1,0 +1,40 @@
+- model_class = Auction
+div class ="page-header"
+  h1 = t '.title'
+
+p
+  strong = model_class.human_attribute_name(:product_id) + ':'
+  br
+  = @auction.product.name
+- if @auction.image
+  p
+    strong = model_class.human_attribute_name(:image_id) + ':'
+    br
+    = image_tag @auction.image.thumb_url
+p
+  strong = model_class.human_attribute_name(:start_price) + ':'
+  br
+  = @auction.start_price
+p
+  strong = model_class.human_attribute_name(:min_price) + ':'
+  br
+  = @auction.min_price
+p
+  strong = model_class.human_attribute_name(:duration) + ':'
+  br
+  = @auction.duration
+p
+  strong = model_class.human_attribute_name(:bid_time_step) + ':'
+  br
+  = bid_time_step_description @auction.bid_time_step
+p
+  strong = model_class.human_attribute_name(:bid_price_step) + ':'
+  br
+  = @auction.bid_price_step
+
+.form-actions
+  = link_to t('helpers.links.back'), admin_auctions_path, class: 'btn'
+  '
+  = link_to t('helpers.links.edit'), edit_admin_auction_path(@auction), class: 'btn'
+  '
+  = link_to t('helpers.links.destroy'), admin_auction_path(@auction), method: "delete", data: { confirm: t('helpers.links.confirm') }, class: 'btn btn-danger'
