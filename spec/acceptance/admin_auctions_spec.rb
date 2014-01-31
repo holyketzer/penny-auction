@@ -105,6 +105,16 @@ feature "Admin can manage auctions", %q{
       expect_to_be_on_auction_show_page updated_auction
       expect(page).to have_content 'Аукцион сохранён'
     end
+
+    scenario 'Admin deletes existing auction' do
+      visit path
+      
+      expect(page).to have_content auction.product.name
+      expect { click_on 'Удалить' }.to change(Auction, :count).by(-1)
+
+      expect(current_path).to match(admin_auctions_path)
+      expect(page).to_not have_content auction.product.name
+    end
   end
 
   def expect_to_be_on_auction_show_page(auction)
