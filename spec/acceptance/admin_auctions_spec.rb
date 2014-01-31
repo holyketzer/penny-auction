@@ -24,19 +24,24 @@ feature "Admin can manage auctions", %q{
       visit path
 
       expect(page).to have_link 'Создать', href: new_admin_auction_path
-
       expect(page).to have_content 'Аукционы'
-      expect(page).to have_selector 'th', :text => 'Товар'
-      expect(page).to have_selector 'th', :text => 'Изображение'
-      expect(page).to have_selector 'th', :text => 'Начальная цена'
-      expect(page).to have_selector 'th', :text => 'Длительность'
       
-      expect(page).to have_selector 'td', :text => auction.product.name
-      expect(page).to have_selector 'td', :text => auction.start_price
-      expect(page).to have_selector 'td', :text => auction.duration
+      within '.list-header' do
+        expect(page).to have_content 'Товар'
+        expect(page).to have_content 'Изображение'
+        expect(page).to have_content 'Начальная цена'
+        expect(page).to have_content 'Длительность'
+      end
+      
+      within '.list-item' do
+        expect(page).to have_content auction.product.name
+        expect(page).to have_content auction.start_price
+        expect(page).to have_content auction.duration
+        expect(page).to have_xpath("//img[contains(@src, '#{auction.image.thumb_url}')]")
 
-      expect(page).to have_link 'Изменить', href: edit_admin_auction_path(auction)
-      expect(page).to have_link 'Удалить', href: admin_auction_path(auction)
+        expect(page).to have_link 'Изменить', href: edit_admin_auction_path(auction)
+        expect(page).to have_link 'Удалить', href: admin_auction_path(auction)
+      end
     end
 
     scenario 'Admin creates new auction' do

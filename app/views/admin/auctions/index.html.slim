@@ -2,7 +2,7 @@
 div class="page-header"
   h1 = t '.title'
 table class="table table-striped"
-  thead
+  thead class='list-header'
     tr
       th= model_class.human_attribute_name(:product_id)
       th= model_class.human_attribute_name(:image_id)
@@ -11,9 +11,9 @@ table class="table table-striped"
       th
   tbody
     - @auctions.each do |auction|
-      tr
+      tr class='list-item'
         td= link_to auction.product.name, [:admin, auction]
-        td= auction.image.source if auction.image
+        td = image_tag auction.image.thumb_url if auction.image
         td= auction.start_price
         td= auction.duration
         td
