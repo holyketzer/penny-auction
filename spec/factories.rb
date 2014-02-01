@@ -38,6 +38,10 @@ FactoryGirl.define do
 
   factory :image do
     source File.open(File.join(Rails.root, 'spec/support/images/another image.jpg'))
+
+    factory :new_image do
+      source File.open(File.join(Rails.root, 'spec/support/images/tiger.jpg'))
+    end
   end
 
   factory :product do
@@ -54,9 +58,7 @@ FactoryGirl.define do
     association :category, factory: :new_category
   end  
 
-  factory :auction do
-    product
-    image
+  factory :auction do    
     start_price 199.78
     min_price 8990.10
     duration 567

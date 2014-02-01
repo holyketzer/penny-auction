@@ -3,11 +3,11 @@
   .control-group
     = f.label :product_id, class: 'control-label'
     .controls      
-      = f.collection_select :product_id, Product.order(:name), :id, :name, {}, class: 'selectpicker'
+      = f.collection_select :product_id, @products, :id, :name, {}, class: 'selectpicker' 
   .control-group
     = f.label :image_id, class: 'control-label'
     .controls
-      = f.collection_select :image_id, Image.order(:source), :id, :source, {}, class: 'selectpicker'
+      = f.collection_select :image_id, @product.images.order(:source), :id, :source, {}, class: 'selectpicker'
   .control-group
     = f.label :start_price, class: 'control-label'
     .controls

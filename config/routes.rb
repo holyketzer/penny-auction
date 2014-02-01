@@ -12,6 +12,9 @@ GitLearning::Application.routes.draw do
 
     resources :products do
       resources :images
+      member do
+        get 'images-selector', to: 'products#images_selector'
+      end
     end
 
     resources :auctions

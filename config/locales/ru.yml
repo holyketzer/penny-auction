@@ -318,6 +318,7 @@ ru:
     attributes:
       auction:
         product_id: 'Товар'
+        image: 'Изображение'
         image_id: 'Изображение'
         start_price: 'Начальная цена'
         min_price: 'Минимальная цена продажи'

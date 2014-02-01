@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe Auction do
   describe "validations" do   
-    it { should validate_presence_of :product_id }
+    it { should validate_presence_of :product }
+    it { should validate_presence_of :image }
     it { should validate_presence_of :duration }
     it { should validate_presence_of :min_price }
     it { should validate_presence_of :start_price }

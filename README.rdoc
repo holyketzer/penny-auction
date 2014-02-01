@@ -1,30 +1,18 @@
 == README
 
-This README for dev branch
+Penny auction 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+What is it? See http://en.wikipedia.org/wiki/Bidding_fee_auction
 
-Things you may want to cover:
+Latest stable version is in ```master``` branch
 
-* Ruby version
+The most featured version is in ```dev``` branch
 
-* System dependencies
+== Tests
 
-* Configuration
+Using capybara-webkit for some tests it needs some prerequesites before use ```bundle``` command see https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit
 
-* Database creation
+in Ubuntu like systems use:
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+```sudo apt-get install qt4-qmake```
+```sudo apt-get install libqt4-dev```
