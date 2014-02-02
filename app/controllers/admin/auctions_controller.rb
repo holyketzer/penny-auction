@@ -14,6 +14,11 @@ class Admin::AuctionsController < Admin::BaseController
     update!(notice: t('activerecord.successful.messages.auction_saved'))
   end
 
+  def image_selector
+    @product = Product.find(params[:product_id])
+    render :layout => false
+  end
+
   private
 
   def build_resource_params

@@ -14,11 +14,6 @@ class Admin::ProductsController < Admin::BaseController
     update!(notice: t('activerecord.successful.messages.product_saved'))
   end
 
-  def images_selector
-    @product = Product.find(params[:id])
-    render :layout => false
-  end
-
   private
 
   def build_resource_params

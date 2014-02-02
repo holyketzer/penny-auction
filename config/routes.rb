@@ -11,13 +11,12 @@ GitLearning::Application.routes.draw do
     end
 
     resources :products do
-      resources :images
-      member do
-        get 'images-selector', to: 'products#images_selector'
-      end
+      resources :images      
     end
 
     resources :auctions
+
+    get 'image-selector/:product_id', to: 'auctions#image_selector'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
