@@ -74,7 +74,7 @@ feature "Admin can manage auctions", %q{
         expect(page).to have_content 'Новый аукцион'
 
         select new_auction[:product_name], from: 'Товар'
-        select product.images.first.source_url, from: 'Изображение'
+        choose_by_value product.images.first.id        
         fill_in 'Начальная цена', with: new_auction[:start_price]
         fill_in 'Минимальная цена продажи', with: new_auction[:min_price]
         fill_in 'Длительность', with: new_auction[:duration]
@@ -104,15 +104,16 @@ feature "Admin can manage auctions", %q{
 
         expect(page).to have_content 'Редактирование аукциона'
         expect(page).to have_select 'Товар', :selected => auction.product.name
-        expect(page).to have_select 'Изображение', :selected => auction.image.source_url
+        # expect(page).to have_xpath("//input[@value='#{auction.image.id}' and @checked='checked']")
+        have_checked_field_with_value auction.image.id
         expect(page).to have_field 'Начальная цена', :with => auction.start_price      
         expect(page).to have_field 'Минимальная цена продажи', :with => auction.min_price
         expect(page).to have_field 'Длительность', :with => auction.duration
         expect(page).to have_select 'Шаг увеличения времени', :selected => bid_time_step_description(auction.bid_time_step)
         expect(page).to have_field 'Шаг увеличения цены', :with => auction.bid_price_step      
 
-        select updated_auction[:product_name], from: 'Товар'
-        select new_product.images.first.source_url, from: 'Изображение'
+        select updated_auction[:product_name], from: 'Товар'        
+        choose_by_value new_product.images.first.id        
         fill_in 'Начальная цена', with: updated_auction[:start_price]
         fill_in 'Минимальная цена продажи', with: updated_auction[:min_price]
         fill_in 'Длительность', with: updated_auction[:duration]
