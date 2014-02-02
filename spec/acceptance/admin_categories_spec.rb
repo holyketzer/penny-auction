@@ -22,38 +22,6 @@ feature "Admin can manage categories", %q{
       sign_in_with admin.email, admin.password
     end
 
-    def expect_to_have_category(category)
-      expect(page).to have_selector 'td', :text => category.name
-      expect(page).to have_selector 'td', :text => category.description      
-      expect(page).to have_selector 'td', :text => category.parent.name if category.parent
-      # to check img
-    end
-
-    def expect_to_be_on_category_show_page(category)
-      expect(current_path).to match(admin_category_path(id: '.+'))
-
-      expect(page).to have_content 'Название'
-      expect(page).to have_content 'Описание'      
-      expect(page).to have_content 'Родительская категория' if category.parent
-      expect(page).to have_content 'Изображение' if category.image
-
-      expect(page).to have_content category.name
-      expect(page).to have_content category.description
-      expect(page).to have_content category.parent.name if category.parent
-      # to check img
-    end
-
-    def expect_to_upload_image(image_path)
-      visit admin_category_path(category)
-
-      expect(page).to have_content 'Добавить изображение'
-      attach_file 'Картинка', image_path
-      click_on 'Загрузить изображение'
-
-      expect(page).to have_content 'Изображение сохранено'
-      expect(page).to have_xpath("//img[contains(@src, '#{File.basename(image_path).gsub(' ', '_')}')]")
-    end
-
     scenario 'Admin views categories list' do
       visit path
 
@@ -123,6 +91,40 @@ feature "Admin can manage categories", %q{
 
       expect(current_path).to match(admin_categories_path)
       expect(page).to_not have_content sub_category.name
+    end
+
+    def expect_to_have_category(category)
+      within '.list' do
+        expect(page).to have_content category.name
+        expect(page).to have_content category.description      
+        expect(page).to have_content category.parent.name if category.parent
+        # to check img
+      end
+    end
+
+    def expect_to_be_on_category_show_page(category)
+      expect(current_path).to match(admin_category_path(id: '.+'))
+
+      expect(page).to have_content 'Название'
+      expect(page).to have_content 'Описание'      
+      expect(page).to have_content 'Родительская категория' if category.parent
+      expect(page).to have_content 'Изображение' if category.image
+
+      expect(page).to have_content category.name
+      expect(page).to have_content category.description
+      expect(page).to have_content category.parent.name if category.parent
+      # to check img
+    end
+
+    def expect_to_upload_image(image_path)
+      visit admin_category_path(category)
+
+      expect(page).to have_content 'Добавить изображение'
+      attach_file 'Картинка', image_path
+      click_on 'Загрузить изображение'
+
+      expect(page).to have_content 'Изображение сохранено'
+      expect(page).to have_xpath("//img[contains(@src, '#{File.basename(image_path).gsub(' ', '_')}')]")
     end
   end
 end

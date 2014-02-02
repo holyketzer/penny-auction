@@ -3,15 +3,15 @@ div class="page-header"
   h1 = t '.title'
 table class="table table-striped"
   thead
-    tr
+    tr.list-header
       th= model_class.human_attribute_name(:name)
       th= model_class.human_attribute_name(:description)
       th= model_class.human_attribute_name(:shop_price)
       th= model_class.human_attribute_name(:category_id)
       th
-  tbody
+  tbody.list
     - @products.each do |product|
-      tr
+      tr.list-item
         td= link_to product.name, [:admin, product]
         td= product.description
         td= product.shop_price

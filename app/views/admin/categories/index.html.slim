@@ -3,15 +3,15 @@ div class="page-header"
   h1 = t '.title'
 table class="table table-striped"
   thead
-    tr
+    tr.list-header
       th = model_class.human_attribute_name(:name)
       th = model_class.human_attribute_name(:image)
       th = model_class.human_attribute_name(:description)
       th = model_class.human_attribute_name(:parent)      
       th
-  tbody
+  tbody.list
     - @categories.each do |category|
-      tr        
+      tr.list-item
         td = link_to category.name, [:admin, category]
         td = link_to((image_tag category.image.thumb_url), [:admin, category]) if category.image 
         td = category.description

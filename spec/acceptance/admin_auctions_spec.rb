@@ -104,7 +104,6 @@ feature "Admin can manage auctions", %q{
 
         expect(page).to have_content 'Редактирование аукциона'
         expect(page).to have_select 'Товар', :selected => auction.product.name
-        # expect(page).to have_xpath("//input[@value='#{auction.image.id}' and @checked='checked']")
         have_checked_field_with_value auction.image.id
         expect(page).to have_field 'Начальная цена', :with => auction.start_price      
         expect(page).to have_field 'Минимальная цена продажи', :with => auction.min_price
