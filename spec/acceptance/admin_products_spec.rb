@@ -9,10 +9,10 @@ feature "Admin can manage products", %q{
   let(:path) { admin_products_path }
   let(:admin) { create(:admin) }
     
-  let!(:product) { create(:product) }
-  let!(:new_product) { build(:new_product) }
-  let!(:category) { product.category }
-  let!(:new_category) { new_product.category }
+  let!(:category) { create(:category) }
+  let!(:new_category) { create(:new_category) }
+  let!(:product) { create(:product, category: category) }
+  let!(:new_product) { build(:new_product, category: new_category) }  
 
   it_behaves_like "Admin accessible"
 

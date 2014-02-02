@@ -8,10 +8,10 @@ feature "Admin can manage categories", %q{
 
   let(:path) { admin_categories_path }
   let(:admin) { create(:admin) }      
-  
-  let!(:new_category) { build(:new_category) }
-  let!(:sub_category) { create(:sub_category) }
-  let!(:category) { sub_category.parent }
+    
+  let!(:category) { create(:category) }
+  let!(:sub_category) { create(:sub_category, parent: category) }
+  let!(:new_category) { build(:new_category, parent: create(:main_category)) }
   
 
   it_behaves_like "Admin accessible"
