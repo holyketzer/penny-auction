@@ -1,0 +1,24 @@
+- model_class = Auction
+div class ="page-header"
+  h1 = t '.title'
+
+p
+  strong = model_class.human_attribute_name(:product_id) + ':'
+  br
+  = @auction.product.name
+- if @auction.image
+  p
+    strong = model_class.human_attribute_name(:image_id) + ':'
+    br
+    = image_tag @auction.image.thumb_url
+p
+  strong = model_class.human_attribute_name(:start_price) + ':'
+  br
+  = @auction.start_price
+p
+  strong = model_class.human_attribute_name(:duration) + ':'
+  br
+  = @auction.duration
+
+.form-actions
+  = link_to t('helpers.links.back'), auctions_path, class: 'btn'

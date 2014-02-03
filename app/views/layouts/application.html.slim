@@ -29,6 +29,7 @@ html lang="en"
           a.brand href="#"Penny auction
           .container-fluid.nav-collapse
             ul.nav
+              li = link_to t('auctions.index.title'), auctions_path
 
             = render 'shared/user_panel'
 
@@ -41,6 +42,7 @@ html lang="en"
         .span3
           .well.sidebar-nav
             ul.nav.nav-list
-              li.nav-header Menu
+              li.nav-header
+                li = link_to t('auctions.index.title'), auctions_path
     
       = render 'shared/footer'

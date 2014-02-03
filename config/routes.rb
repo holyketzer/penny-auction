@@ -3,6 +3,8 @@ GitLearning::Application.routes.draw do
   devise_for :users
   root to: 'site#index'
 
+  resources :auctions, only: [:index, :show]
+
   namespace :admin do
     root to: 'site#index'
 

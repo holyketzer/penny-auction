@@ -1,0 +1,17 @@
+- model_class = Auction
+div class="page-header"
+  h1 = t '.title'
+table class="table table-striped"
+  thead class='list-header'
+    tr
+      th= model_class.human_attribute_name(:product_id)
+      th= model_class.human_attribute_name(:image_id)
+      th= model_class.human_attribute_name(:start_price)      
+      th= model_class.human_attribute_name(:duration)      
+  tbody
+    - @auctions.each do |auction|
+      tr class='list-item'
+        td= link_to auction.product.name, auction
+        td= link_to (image_tag auction.image.thumb_url), auction if auction.image
+        td= auction.start_price
+        td= auction.duration
