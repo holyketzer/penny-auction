@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-GitLearning::Application.load_tasks
+PennyAuction::Application.load_tasks

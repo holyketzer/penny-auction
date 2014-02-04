@@ -1,4 +1,4 @@
-GitLearning::Application.routes.draw do  
+PennyAuction::Application.routes.draw do  
 
   devise_for :users
   root to: 'site#index'

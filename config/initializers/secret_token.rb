@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-GitLearning::Application.config.secret_key_base = '45fd90850c5f79b6888f46d01b7401a1310915cd81476bca4e0cdf637aa8382f03ef7687d7c83829d729bedd6f7395bc0c6208fb145e59d0ee25e42cb325df77'
+PennyAuction::Application.config.secret_key_base = '45fd90850c5f79b6888f46d01b7401a1310915cd81476bca4e0cdf637aa8382f03ef7687d7c83829d729bedd6f7395bc0c6208fb145e59d0ee25e42cb325df77'
