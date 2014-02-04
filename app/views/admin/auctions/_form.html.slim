@@ -17,6 +17,10 @@
     .controls
       = f.text_field :min_price, class: 'text_field'
   .control-group
+    = f.label :start_time, class: 'control-label'
+    .controls
+      = f.datetime_local_field :start_time, class: 'input-xlarge'
+  .control-group
     = f.label :duration, class: 'control-label'
     .controls
       = f.text_field :duration, class: 'text_field'

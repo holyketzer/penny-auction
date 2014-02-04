@@ -7,6 +7,7 @@ describe Auction do
     it { should validate_presence_of :duration }
     it { should validate_presence_of :min_price }
     it { should validate_presence_of :start_price }
+    it { should validate_presence_of :start_time }
     it { should validate_presence_of :bid_time_step }
     it { should validate_presence_of :bid_price_step }
 

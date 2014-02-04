@@ -6,8 +6,9 @@ table class="table table-striped"
     tr
       th= model_class.human_attribute_name(:product_id)
       th= model_class.human_attribute_name(:image_id)
-      th= model_class.human_attribute_name(:start_price)      
-      th= model_class.human_attribute_name(:duration)      
+      th= model_class.human_attribute_name(:start_price)
+      th= model_class.human_attribute_name(:start_time)
+      th= model_class.human_attribute_name(:duration)
       th
   tbody
     - @auctions.each do |auction|
@@ -15,6 +16,7 @@ table class="table table-striped"
         td= link_to auction.product.name, [:admin, auction]
         td = image_tag auction.image.thumb_url if auction.image
         td= auction.start_price
+        td= auction.start_time
         td= auction.duration
         td
           = link_to t('helpers.links.edit'), edit_admin_auction_path(auction), class: 'btn btn-mini'

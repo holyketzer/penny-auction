@@ -34,12 +34,14 @@ feature "Admin can manage auctions", %q{
         expect(page).to have_content 'Товар'
         expect(page).to have_content 'Изображение'
         expect(page).to have_content 'Начальная цена'
+        expect(page).to have_content 'Время начала'
         expect(page).to have_content 'Длительность'
       end
       
       within '.list-item' do
         expect(page).to have_content auction.product.name
         expect(page).to have_content auction.start_price
+        expect(page).to have_content auction.start_time
         expect(page).to have_content auction.duration
         expect(page).to have_xpath("//img[contains(@src, '#{auction.image.thumb_url}')]")
 
@@ -62,7 +64,8 @@ feature "Admin can manage auctions", %q{
       scenario 'Admin creates new auction' do
         new_auction = {
           product_name: product.name, 
-          start_price: 1.90, 
+          start_price: 1.90,
+          start_time: Time.new + 5.minutes,
           min_price: 7770.90,
           duration: 3600, 
           bid_time_step: '1:00',
@@ -76,6 +79,7 @@ feature "Admin can manage auctions", %q{
         select new_auction[:product_name], from: 'Товар'
         choose_by_value product.images.first.id        
         fill_in 'Начальная цена', with: new_auction[:start_price]
+        fill_in 'Время начала', with: new_auction[:start_time]
         fill_in 'Минимальная цена продажи', with: new_auction[:min_price]
         fill_in 'Длительность', with: new_auction[:duration]
         select new_auction[:bid_time_step], from: 'Шаг увеличения времени'
@@ -93,7 +97,8 @@ feature "Admin can manage auctions", %q{
       scenario 'Admin updates existing auction' do
         updated_auction = {
           product_name: new_product.name,
-          start_price: 1.90, 
+          start_price: 1.90,
+          start_time: Time.new + 17.minutes,
           min_price: 7770.90,
           duration: 3600, 
           bid_time_step: '1:00',
@@ -114,6 +119,7 @@ feature "Admin can manage auctions", %q{
         select updated_auction[:product_name], from: 'Товар'        
         choose_by_value new_product.images.first.id        
         fill_in 'Начальная цена', with: updated_auction[:start_price]
+        fill_in 'Время начала', with: updated_auction[:start_time]
         fill_in 'Минимальная цена продажи', with: updated_auction[:min_price]
         fill_in 'Длительность', with: updated_auction[:duration]
         select updated_auction[:bid_time_step], from: 'Шаг увеличения времени'
@@ -138,6 +144,10 @@ feature "Admin can manage auctions", %q{
     expect(page).to have_content 'Шаг увеличения времени'
     expect(page).to have_content 'Шаг увеличения цены'
 
-    auction.each_value { |value| expect(page).to have_content value }
+    #save_and_open_page
+    auction.each_value do |value| 
+      value = value.utc if value.kind_of?(Time)
+      expect(page).to have_content value
+    end
   end
 end

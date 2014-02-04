@@ -16,6 +16,10 @@ p
   br
   = @auction.start_price
 p
+  strong = model_class.human_attribute_name(:start_time) + ':'
+  br
+  = @auction.start_time
+p
   strong = model_class.human_attribute_name(:min_price) + ':'
   br
   = @auction.min_price

@@ -22,7 +22,7 @@ class Admin::AuctionsController < Admin::BaseController
   private
 
   def build_resource_params
-    [params.fetch(:auction, {}).permit(:product_id, :image_id, :start_price, :min_price, :duration, :bid_time_step, :bid_price_step)]
+    [params.fetch(:auction, {}).permit(:product_id, :image_id, :start_price, :start_time, :min_price, :duration, :bid_time_step, :bid_price_step)]
   end
 
   def load_product    

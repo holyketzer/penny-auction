@@ -55,6 +55,7 @@ FactoryGirl.define do
 
   factory :auction do    
     start_price 199.78
+    start_time Time.new + 10.minutes
     min_price 8990.10
     duration 567
     bid_time_step 120
