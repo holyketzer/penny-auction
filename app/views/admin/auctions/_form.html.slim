@@ -1,37 +1,38 @@
 = form_for [:admin, @auction], html: { class: "form-horizontal" } do |f|
   = render 'shared/validation_errors', resource: @auction
-  .control-group
-    = f.label :product_id, class: 'control-label'
-    .controls      
-      = f.collection_select :product_id, @products, :id, :name, {}, class: 'selectpicker' 
-  .control-group
-    = f.label :image_id, class: 'control-label'
-    .controls(id='image-selector')
-      = render template: 'admin/auctions/image_selector'
-  .control-group
-    = f.label :start_price, class: 'control-label'
-    .controls
-      = f.text_field :start_price, class: 'text_field'
-  .control-group
-    = f.label :min_price, class: 'control-label'
-    .controls
-      = f.text_field :min_price, class: 'text_field'
-  .control-group
-    = f.label :start_time, class: 'control-label'
-    .controls
-      = f.datetime_local_field :start_time, class: 'input-xlarge'
-  .control-group
-    = f.label :duration, class: 'control-label'
-    .controls
-      = f.text_field :duration, class: 'text_field'
-  .control-group
-    = f.label :bid_time_step, class: 'control-label'
-    .controls
-      = f.select :bid_time_step, bid_time_step_for_select, {}, class: 'selectpicker'
-  .control-group
-    = f.label :bid_price_step, class: 'control-label'
-    .controls
-      = f.text_field :bid_price_step, class: 'text_field'
+  .wide-form
+    .control-group
+      = f.label :product_id, class: 'control-label'
+      .controls      
+        = f.collection_select :product_id, @products, :id, :name, {}, class: 'selectpicker' 
+    .control-group
+      = f.label :image_id, class: 'control-label'
+      .controls(id='image-selector')
+        = render template: 'admin/auctions/image_selector'
+    .control-group
+      = f.label :start_price, class: 'control-label'
+      .controls
+        = f.text_field :start_price, class: 'text_field'
+    .control-group
+      = f.label :min_price, class: 'control-label'
+      .controls
+        = f.text_field :min_price, class: 'text_field'
+    .control-group
+      = f.label :start_time, class: 'control-label'
+      .controls
+        = f.datetime_local_field :start_time, class: 'input-xlarge'
+    .control-group
+      = f.label :duration, class: 'control-label'
+      .controls
+        = f.text_field :duration, class: 'text_field'
+    .control-group
+      = f.label :bid_time_step, class: 'control-label'
+      .controls
+        = f.select :bid_time_step, bid_time_step_for_select, {}, class: 'selectpicker'
+    .control-group
+      = f.label :bid_price_step, class: 'control-label'
+      .controls
+        = f.text_field :bid_price_step, class: 'text_field'
 
   .form-actions
     = f.submit t('helpers.links.save'), class: 'btn btn-primary'
