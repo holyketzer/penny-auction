@@ -292,12 +292,15 @@ ru:
   auctions:
       index:
         title: 'Аукционы'
+        start_in: 'Начало через %{delta}'
+        finish_in: 'До окончания %{delta}'
+        finished_in: 'Закончен %{delta} назад'
       show:
         title: 'Аукцион'
   admin:
     auctions:
       index:
-        title: 'Аукционы'
+        title: 'Аукционы'        
       new:
         title: 'Новый аукцион'
       edit:
@@ -331,6 +334,7 @@ ru:
         duration: 'Длительность'
         bid_time_step: 'Шаг увеличения времени'
         bid_price_step: 'Шаг увеличения цены'
+        status: 'Состояние'
       category:
         name: 'Название'
         description: 'Описание'

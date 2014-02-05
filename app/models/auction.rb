@@ -10,4 +10,28 @@ class Auction < ActiveRecord::Base
   after_initialize do
     self.start_time = Time.now.round_by(15.minutes) if self.new_record? && self.start_time.nil?
   end
+
+  def started
+    start_time < Time.now
+  end
+
+  def finished
+    rest_of_time < 0    
+  end
+
+  def active
+    started && !finished
+  end
+
+  def rest_of_time    
+    (start_time + duration.seconds - Time.now).to_i
+  end
+
+  def start_in
+    (start_time - Time.now).to_i
+  end
+
+  def finish_time
+    start_time + duration.seconds
+  end
 end

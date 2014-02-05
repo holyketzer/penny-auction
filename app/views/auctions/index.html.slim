@@ -7,11 +7,11 @@ table class="table table-striped"
       th= model_class.human_attribute_name(:product_id)
       th= model_class.human_attribute_name(:image_id)
       th= model_class.human_attribute_name(:start_price)      
-      th= model_class.human_attribute_name(:duration)      
+      th= model_class.human_attribute_name(:status)
   tbody
     - @auctions.each do |auction|
       tr class='list-item'
         td= link_to auction.product.name, auction
         td= link_to (image_tag auction.image.thumb_url), auction if auction.image
         td= auction.start_price
-        td= auction.duration
+        td= status_desc(auction)
