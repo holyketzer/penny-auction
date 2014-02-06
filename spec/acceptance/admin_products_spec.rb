@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'acceptance/acceptance_helper'
 
 feature "Admin can manage products", %q{
   In order to sell the products

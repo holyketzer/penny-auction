@@ -9,6 +9,8 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
 
   config.include Features::SessionsHelpers, type: :feature
+  config.include Features::CapybaraHelper
+  config.include ApplicationHelper  
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)

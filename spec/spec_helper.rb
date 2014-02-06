@@ -38,11 +38,7 @@ RSpec.configure do |config|
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
   #     --seed 1234
-  config.order = "random"
+  config.order = "random"  
 
-  config.include Features::SessionsHelpers, type: :feature
-
-  config.include FactoryGirl::Syntax::Methods
-  config.include ApplicationHelper
-  config.include CapybaraHelper
+  config.include FactoryGirl::Syntax::Methods  
 end
