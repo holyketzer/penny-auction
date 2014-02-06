@@ -1,6 +1,7 @@
 class Auction < ActiveRecord::Base
   belongs_to :product
   belongs_to :image
+  has_many :bids
 
   validates :product, :image, :min_price, :start_price, :start_time, :duration, :bid_time_step, :bid_price_step, presence: true  
   validates :duration, :bid_time_step, numericality: { only_integer: true }

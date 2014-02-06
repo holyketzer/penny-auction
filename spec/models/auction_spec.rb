@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Auction do
-  describe "validations" do   
+  describe 'validations' do   
     it { should validate_presence_of :product }
     it { should validate_presence_of :image }
     it { should validate_presence_of :duration }
@@ -24,8 +24,9 @@ describe Auction do
     it { should validate_min_fractionality_of(:bid_price_step, 0.01) }
   end
 
-  describe "associations" do
+  describe 'associations' do
     it { should belong_to(:product) }
     it { should belong_to(:image) }
+    it { should have_many(:bids) }
   end
 end
