@@ -45,6 +45,9 @@ FactoryGirl.define do
     name 'Телефон Nexus 4'
     description 'Всегда последняя версия Android'
     shop_price 9999.99    
+    before(:create) do |product|
+      FactoryGirl.create_list(:image, 1, imageable: product)
+    end
   end
 
   factory :new_product, class: Product do
@@ -59,6 +62,10 @@ FactoryGirl.define do
     min_price 8990.10
     duration 567
     bid_time_step 120
-    bid_price_step 20.5
+    bid_price_step 20.5    
+    product
+    before(:create) do |auction|
+      auction.image = auction.product.images.first
+    end
   end  
 end

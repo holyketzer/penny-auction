@@ -7,11 +7,9 @@ feature "Admin can manage auctions", %q{
  } do  
 
   let(:path) { admin_auctions_path }
-  let(:admin) { create(:admin) }
+  let(:admin) { create(:admin) }  
   
-  let!(:image) { create(:image) }
-  let!(:product) { create(:product, images: [image]) }
-  let!(:auction) { create(:auction, image: image, product: product) }
+  let!(:auction) { create(:auction) }
   
   let!(:new_image) { create(:new_image) }
   let!(:new_product) { create(:new_product, images: [new_image]) }
@@ -62,6 +60,7 @@ feature "Admin can manage auctions", %q{
 
     describe 'with AJAX', js: true do
       scenario 'Admin creates new auction' do
+        product = auction.product
         new_auction = {
           product_name: product.name, 
           start_price: 1.90,

@@ -6,11 +6,8 @@ feature "User can view auctions", %q{
   I want to be able to view auctions
  } do  
 
-  let!(:image) { create(:image) }
-  let!(:product) { create(:product, images: [image]) }
-
   context 'general' do    
-    let!(:auction) { create(:auction, image: image, product: product) }
+    let!(:auction) { create(:auction) }
 
     background do
       visit auctions_path
@@ -45,10 +42,10 @@ feature "User can view auctions", %q{
     end
   end
 
-  context 'status' do    
+  context 'status' do
     scenario 'User views not started auction' do
       start_time = Time.now + 10.minutes
-      auction = create(:auction, image: image, product: product, start_time: start_time)
+      auction = create(:auction, start_time: start_time)
       visit auctions_path
 
       within '.list-item' do
@@ -58,7 +55,7 @@ feature "User can view auctions", %q{
 
     scenario 'User views finished auction' do
       start_time = Time.now - 3.hour
-      auction = create(:auction, image: image, product: product, start_time: start_time, duration: 1.hour)
+      auction = create(:auction, start_time: start_time, duration: 1.hour)
       visit auctions_path
 
       within '.list-item' do
@@ -68,7 +65,7 @@ feature "User can view auctions", %q{
 
     scenario 'User views active auction' do
       start_time = Time.now - 10.minutes
-      auction = create(:auction, image: image, product: product, start_time: start_time, duration: 30.minutes)
+      auction = create(:auction, start_time: start_time, duration: 30.minutes)
       visit auctions_path
 
       within '.list-item' do

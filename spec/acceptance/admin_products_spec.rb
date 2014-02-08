@@ -83,13 +83,14 @@ feature "Admin can manage products", %q{
     scenario 'Admin upload two images and associate it with existing product, then deletes first one' do
       # TODO: Looks like CarrierWave doesn't support russian file names, fix it
       # expect_to_upload_image 'spec/support/images/красивая картинка.jpg'
+      images_count = product.images.size
       expect_to_upload_image 'spec/support/images/another image.jpg'
 
-      expect(page).to have_selector 'img', count: 1
+      expect(page).to have_selector 'img', count: images_count + 1
       click_link 'Удалить', match: :first
 
       expect(page).to have_content 'Изображение удалено'
-      expect(page).to have_selector 'img', count: 0
+      expect(page).to have_selector 'img', count: images_count
     end
 
     scenario 'Admin deletes existing product' do

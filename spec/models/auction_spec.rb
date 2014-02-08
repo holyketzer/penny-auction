@@ -31,16 +31,14 @@ describe Auction do
   end
 
   describe 'auction bidding' do
-    let(:user) { create(:user) }
-    let(:image) { create(:image) }
-    let(:product) { create(:product, images: [image]) }
-    let(:auction) { create(:auction, image: image, product: product) }
+    let(:user) { create(:user) }    
+    let(:auction) { create(:auction) }
     
     it 'should have initial price' do 
       expect(auction.price).to be auction.start_price 
     end
 
-    it 'should create bid' do
+    it 'should make bid' do
       last_duration = auction.duration
       last_price = auction.price
 
