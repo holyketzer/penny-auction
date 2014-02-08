@@ -12,13 +12,17 @@ ru:
   index:
     auctions: 'Текущие аукционы'
   auctions:
-      index:
-        title: 'Аукционы'
-        start_in: 'Начало через %{delta}'
-        finish_in: 'До окончания %{delta}'
-        finished_in: 'Закончен %{delta} назад'
-      show:
-        title: 'Аукцион'
+    index:
+      title: 'Аукционы'
+      start_in: 'Начало через %{delta}'
+      finish_in: 'До окончания %{delta}'
+      finished_in: 'Закончен %{delta} назад'
+    show:
+      title: 'Аукцион'
+    actions:
+      bid: 'Сделать ставку'
+      bid_made: 'Ставка сделана'
+      bid_fail: 'Невозможно сделать ставку'
   admin:
     auctions:
       index:
@@ -50,13 +54,14 @@ ru:
         product_id: 'Товар'
         image: 'Изображение'
         image_id: 'Изображение'
+        price: 'Текущая цена'
         start_price: 'Начальная цена'
         start_time: 'Время начала'
         min_price: 'Минимальная цена продажи'
         duration: 'Длительность'
         bid_time_step: 'Шаг увеличения времени'
         bid_price_step: 'Шаг увеличения цены'
-        status: 'Состояние'
+        status: 'Время до окончания'
       category:
         name: 'Название'
         description: 'Описание'
@@ -80,4 +85,4 @@ ru:
         category_deleted: 'Категория удалена'        
         image_saved: 'Изображение сохранено'
         image_deleted: 'Изображение удалено'
-        product_saved: 'Товар сохранён'
+        product_saved: 'Товар сохранён'        

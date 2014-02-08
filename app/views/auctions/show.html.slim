@@ -12,13 +12,13 @@ p
     br
     = image_tag @auction.image.thumb_url
 p
-  strong = model_class.human_attribute_name(:start_price) + ':'
+  strong = model_class.human_attribute_name(:price) + ':'
   br
-  = @auction.start_price
+  = @auction.price
 p
-  strong = model_class.human_attribute_name(:duration) + ':'
+  strong = model_class.human_attribute_name(:status) + ':'
   br
-  = @auction.duration
+  = status_desc_simple(@auction)
 
 .form-actions
   = link_to t('helpers.links.back'), auctions_path, class: 'btn'

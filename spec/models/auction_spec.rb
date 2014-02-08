@@ -58,7 +58,7 @@ describe Auction do
         let(:auction) { create(:auction, :not_started) }
 
         it 'should not make bid' do
-          expect { bid = auction.make_bid(user) }.to raise_error
+          expect(auction.make_bid(user)).to be_nil
         end
       end
 
@@ -66,7 +66,7 @@ describe Auction do
         let(:auction) { create(:auction, :finished) }
 
         it 'should not make bid' do
-          expect { bid = auction.make_bid(user) }.to raise_error
+          expect(auction.make_bid(user)).to be_nil
         end
       end
     end

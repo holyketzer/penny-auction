@@ -18,9 +18,8 @@ feature "Admin can manage products", %q{
 
   context "admin" do
     background do
-      visit new_user_session_path
-      sign_in_with admin.email, admin.password
-    end    
+      login admin
+    end
 
     scenario 'Admin views products list' do
       visit path

@@ -112,10 +112,10 @@ ru:
         one: больше %{count} года
         other: больше %{count} лет
       x_days:
-        few: ! '%{count} дня'
-        many: ! '%{count} дней'
-        one: ! '%{count} день'
-        other: ! '%{count} дня'
+        few: '%{count} дня'
+        many: '%{count} дней'
+        one: '%{count} день'
+        other: '%{count} дня'
       x_minutes:
         few: ! '%{count} минуты'
         many: ! '%{count} минут'

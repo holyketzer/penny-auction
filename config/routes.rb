@@ -3,7 +3,9 @@ PennyAuction::Application.routes.draw do
   devise_for :users
   root to: 'site#index'
 
-  resources :auctions, only: [:index, :show]
+  resources :auctions, only: [:index, :show] do
+    resources :bids, only: [:create]
+  end
 
   namespace :admin do
     root to: 'site#index'

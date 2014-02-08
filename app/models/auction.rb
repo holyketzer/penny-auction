@@ -19,15 +19,15 @@ class Auction < ActiveRecord::Base
   end
 
   def finished?
-    rest_of_time < 0    
+    time_left < 0
   end
 
   def active?
     started? && !finished?
   end
 
-  def rest_of_time    
-    (start_time + duration.seconds - Time.now).to_i
+  def time_left
+    (finish_time - Time.now).to_i
   end
 
   def start_in
@@ -39,13 +39,13 @@ class Auction < ActiveRecord::Base
   end
 
   def make_bid(user)
-    raise unless self.active?
-
-    Auction.transaction do      
-      self.price += self.bid_price_step
-      self.duration += self.bid_time_step
-      self.save!
-      Bid.create!(user: user, auction: self)
+    if self.active?
+      Auction.transaction do      
+        self.price += self.bid_price_step
+        self.duration += self.bid_time_step
+        self.save!
+        Bid.create!(user: user, auction: self)
+      end
     end
   end
 end

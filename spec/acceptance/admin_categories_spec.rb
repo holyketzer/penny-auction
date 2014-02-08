@@ -18,8 +18,7 @@ feature "Admin can manage categories", %q{
 
   context "admin" do
     background do
-      visit new_user_session_path
-      sign_in_with admin.email, admin.password
+      login admin      
     end
 
     scenario 'Admin views categories list' do

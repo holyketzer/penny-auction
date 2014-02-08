@@ -6,8 +6,9 @@ table class="table table-striped"
     tr
       th= model_class.human_attribute_name(:product_id)
       th= model_class.human_attribute_name(:image_id)
-      th= model_class.human_attribute_name(:start_price)      
+      th= model_class.human_attribute_name(:price)      
       th= model_class.human_attribute_name(:status)
+      th
   tbody
     - @auctions.each do |auction|
       tr class='list-item'
@@ -15,3 +16,4 @@ table class="table table-striped"
         td= link_to (image_tag auction.image.thumb_url), auction if auction.image
         td= auction.start_price
         td= status_desc(auction)
+        td= button_to t('auctions.actions.bid'), auction_bids_path(auction_id: auction.id), class: 'btn btn-warning'

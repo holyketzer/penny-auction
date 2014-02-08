@@ -19,13 +19,13 @@ feature "User can view auctions", %q{
       within '.list-header' do
         expect(page).to have_content 'Товар'
         expect(page).to have_content 'Изображение'
-        expect(page).to have_content 'Начальная цена'
-        expect(page).to have_content 'Состояние'
+        expect(page).to have_content 'Текущая цена'
+        expect(page).to have_content 'Время до окончания'
       end
         
       within '.list-item' do
         expect(page).to have_content auction.product.name
-        expect(page).to have_content auction.start_price
+        expect(page).to have_content auction.price
         expect(page).to have_xpath("//img[contains(@src, '#{auction.image.thumb_url}')]")
         expect(page).to have_link auction.product.name, auctions_path(auction.product)
       end
@@ -37,7 +37,7 @@ feature "User can view auctions", %q{
       expect(current_path).to be_eql auction_path(auction)
       expect(page).to have_content 'Аукцион'
       expect(page).to have_content auction.product.name
-      expect(page).to have_content auction.start_price      
+      expect(page).to have_content auction.price      
       expect(page).to have_xpath("//img[contains(@src, '#{auction.image.thumb_url}')]")
     end
   end
@@ -70,6 +70,59 @@ feature "User can view auctions", %q{
 
       within '.list-item' do
         expect(page).to have_content "До окончания 20 минут"
+      end
+    end
+  end
+
+  describe 'bidding' do
+    let!(:auction) { create(:auction, :active) }
+
+    context 'anonymous user' do
+      scenario 'should login to make bids' do
+        visit auctions_path
+        click_on 'Сделать ставку'
+        expect(current_path).to eq new_user_session_path
+      end
+    end
+
+    context 'authenticated user' do
+      let(:user) { create(:user) }
+      
+      background do
+        login user
+        visit auctions_path
+        click_on 'Сделать ставку'
+      end
+      
+      context 'on active auction' do        
+        scenario 'makes bid' do
+          expect(current_path).to eq auction_path(auction)
+          expect(page).to have_content 'Ставка сделана'
+
+          expect(page).to have_content 'Текущая цена'
+          expect(page).to have_content auction.price + auction.bid_price_step
+
+          expect(page).to have_content 'Время до окончания'        
+          expect(page).to have_content Time.at(auction.time_left + auction.bid_time_step).strftime("%M:%S")
+        end
+      end
+
+      context 'on not started auction' do
+        let!(:auction) { create(:auction, :not_started) }
+
+        scenario 'can not make bid' do
+          expect(current_path).to eq auction_path(auction)
+          expect(page).to have_content 'Невозможно сделать ставку'
+        end
+      end
+
+      context 'on finished auction' do
+        let!(:auction) { create(:auction, :finished) }
+
+        scenario 'can not make bid' do
+          expect(current_path).to eq auction_path(auction)
+          expect(page).to have_content 'Невозможно сделать ставку'
+        end
       end
     end
   end

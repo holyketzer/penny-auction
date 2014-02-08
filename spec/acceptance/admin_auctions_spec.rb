@@ -18,8 +18,7 @@ feature "Admin can manage auctions", %q{
 
   context "admin" do
     background do
-      visit new_user_session_path
-      sign_in_with admin.email, admin.password
+      login admin      
     end
 
     scenario 'Admin views auctions list' do
@@ -112,7 +111,7 @@ feature "Admin can manage auctions", %q{
         expect(page).to have_field 'Начальная цена', :with => auction.start_price      
         expect(page).to have_field 'Минимальная цена продажи', :with => auction.min_price
         expect(page).to have_field 'Длительность', :with => auction.duration
-        expect(page).to have_select 'Шаг увеличения времени', :selected => bid_time_step_description(auction.bid_time_step)
+        expect(page).to have_select 'Шаг увеличения времени', :selected => bid_time_step_to_s(auction.bid_time_step)
         expect(page).to have_field 'Шаг увеличения цены', :with => auction.bid_price_step      
 
         select updated_auction[:product_name], from: 'Товар'        

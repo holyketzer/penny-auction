@@ -30,7 +30,7 @@ p
 p
   strong = model_class.human_attribute_name(:bid_time_step) + ':'
   br
-  = bid_time_step_description @auction.bid_time_step
+  = bid_time_step_to_s @auction.bid_time_step
 p
   strong = model_class.human_attribute_name(:bid_price_step) + ':'
   br
