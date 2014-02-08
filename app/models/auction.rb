@@ -14,16 +14,16 @@ class Auction < ActiveRecord::Base
 
   before_create { |auction| auction.price = auction.start_price }  
 
-  def started
+  def started?
     start_time < Time.now
   end
 
-  def finished
+  def finished?
     rest_of_time < 0    
   end
 
-  def active
-    started && !finished
+  def active?
+    started? && !finished?
   end
 
   def rest_of_time    
@@ -39,6 +39,8 @@ class Auction < ActiveRecord::Base
   end
 
   def make_bid(user)
+    raise unless self.active?
+
     Auction.transaction do      
       self.price += self.bid_price_step
       self.duration += self.bid_time_step

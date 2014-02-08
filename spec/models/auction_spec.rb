@@ -22,6 +22,11 @@ describe Auction do
 
     it { should validate_numericality_of(:bid_price_step).is_greater_than_or_equal_to(0.01) }
     it { should validate_min_fractionality_of(:bid_price_step, 0.01) }
+
+    it 'should have initial price' do 
+      auction = create(:auction)
+      expect(auction.price).to be auction.start_price
+    end
   end
 
   describe 'associations' do
@@ -32,23 +37,38 @@ describe Auction do
 
   describe 'auction bidding' do
     let(:user) { create(:user) }    
-    let(:auction) { create(:auction) }
     
-    it 'should have initial price' do 
-      expect(auction.price).to be auction.start_price 
-    end
+    context 'active' do
+      let(:auction) { create(:auction, :active) }
 
-    it 'should make bid' do
-      last_duration = auction.duration
-      last_price = auction.price
+      it 'should make bid' do
+        last_duration = auction.duration
+        last_price = auction.price
 
-      bid = auction.make_bid(user)
-      expect(bid.auction).to be auction
-      expect(bid.user).to be user
-      expect(auction.bids.last).to eq bid
+        bid = auction.make_bid(user)
+        expect(bid.auction).to be auction
+        expect(bid.user).to be user
+        expect(auction.bids.last).to eq bid
 
-      expect(auction.duration).to be(last_duration + auction.bid_time_step)
-      expect(auction.price).to eq(last_price + auction.bid_price_step)
+        expect(auction.duration).to be(last_duration + auction.bid_time_step)
+        expect(auction.price).to eq(last_price + auction.bid_price_step)
+      end
+
+      context 'not started' do
+        let(:auction) { create(:auction, :not_started) }
+
+        it 'should not make bid' do
+          expect { bid = auction.make_bid(user) }.to raise_error
+        end
+      end
+
+      context 'finished' do
+        let(:auction) { create(:auction, :finished) }
+
+        it 'should not make bid' do
+          expect { bid = auction.make_bid(user) }.to raise_error
+        end
+      end
     end
   end
 end

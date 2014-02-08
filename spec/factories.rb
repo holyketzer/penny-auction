@@ -67,5 +67,18 @@ FactoryGirl.define do
     before(:create) do |auction|
       auction.image = auction.product.images.first
     end
+
+    trait :not_started do      
+    end
+
+    trait :active do
+      start_time Time.new - 10.minutes
+      duration 25.minutes
+    end    
+
+    trait :finished do
+      start_time Time.new - 30.minutes
+      duration 5.minutes
+    end
   end  
 end

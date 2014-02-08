@@ -8,9 +8,9 @@ module ApplicationHelper
   end
 
   def status_desc(auction)
-    if not auction.started
+    if not auction.started?
       t('auctions.index.start_in', delta: distance_of_time_in_words(Time.now, auction.start_time))
-    elsif auction.finished
+    elsif auction.finished?
       t('auctions.index.finished_in', delta: distance_of_time_in_words(auction.finish_time, Time.now))
     else
       t('auctions.index.finish_in', delta: distance_of_time_in_words(Time.now, auction.finish_time))
