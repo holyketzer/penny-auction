@@ -22,13 +22,13 @@ ActiveRecord::Schema.define(version: 20140206200857) do
     t.integer  "bid_time_step"
     t.decimal  "bid_price_step", precision: 8, scale: 2
     t.datetime "start_time"
+    t.decimal  "price",          precision: 8, scale: 2
   end
 
   add_index "auctions", ["image_id"], name: "index_auctions_on_image_id"
   add_index "auctions", ["product_id"], name: "index_auctions_on_product_id"
 
   create_table "bids", force: true do |t|
-    t.decimal "price",      precision: 8, scale: 2
     t.integer "user_id"
     t.integer "auction_id"
   end

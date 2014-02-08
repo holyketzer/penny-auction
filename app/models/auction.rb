@@ -12,6 +12,8 @@ class Auction < ActiveRecord::Base
     self.start_time = Time.now.round_by(15.minutes) if self.new_record? && self.start_time.nil?
   end
 
+  before_create { |auction| auction.price = auction.start_price }  
+
   def started
     start_time < Time.now
   end
@@ -34,5 +36,14 @@ class Auction < ActiveRecord::Base
 
   def finish_time
     start_time + duration.seconds
+  end
+
+  def make_bid(user)
+    Auction.transaction do      
+      self.price += self.bid_price_step
+      self.duration += self.bid_time_step
+      self.save!
+      Bid.create!(user: user, auction: self)
+    end
   end
 end
