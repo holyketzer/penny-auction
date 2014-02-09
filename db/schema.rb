@@ -29,8 +29,9 @@ ActiveRecord::Schema.define(version: 20140206200857) do
   add_index "auctions", ["product_id"], name: "index_auctions_on_product_id"
 
   create_table "bids", force: true do |t|
-    t.integer "user_id"
-    t.integer "auction_id"
+    t.integer  "user_id"
+    t.integer  "auction_id"
+    t.datetime "created_at"
   end
 
   add_index "bids", ["auction_id"], name: "index_bids_on_auction_id"

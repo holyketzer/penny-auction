@@ -1,6 +1,6 @@
 FactoryGirl.define do
-  factory :user do
-    email 'user@test.com'
+  factory :user do    
+    sequence(:email) { |n| "user#{n}@test.com" }
     password '12345678'
     password_confirmation '12345678'
     is_admin false
@@ -80,5 +80,10 @@ FactoryGirl.define do
       start_time Time.new - 30.minutes
       duration 5.minutes
     end
-  end  
+  end
+
+  factory :bid do
+    user
+    initialize_with { attributes[:auction].make_bid(attributes[:user]) }
+  end
 end

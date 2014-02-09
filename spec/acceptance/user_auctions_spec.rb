@@ -94,19 +94,6 @@ feature "User can view auctions", %q{
         click_on 'Сделать ставку'
       end
       
-      context 'on active auction' do        
-        scenario 'makes bid' do
-          expect(current_path).to eq auction_path(auction)
-          expect(page).to have_content 'Ставка сделана'
-
-          expect(page).to have_content 'Текущая цена'
-          expect(page).to have_content auction.price + auction.bid_price_step
-
-          expect(page).to have_content 'Время до окончания'        
-          expect(page).to have_content Time.at(auction.time_left + auction.bid_time_step).strftime("%M:%S")
-        end
-      end
-
       context 'on not started auction' do
         let!(:auction) { create(:auction, :not_started) }
 
@@ -124,6 +111,48 @@ feature "User can view auctions", %q{
           expect(page).to have_content 'Невозможно сделать ставку'
         end
       end
+
+      context 'on active auction' do        
+        scenario 'makes bid' do
+          expect(current_path).to eq auction_path(auction)
+          expect(page).to have_content 'Ставка сделана'
+
+          expect(page).to have_content 'Текущая цена'
+          expect(page).to have_content auction.price + auction.bid_price_step
+
+          expect(page).to have_content 'Время до окончания'        
+          expect(page).to have_content Time.at(auction.time_left + auction.bid_time_step).strftime("%M:%S")
+        end
+
+        scenario 'can not bid twice' do
+          click_on 'Сделать ставку'
+
+          expect(current_path).to eq auction_path(auction)
+          expect(page).to have_content 'Невозможно сделать ставку'
+        end
+      end
     end
+
+    context 'any user' do
+      let!(:bid1) { create(:bid, auction: auction) }
+      let!(:bid2) { create(:bid, auction: auction) }
+      let!(:bid3) { create(:bid, auction: auction) }
+
+      scenario 'can view bids' do
+        visit auction_path(auction)
+
+        within '.bids' do
+          expect(page).to have_content 'Ставки'
+          expect_page_to_have_bid(bid1)
+          expect_page_to_have_bid(bid2)
+          expect_page_to_have_bid(bid3)
+        end
+      end
+    end
+  end
+
+  def expect_page_to_have_bid(bid)
+    expect(page).to have_content bid.user.email
+    expect(page).to have_content bid.created_at
   end
 end

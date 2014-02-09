@@ -38,8 +38,12 @@ class Auction < ActiveRecord::Base
     start_time + duration.seconds
   end
 
+  def last_user
+    bids.last.user if bids.any?
+  end
+
   def make_bid(user)
-    if self.active?
+    if self.active? && last_user != user
       Auction.transaction do      
         self.price += self.bid_price_step
         self.duration += self.bid_time_step
