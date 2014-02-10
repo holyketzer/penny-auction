@@ -11,9 +11,11 @@ table class="table table-striped"
       th
   tbody
     - @auctions.each do |auction|
-      tr class='list-item'
+      tr class='list-item' id="auction-#{auction.id}"
         td= link_to auction.product.name, auction
         td= link_to (image_tag auction.image.thumb_url), auction if auction.image
         td= auction.start_price
-        td= status_desc(auction)
-        td= button_to t('auctions.actions.bid'), auction_bids_path(auction_id: auction.id), class: 'btn btn-warning'
+        td class='time-left' = status_desc(auction)
+        td= button_to t('auctions.actions.bid'), auction_bids_path(auction_id: auction.id), class: 'btn btn-warning', remote: true
+
+= subscribe_to '/auctions/update'

@@ -39,6 +39,10 @@ gem 'slim-rails'
 gem 'devise'
 gem 'inherited_resources'
 
+# Comet (browser push)
+gem 'private_pub'
+gem 'thin'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
