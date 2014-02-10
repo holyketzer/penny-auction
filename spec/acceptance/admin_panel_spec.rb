@@ -40,4 +40,10 @@ feature "Admin panel", %q{
     expect(current_path).to_not eq(admin_root_path)
     expect(page).to have_content "У вас нет прав доступа к этой странице"
   end
+
+  scenario "Admin see 'user mode' button" do
+    login admin
+    visit admin_root_path
+    expect(page).to have_link 'На сайт', href: root_path
+  end
 end

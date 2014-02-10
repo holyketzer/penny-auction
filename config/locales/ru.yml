@@ -9,6 +9,8 @@ ru:
       cancel: 'Отмена'
       back: 'Назад'
       upload_image: 'Загрузить изображение'
+      admin_mode: 'В админку'
+      user_mode: 'На сайт'
   index:
     auctions: 'Текущие аукционы'
   auctions:
