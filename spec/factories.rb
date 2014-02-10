@@ -72,7 +72,7 @@ FactoryGirl.define do
     end
 
     trait :active do
-      start_time Time.new - 10.minutes
+      start_time Time.new.round_by(1.minute) - 10.minutes
       duration 25.minutes
     end    
 

@@ -133,26 +133,30 @@ feature "User can view auctions", %q{
       end
     end
 
-    context 'any user' do
-      let!(:bid1) { create(:bid, auction: auction) }
-      let!(:bid2) { create(:bid, auction: auction) }
-      let!(:bid3) { create(:bid, auction: auction) }
-
+    context 'any user' do            
       scenario 'can view bids' do
+        bids = create_list(:bid, 5, auction: auction)
         visit auction_path(auction)
 
         within '.bids' do
           expect(page).to have_content 'Ставки'
-          expect_page_to_have_bid(bid1)
-          expect_page_to_have_bid(bid2)
-          expect_page_to_have_bid(bid3)
-        end
+          expect(page).to have_content 'Время'
+          expect(page).to have_content 'Цена'
+          expect(page).to have_content 'Пользователь'
+
+          price = auction.start_price
+          bids.each do |bid|
+            price += auction.bid_price_step
+            expect_page_to_have_bid(bid, price)
+          end
+        end        
       end
     end
   end
 
-  def expect_page_to_have_bid(bid)
-    expect(page).to have_content bid.user.email
-    expect(page).to have_content bid.created_at
+  def expect_page_to_have_bid(bid, price)
+    expect(page).to have_content(bid.user.email)
+    expect(page).to have_content(bid.created_at)
+    expect(page).to have_content(price)
   end
 end

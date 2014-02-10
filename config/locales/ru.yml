@@ -65,6 +65,10 @@ ru:
         bid_price_step: 'Шаг увеличения цены'
         status: 'Время до окончания'
         bids: 'Ставки'
+      bid:
+        user: 'Пользователь'
+        price: 'Цена'
+        created_at: 'Время'
       category:
         name: 'Название'
         description: 'Описание'
