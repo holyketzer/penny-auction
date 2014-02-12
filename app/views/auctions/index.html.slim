@@ -16,6 +16,6 @@ table class="table table-striped"
         td= link_to (image_tag auction.image.thumb_url), auction if auction.image
         td= auction.start_price
         td class='time-left' = status_desc(auction)
-        td= button_to t('auctions.actions.bid'), auction_bids_path(auction_id: auction.id), class: 'btn btn-warning', remote: true
+        td= button_to t('auctions.actions.bid'), auction_bids_path(auction_id: auction.id), class: 'btn btn-warning btn-bid', remote: true, :form => { "data-type" => "json" }
 
 = subscribe_to '/auctions/update'

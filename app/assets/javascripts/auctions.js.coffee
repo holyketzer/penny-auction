@@ -5,8 +5,13 @@ jQuery ->
       $('#image-selector').html(res)
 
 $ ->
-  PrivatePub.subscribe '/auctions/update', (data, channel) ->
-    console.log(data)
-    $('#auction-' + data.auction_id + ' .time-left').html(data.time_left)
+  PrivatePub.subscribe '/auctions/update', (data, channel) ->    
+    $('#auction-' + data.auction_id + ' .time-left').html(data.time_left)    
+
+  $(".button_to").bind "ajax:success", (evt, data, status, xhr) ->
+    data = JSON.parse(xhr.responseText)
     if data.notice
-      $('#alets').prepend("<div class='alert'>#{data.notice}</div")
+      #old_alerts = $('#alets').children()
+      #old_alerts.slideUp 600, -> old_alerts.remove()
+      $('#alets').prepend("<div style=\"display: none;\">#{data.notice}</div")
+      $('#alets').children().slideDown(1000)
