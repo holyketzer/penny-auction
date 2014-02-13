@@ -6,12 +6,12 @@ jQuery ->
 
 $ ->
   PrivatePub.subscribe '/auctions/update', (data, channel) ->    
-    $('#auction-' + data.auction_id + ' .time-left').html(data.time_left)    
+    $('#auction-' + data.auction_id + ' .time-left').html(data.time_left).effect("highlight", {}, 2000);
+    $('#auction-' + data.auction_id + ' .price').html(data.price).effect("highlight", {}, 2000);
 
   $(".button_to").bind "ajax:success", (evt, data, status, xhr) ->
     data = JSON.parse(xhr.responseText)
     if data.notice
-      #old_alerts = $('#alets').children()
-      #old_alerts.slideUp 600, -> old_alerts.remove()
-      $('#alets').prepend("<div style=\"display: none;\">#{data.notice}</div")
-      $('#alets').children().slideDown(1000)
+      old_alerts = $('#alets').children().remove()
+      $('#alets').prepend(data.notice)
+      $('#alets').children().effect("highlight", {}, 2000);

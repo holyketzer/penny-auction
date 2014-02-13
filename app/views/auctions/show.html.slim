@@ -2,40 +2,43 @@
 div class ="page-header"
   h1 = t '.title'
 
-p
-  strong = model_class.human_attribute_name(:product_id) + ':'
-  br
-  = @auction.product.name
-- if @auction.image
+div id="auction-#{@auction.id}"
   p
-    strong = model_class.human_attribute_name(:image_id) + ':'
+    strong = model_class.human_attribute_name(:product_id) + ':'
     br
-    = image_tag @auction.image.thumb_url
-p
-  strong = model_class.human_attribute_name(:price) + ':'
-  br
-  = @auction.price
-p
-  strong = model_class.human_attribute_name(:status) + ':'
-  br
-  = status_desc_simple(@auction)
+    = @auction.product.name
+  - if @auction.image
+    p
+      strong = model_class.human_attribute_name(:image_id) + ':'
+      br
+      = image_tag @auction.image.thumb_url
+  p
+    strong = model_class.human_attribute_name(:price) + ':'
+    br
+    span.price = @auction.price
+  p
+    strong = model_class.human_attribute_name(:status) + ':'
+    br
+    span.time-left = status_desc_simple(@auction)
 
-.bids
-  strong = model_class.human_attribute_name(:bids) + ':'
-  table class="table table-striped"
-    thead class='list-header'
-      tr
-        th = Bid.human_attribute_name(:created_at)
-        th = Bid.human_attribute_name(:price)
-        th = Bid.human_attribute_name(:user)
-    tbody
-    - price = @auction.start_price
-    - @auction.bids.each do |bid|
-      tr class='list-item bid'
-        td = bid.created_at
-        td = price += @auction.bid_price_step
-        td 
-          strong = bid.user.email
+  .bids
+    strong = model_class.human_attribute_name(:bids) + ':'
+    table class="table table-striped"
+      thead class='list-header'
+        tr
+          th = Bid.human_attribute_name(:created_at)
+          th = Bid.human_attribute_name(:price)
+          th = Bid.human_attribute_name(:user)
+      tbody
+      - price = @auction.start_price
+      - @auction.bids.each do |bid|
+        tr class='list-item bid'
+          td = bid.created_at
+          td = price += @auction.bid_price_step
+          td 
+            strong = bid.user.email
 
-= button_to t('auctions.actions.bid'), auction_bids_path(auction_id: @auction.id), class: 'btn btn-warning'
+= button_to t('auctions.actions.bid'), auction_bids_path(auction_id: @auction.id), class: 'btn btn-warning btn-bid', remote: true, :form => { "data-type" => "json" }
 = link_to t('helpers.links.back'), auctions_path, class: 'btn'
+
+= subscribe_to '/auctions/update'

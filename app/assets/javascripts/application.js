@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
+//= require jquery.ui.effect-highlight
 //= require twitter/bootstrap
 //= require turbolinks
 //= require private_pub
