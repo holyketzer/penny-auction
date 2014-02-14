@@ -38,7 +38,7 @@ class Auction < ActiveRecord::Base
     start_time + duration.seconds
   end
 
-  def last_user
+  def last_user    
     bids.last.user if bids.any?
   end
 

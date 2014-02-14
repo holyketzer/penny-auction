@@ -84,6 +84,6 @@ FactoryGirl.define do
 
   factory :bid do
     user
-    initialize_with { attributes[:auction].make_bid(attributes[:user]) }
+    # initialize_with { attributes[:auction].make_bid(attributes[:user]) }
   end
 end

@@ -92,4 +92,10 @@ ru:
         category_deleted: 'Категория удалена'        
         image_saved: 'Изображение сохранено'
         image_deleted: 'Изображение удалено'
-        product_saved: 'Товар сохранён'        
+        product_saved: 'Товар сохранён'
+    errors:
+      models:
+        bid:
+          auction_finished: 'Аукцион уже закончен'
+          auction_not_started: 'Аукцион ещё не начался'
+          same_user_twice: 'Вы не можете сделать две ставки подряд'
