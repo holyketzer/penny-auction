@@ -6,6 +6,8 @@ class Bid < ActiveRecord::Base
   validate :auction_active?, message: :auction_active
   validate :last_user_different?
 
+  after_create :update_auction
+
   private
 
   def auction_active?
@@ -22,5 +24,9 @@ class Bid < ActiveRecord::Base
     if auction && user
       errors.add(:base, I18n.t('activerecord.errors.models.bid.same_user_twice')) if auction.last_user == user
     end
+  end
+
+  def update_auction
+    auction.increase_price_and_time
   end
 end

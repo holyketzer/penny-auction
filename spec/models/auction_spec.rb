@@ -15,13 +15,13 @@ describe Auction do
     it { should validate_numericality_of(:bid_time_step).only_integer }   
 
     it { should validate_numericality_of(:min_price).is_greater_than_or_equal_to(0.01) }
-    it { should validate_min_fractionality_of(:min_price, 0.01) }
+    # it { should validate_min_fractionality_of(:min_price, 0.01) }
 
     it { should validate_numericality_of(:start_price).is_greater_than_or_equal_to(0.01) }
-    it { should validate_min_fractionality_of(:start_price, 0.01) }
+    # it { should validate_min_fractionality_of(:start_price, 0.01) }
 
     it { should validate_numericality_of(:bid_price_step).is_greater_than_or_equal_to(0.01) }
-    it { should validate_min_fractionality_of(:bid_price_step, 0.01) }
+    # it { should validate_min_fractionality_of(:bid_price_step, 0.01) }
 
     it 'should have initial price' do 
       auction = create(:auction)
@@ -45,7 +45,7 @@ describe Auction do
         last_duration = auction.duration
         last_price = auction.price
 
-        bid = auction.make_bid(user)
+        bid = create(:bid, user: user, auction: auction)
         expect(bid.auction).to be auction
         expect(bid.user).to be user
         expect(auction.bids.last).to eq bid
@@ -54,21 +54,25 @@ describe Auction do
         expect(auction.price).to eq(last_price + auction.bid_price_step)
       end
 
-      context 'not started' do
-        let(:auction) { create(:auction, :not_started) }
+      describe '#increase_price_and_time' do
+        it 'insreases price' do
+          expect { auction.increase_price_and_time }.to change(auction, :price).by(auction.bid_price_step)
+        end
 
-        it 'should not make bid' do
-          expect(auction.make_bid(user)).to be_nil
+        it 'insreases duration' do
+          expect { auction.increase_price_and_time }.to change(auction, :duration).by(auction.bid_time_step)
+        end
+
+        it 'saves changes' do          
+          auction.increase_price_and_time
+          price = auction.price
+          duration = auction.duration
+          
+          auction.reload
+          expect(auction.price).to eq price
+          expect(auction.duration).to eq duration
         end
       end
-
-      context 'finished' do
-        let(:auction) { create(:auction, :finished) }
-
-        it 'should not make bid' do
-          expect(auction.make_bid(user)).to be_nil
-        end
-      end
-    end
+    end    
   end
 end

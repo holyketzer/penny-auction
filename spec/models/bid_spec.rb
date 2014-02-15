@@ -24,14 +24,23 @@ describe Bid do
     end
 
     it 'not valid for same user twice' do
-      allow(auction).to receive(:active?).and_return(true)      
+      allow(auction).to receive(:active?).and_return(true)
       bid.save!      
-      
+
       # reloading is needed to auction.bids filling, probably I don't understand something
       auction.reload       
       new_bid = build(:bid, auction: auction, user: bid.user)
       
       expect(new_bid).to_not be_valid
     end
-  end  
+  end
+
+  context 'when created' do
+    it "updates auction" do
+      allow(auction).to receive(:active?).and_return(true)
+
+      expect(auction).to receive(:increase_price_and_time)
+      bid.save!
+    end
+  end
 end

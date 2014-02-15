@@ -1,8 +1,6 @@
 class BidsController < InheritedResources::Base
   include ApplicationHelper
   include ActionView::Helpers::DateHelper
-  include BootstrapFlashHelper
-
   belongs_to :auction
 
   respond_to :html, :only => [:create]
@@ -12,10 +10,10 @@ class BidsController < InheritedResources::Base
 
   def create
     auction = Auction.find(params[:auction_id])
-    @bid = auction.make_bid(current_user)
+    @bid = Bid.new(user: current_user, auction: auction)
 
     respond_to do |format|
-      if @bid
+      if @bid.save
         format.html do
           push_auction_update(auction)
           redirect_to auction, notice: t('auctions.actions.bid_made') 
@@ -39,6 +37,10 @@ class BidsController < InheritedResources::Base
 
   def render_flash(messages)
     messages.each_key { |type| flash.now[type] = messages[type] }    
-    render json: { notice: render_to_string('shared/_flash.html', layout: false) }
+    # if resource.errors.any?
+    #   render json: { notice: render_to_string('shared/_validation_errors.html', layout: false) }
+    # else
+      render json: { notice: render_to_string('shared/_flash.html', layout: false) }
+    # end
   end
 end
