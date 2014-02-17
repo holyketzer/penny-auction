@@ -41,19 +41,6 @@ describe Auction do
     context 'active' do
       let(:auction) { create(:auction, :active) }
 
-      it 'should make bid' do
-        last_duration = auction.duration
-        last_price = auction.price
-
-        bid = create(:bid, user: user, auction: auction)
-        expect(bid.auction).to be auction
-        expect(bid.user).to be user
-        expect(auction.bids.last).to eq bid
-
-        expect(auction.duration).to be(last_duration + auction.bid_time_step)
-        expect(auction.price).to eq(last_price + auction.bid_price_step)
-      end
-
       describe '#increase_price_and_time' do
         it 'insreases price' do
           expect { auction.increase_price_and_time }.to change(auction, :price).by(auction.bid_price_step)

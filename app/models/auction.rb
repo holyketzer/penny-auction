@@ -39,7 +39,7 @@ class Auction < ActiveRecord::Base
   end
 
   def last_user    
-    bids.last.user if bids.any?
+    bids.sorted.last.user if bids.any?
   end
 
   def increase_price_and_time

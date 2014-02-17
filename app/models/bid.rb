@@ -6,6 +6,8 @@ class Bid < ActiveRecord::Base
   validate :auction_active?, message: :auction_active
   validate :last_user_different?
 
+  scope :sorted, -> { order(:created_at) }
+
   after_create :update_auction
 
   private
