@@ -99,7 +99,7 @@ feature "User can view auctions", %q{
 
         scenario 'can not make bid' do
           expect(current_path).to eq auction_path(auction)
-          expect(page).to have_content 'Невозможно сделать ставку'
+          expect(page).to have_content 'Аукцион ещё не начался'
         end
       end
 
@@ -108,7 +108,7 @@ feature "User can view auctions", %q{
 
         scenario 'can not make bid' do
           expect(current_path).to eq auction_path(auction)
-          expect(page).to have_content 'Невозможно сделать ставку'
+        expect(page).to have_content 'Аукцион уже закончен'
         end
       end
 
@@ -128,7 +128,7 @@ feature "User can view auctions", %q{
           click_on 'Сделать ставку'
 
           expect(current_path).to eq auction_path(auction)
-          expect(page).to have_content 'Невозможно сделать ставку'
+          expect(page).to have_content 'Вы не можете сделать две ставки подряд'
         end
       end
     end

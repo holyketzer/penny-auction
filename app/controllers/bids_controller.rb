@@ -14,17 +14,14 @@ class BidsController < InheritedResources::Base
 
     respond_to do |format|
       if @bid.save
-        format.html do
-          push_auction_update(auction)
-          redirect_to auction, notice: t('auctions.actions.bid_made') 
-        end
-        format.json do 
-          push_auction_update(auction)
-          render_flash(success: t('auctions.actions.bid_made'))
-        end
+        push_auction_update(auction)
+        
+        format.html { redirect_to auction, notice: t('activerecord.successful.messages.bid_made') }
+        format.json { render_flash(success: t('activerecord.successful.messages.bid_made')) }
       else
-        format.html { redirect_to auction, notice: t('auctions.actions.bid_fail') }
-        format.json { render_flash(error: t('auctions.actions.bid_fail')) }
+        messages = Hash[@bid.errors.map { |attr, msg| [:error, msg] }]
+        format.html { redirect_to auction, flash: messages }
+        format.json { render_flash(messages) }
       end      
     end
   end
@@ -36,11 +33,7 @@ class BidsController < InheritedResources::Base
   end
 
   def render_flash(messages)
-    messages.each_key { |type| flash.now[type] = messages[type] }    
-    # if resource.errors.any?
-    #   render json: { notice: render_to_string('shared/_validation_errors.html', layout: false) }
-    # else
-      render json: { notice: render_to_string('shared/_flash.html', layout: false) }
-    # end
+    messages.each_key { |type| flash.now[type] = messages[type] }
+    render json: { notice: render_to_string('shared/_flash.html', layout: false) }
   end
 end

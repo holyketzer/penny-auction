@@ -22,9 +22,7 @@ ru:
     show:
       title: 'Аукцион'
     actions:
-      bid: 'Сделать ставку'
-      bid_made: 'Ставка сделана'
-      bid_fail: 'Невозможно сделать ставку'
+      bid: 'Сделать ставку'      
   admin:
     auctions:
       index:
@@ -66,6 +64,7 @@ ru:
         status: 'Время до окончания'
         bids: 'Ставки'
       bid:
+        auction: 'Аукцион'
         user: 'Пользователь'
         price: 'Цена'
         created_at: 'Время'
@@ -93,9 +92,13 @@ ru:
         image_saved: 'Изображение сохранено'
         image_deleted: 'Изображение удалено'
         product_saved: 'Товар сохранён'
+        bid_made: 'Ставка сделана'
     errors:
       models:
         bid:
-          auction_finished: 'Аукцион уже закончен'
-          auction_not_started: 'Аукцион ещё не начался'
-          same_user_twice: 'Вы не можете сделать две ставки подряд'
+          attributes:
+            auction:
+              finished: 'Аукцион уже закончен'
+              not_started: 'Аукцион ещё не начался'
+            user:
+              same_user_twice: 'Вы не можете сделать две ставки подряд'

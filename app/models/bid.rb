@@ -15,16 +15,16 @@ class Bid < ActiveRecord::Base
   def auction_active?
     if auction && !auction.active?      
       if auction.finished?
-        errors.add(:base, I18n.t('activerecord.errors.models.bid.auction_finished'))
+        errors.add(:auction, :finished)
       else
-        errors.add(:base, I18n.t('activerecord.errors.models.bid.auction_not_started'))
+        errors.add(:auction, :not_started)
       end
     end
   end
 
   def last_user_different?
     if auction && user
-      errors.add(:base, I18n.t('activerecord.errors.models.bid.same_user_twice')) if auction.last_user == user
+      errors.add(:user, :same_user_twice) if auction.last_user == user
     end
   end
 
