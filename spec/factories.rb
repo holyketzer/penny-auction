@@ -58,7 +58,7 @@ FactoryGirl.define do
 
   factory :auction do    
     start_price 199.78
-    start_time Time.new + 10.minutes
+    start_time Time.now + 10.minutes
     min_price 8990.10
     duration 567
     bid_time_step 120
@@ -72,12 +72,12 @@ FactoryGirl.define do
     end
 
     trait :active do
-      start_time Time.new.round_by(1.minute) - 10.minutes
+      start_time Time.now - 10.minutes
       duration 25.minutes
-    end    
+    end
 
     trait :finished do
-      start_time Time.new - 30.minutes
+      start_time Time.now - 30.minutes
       duration 5.minutes
     end
   end

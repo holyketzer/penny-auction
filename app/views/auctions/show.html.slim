@@ -19,7 +19,7 @@ div id="auction-#{@auction.id}"
   p
     strong = model_class.human_attribute_name(:status) + ':'
     br
-    span.time-left = status_desc_simple(@auction)
+    span.time-left = status_desc(@auction)
 
   .bids
     strong = model_class.human_attribute_name(:bids) + ':'

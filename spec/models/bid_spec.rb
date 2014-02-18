@@ -27,7 +27,7 @@ describe Bid do
       allow(auction).to receive(:active?).and_return(true)
       bid.save!      
 
-      # reloading is needed to auction.bids filling, probably I don't understand something
+      # reloading is needed to auction.bids filling
       auction.reload       
       new_bid = build(:bid, auction: auction, user: bid.user)
       

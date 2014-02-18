@@ -31,7 +31,7 @@ class Auction < ActiveRecord::Base
   end
 
   def start_in
-    (start_time - Time.now).to_i
+    start_time - Time.now
   end
 
   def finish_time
