@@ -26,11 +26,11 @@ describe FractionalityValidator do
       end
 
       it "should be invalid with wrong values" do      
-        expect_to_be_invalid(NULL + BLANK + JUNK + INTEGERS)
+        expect_to_be_invalid(NULL + BLANK + JUNK)
       end
 
       it "should be valid with right values" do
-        expect_to_be_valid(FLOATS + BIGDECIMAL + INFINITY) 
+        expect_to_be_valid(FLOATS + BIGDECIMAL + INFINITY + INTEGERS)
       end
     end
 
@@ -40,11 +40,11 @@ describe FractionalityValidator do
       end      
 
       it "should be invalid with wrong values" do
-        expect_to_be_invalid(JUNK + BLANK + INTEGERS)
+        expect_to_be_invalid(JUNK + BLANK)
       end
 
       it "should be valid with right values" do
-        expect_to_be_valid(NULL + FLOATS + BIGDECIMAL + INFINITY) 
+        expect_to_be_valid(NULL + FLOATS + BIGDECIMAL + INFINITY + INTEGERS)
       end
     end
 
@@ -58,7 +58,7 @@ describe FractionalityValidator do
       end
 
       it "should be valid with right values" do
-        expect_to_be_valid([11.02, 1.0, 10.01, 789.95, 10.15, 10.0])
+        expect_to_be_valid([11.02, 1.0, 10.01, 789.95, 10.15, 10.0, 1, 12])
       end
     end
   end    

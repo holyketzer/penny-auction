@@ -15,13 +15,13 @@ describe Auction do
     it { should validate_numericality_of(:bid_time_step).only_integer }   
 
     it { should validate_numericality_of(:min_price).is_greater_than_or_equal_to(0.01) }
-    # it { should validate_min_fractionality_of(:min_price, 0.01) }
+    it { should validate_min_fractionality_of(:min_price, 0.01) }
 
     it { should validate_numericality_of(:start_price).is_greater_than_or_equal_to(0.01) }
-    # it { should validate_min_fractionality_of(:start_price, 0.01) }
+    it { should validate_min_fractionality_of(:start_price, 0.01) }
 
     it { should validate_numericality_of(:bid_price_step).is_greater_than_or_equal_to(0.01) }
-    # it { should validate_min_fractionality_of(:bid_price_step, 0.01) }
+    it { should validate_min_fractionality_of(:bid_price_step, 0.01) }
 
     it 'should have initial price' do 
       auction = create(:auction)

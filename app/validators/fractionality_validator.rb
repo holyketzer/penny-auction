@@ -7,6 +7,8 @@ class FractionalityValidator < ActiveModel::EachValidator
     raw_value ||= value
 
     return if options[:allow_nil] && raw_value.nil?
+
+    return if value_is_an_integer(raw_value)
       
     unless raw_value = parse_raw_value_as_a_float_number(raw_value)
       record.errors[attr_name] << (options[:message] || "should be value with floating point")
@@ -34,20 +36,21 @@ class FractionalityValidator < ActiveModel::EachValidator
   end
 
   protected
-    def parse_raw_value_as_a_float_number(raw_value)
-      return raw_value if raw_value.is_a? Float or raw_value.is_a? Rational
-      return nil if raw_value.is_a? Integer
+    def value_is_an_integer(raw_value)     
+      Kernel.Integer(raw_value, 10)
+    rescue ArgumentError, TypeError
+      false
+    end
 
-      if raw_value !~ /\A0[xX]/ and Kernel.Float(raw_value)
-        begin
-          nil if Kernel.Integer(raw_value, 10)
-        rescue ArgumentError, TypeError
-          Kernel.Float(raw_value)
-        end
+    def parse_raw_value_as_a_float_number(raw_value)
+      return raw_value if raw_value.is_a? Float or raw_value.is_a? Rational      
+
+      if raw_value !~ /\A0[xX]/ and Kernel.Float(raw_value)        
+        Kernel.Float(raw_value)        
       end
     rescue ArgumentError, TypeError
       nil
-    end   
+    end
 
     def filtered_options(value)
       filtered = options.dup
