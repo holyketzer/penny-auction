@@ -15,3 +15,7 @@ $ ->
       old_alerts = $('#alets').children().remove()
       $('#alets').prepend(data.notice)
       $('#alets').children().effect("highlight", {}, 2000);
+
+  $(".button_to").bind "ajax:error", (event, jqXHR, ajaxSettings, thrownError) ->
+    if jqXHR.status == 401 # thrownError is 'Unauthorized'
+      window.location.replace('/users/sign_in')
