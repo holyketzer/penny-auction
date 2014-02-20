@@ -17,3 +17,6 @@ For capybara-webkit (https://github.com/thoughtbot/capybara-webkit/wiki/Installi
     
 For Carrierwave imagemagick processing:
     sudo apt-get install imagemagick
+    
+Before running app in development or test modes you should also run private_pub Faye wrapper (Faye is a publish-subscribe messaging system):
+    rackup private_pub.ru -s thin -E production
