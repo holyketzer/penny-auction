@@ -1,18 +1,19 @@
 == README
 
-Penny auction 
+=== Penny auction 
 
 What is it? See http://en.wikipedia.org/wiki/Bidding_fee_auction
 
-Latest stable version is in ```master``` branch
+Latest stable version is in <b>master</b> branch
 
-The most featured version is in ```dev``` branch
+The most featured version is in <b>dev</b> branch
 
-== Tests
+=== Tests prerequisites
 
-Using capybara-webkit for some tests it needs some prerequesites before use ```bundle``` command see https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit
+Some tests need some prerequesites before use bundle install command, in Ubuntu like systems use:
 
-in Ubuntu like systems use:
-
-```sudo apt-get install qt4-qmake```
-```sudo apt-get install libqt4-dev```
+For capybara-webkit (https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit):
+    sudo apt-get install qt4-qmake libqt4-dev
+    
+For Carrierwave imagemagick processing:
+    sudo apt-get install imagemagick
