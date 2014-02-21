@@ -17,6 +17,7 @@ h2 = t('devise.buttons.signin')
       .controls
         = f.check_box :remember_me, class: 'checkbox'  
 
-  .form-actions= f.submit t('devise.buttons.go'), class: 'btn btn-primary'
+  .form-actions
+    = f.submit t('devise.buttons.go'), class: 'btn btn-primary'
 
 = render "devise/shared/links"
