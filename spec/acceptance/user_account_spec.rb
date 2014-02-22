@@ -54,4 +54,12 @@ feature 'User login', %q{
       expect(page).to have_content 'Выход выполнен'
     end
   end
+
+  context 'OAuth login' do
+    scenario 'facebook' do
+      visit new_user_session_path
+
+      expect(page).to have_link 'Войти через Facebook'
+    end
+  end
 end
