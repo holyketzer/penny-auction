@@ -47,6 +47,7 @@ gem 'thin'
 # OAuth
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-vkontakte'
 
 # Keep secrets in separate config
 gem 'figaro'

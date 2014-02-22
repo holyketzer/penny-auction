@@ -61,5 +61,11 @@ feature 'User login', %q{
 
       expect(page).to have_link 'Войти через Facebook'
     end
+
+    scenario 'vkontakte' do
+      visit new_user_session_path
+
+      expect(page).to have_link 'Войти через Vkontakte'
+    end
   end
 end
