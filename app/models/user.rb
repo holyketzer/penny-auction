@@ -1,6 +1,10 @@
 class User < ActiveRecord::Base
   has_many :authorizations
   has_many :bids
+  has_one :image, as: :imageable
+
+  validates :nickname, presence: true
+  validates :nickname, uniqueness: { case_sensitive: false }
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -20,7 +24,9 @@ class User < ActiveRecord::Base
         user.create_authorization(auth)
       else
         password = Devise.friendly_token[0, 20]
-        user = User.create(email: email, password: password, password_confirmation: password)
+        # How I can create unique nickname, it's better to ask an user but I don't know how
+        nickname = auth.info[:nickname] || auth.info[:name] 
+        user = User.create(email: email, password: password, password_confirmation: password, nickname: nickname)
         user.create_authorization(auth)
       end
     end

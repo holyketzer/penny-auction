@@ -18,5 +18,10 @@ h2 = t('devise.buttons.signup')
     .controls
       = f.password_field :password_confirmation
 
+  .control-group
+    = f.label :nickname, t('devise.forms.nickname'), class: 'control-label'
+    .controls
+      = f.text_field :nickname
+
   .form-actions
     = f.submit t('devise.buttons.signup_go'), class: 'btn btn-primary'

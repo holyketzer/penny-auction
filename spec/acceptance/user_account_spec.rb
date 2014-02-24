@@ -25,6 +25,7 @@ feature 'User login', %q{
       fill_in 'Email', with: 'user@mail.com'
       fill_in 'Пароль', with: 'secret'
       fill_in 'Подтверждение пароля', with: 'secret'
+      fill_in 'Ник', with: 'nickname'
       click_on 'Зарегистрироваться'
 
       expect(current_path).to eq(root_path)

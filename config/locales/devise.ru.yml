@@ -6,6 +6,7 @@ ru:
       emial: "Email"
       password: "Пароль"
       password_confirmation: "Подтверждение пароля"
+      nickname: "Ник"
       remember_me: "Запомнить меня"
     buttons:
       go: "Войти"

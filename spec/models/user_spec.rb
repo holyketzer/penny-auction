@@ -3,12 +3,17 @@ require 'spec_helper'
 describe User do
   describe 'validations' do
     it { should validate_presence_of :email }
-    it { should validate_presence_of :password }    
+    it { should validate_uniqueness_of(:email).case_insensitive }
+
+    it { should validate_presence_of :password }
+    it { should validate_presence_of :nickname }
+    it { should validate_uniqueness_of(:nickname).case_insensitive }
   end
 
   describe 'associations' do
     it { should have_many(:bids) }
     it { should have_many(:authorizations) }
+    it { should have_one(:image) }
   end
 
   describe ".find_for_oauth" do
@@ -48,7 +53,7 @@ describe User do
 
       context 'user not registered' do
         let(:new_user) { build(:user) }
-        let(:auth) { OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456', info: { email: new_user.email }) }
+        let(:auth) { OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456', info: { email: new_user.email, nickname: new_user.nickname }) }
  
         it 'creates new user' do
           expect { User.find_for_oauth(auth) }.to change(User, :count).by(1)

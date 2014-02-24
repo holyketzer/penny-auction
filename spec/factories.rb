@@ -3,6 +3,7 @@ FactoryGirl.define do
     sequence(:email) { |n| "user#{n}@test.com" }
     password '12345678'
     password_confirmation '12345678'
+    sequence(:nickname) { |n| "user#{n}" }
     is_admin false
 
     factory :admin do
