@@ -5,7 +5,7 @@
         =' link_to t('helpers.links.user_mode'), root_path, class: 'btn btn-success'
       - else
         =' link_to t('helpers.links.admin_mode'), admin_root_path, class: 'btn btn-warning'
-    =' link_to current_user.email, edit_user_registration_path, class: 'btn btn-default'
+    =' link_to current_user.email, profile_path, class: 'btn btn-default'
     = link_to t('devise.buttons.signout'), destroy_user_session_path, method: :delete, class: 'btn btn-danger'
   - else
     =' link_to t('devise.buttons.signup'), new_user_registration_path, class: 'btn btn-primary'

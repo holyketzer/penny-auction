@@ -12,7 +12,12 @@ FactoryGirl.define do
       password_confirmation 'topsecret'
       is_admin true
     end
-  end   
+  end
+
+  factory :authorization do
+    provider 'facebook'
+    sequence(:uid) { |n| n+1000 }
+  end
 
   factory :category do
     name 'Смарфтоны'

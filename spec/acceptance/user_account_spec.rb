@@ -32,6 +32,11 @@ feature 'User login', %q{
       expect(page).to have_link 'user@mail.com'
       expect(page).to have_link 'Выход'
     end
+
+    scenario "can't see profile" do
+      visit profile_path
+      expect(current_path).to eq(new_user_session_path)
+    end
   end
 
   context 'for registered user' do
@@ -53,6 +58,26 @@ feature 'User login', %q{
 
       expect(page).to have_link 'Вход'
       expect(page).to have_content 'Выход выполнен'
+    end
+
+    scenario 'see profile' do
+      auth = create(:authorization, user: user)
+      visit profile_path
+
+      expect(page).to have_content 'Профиль'
+      expect(page).to have_content 'Email'
+      expect(page).to have_content 'Ник'
+
+      expect(page).to have_content user.email
+      expect(page).to have_content user.nickname
+
+      within '.authorizations' do
+        expect(page).to have_content 'Соц. сеть'
+        expect(page).to have_content 'ID'
+
+        expect(page).to have_content auth.provider
+        expect(page).to have_content auth.uid
+      end
     end
   end
 

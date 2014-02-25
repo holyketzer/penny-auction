@@ -1,0 +1,26 @@
+- model_class = User
+
+div class ="page-header"
+  h1 = t '.title'
+
+div  
+  p
+    strong = model_class.human_attribute_name(:email) + ':' 
+    br
+    = current_user.email
+  p
+    strong = model_class.human_attribute_name(:nickname) + ':' 
+    br
+    = current_user.nickname
+    
+  br
+  table.table.table-bordered.authorizations
+    - model_class = Authorization
+    thead
+      th = model_class.human_attribute_name(:provider)
+      th = model_class.human_attribute_name(:uid)
+    tbody    
+      - current_user.authorizations.each do |a|
+        tr
+          td = a.provider
+          td = a.uid

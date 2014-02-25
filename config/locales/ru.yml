@@ -22,7 +22,10 @@ ru:
     show:
       title: 'Аукцион'
     actions:
-      bid: 'Сделать ставку'      
+      bid: 'Сделать ставку'
+  profiles:
+    show:
+      title: 'Профиль'
   admin:
     auctions:
       index:
@@ -63,6 +66,9 @@ ru:
         bid_price_step: 'Шаг увеличения цены'
         status: 'Время до окончания'
         bids: 'Ставки'
+      authorization:
+        provider: 'Соц. сеть'
+        uid: 'ID'
       bid:
         auction: 'Аукцион'
         user: 'Пользователь'
@@ -80,10 +86,14 @@ ru:
         description: 'Описание'
         shop_price: 'Цена'
         category_id: 'Категория'
+      user:
+        email: 'Email'
+        nickname: 'Ник'
     models:
       category: 'Категория'
       image: 'Изображение'
       product: 'Товар'
+      user: 'Пользователь'
     successful:
       messages:
         auction_saved: 'Аукцион сохранён'
