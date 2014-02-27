@@ -82,16 +82,37 @@ feature 'User login', %q{
   end
 
   context 'OAuth login' do
-    scenario 'facebook' do
-      visit new_user_session_path
+    context 'with full OAuth information' do
+      scenario 'facebook' do
+        visit new_user_session_path
+        OmniAuth.config.add_mock(:facebook, {uid: '12345', info: { email: 'test@mail.com', nickname: 'Nick' }})
 
-      expect(page).to have_link 'Войти через Facebook'
+        click_on 'Войти через Facebook'
+
+        expect(current_path).to eq(root_path)
+        expect(page).to have_content 'Вход в систему выполнен с учётной записью из Facebook'
+      end
     end
 
-    scenario 'vkontakte' do
-      visit new_user_session_path
+    context 'without full OAuth information' do
+      scenario 'vkontakte' do
+        visit new_user_session_path
+        OmniAuth.config.add_mock(:vkontakte, {uid: '12345', info: { } })
 
-      expect(page).to have_link 'Войти через Vkontakte'
+        click_on 'Войти через Vkontakte'
+
+        expect(current_path).to eq(new_user_registration_path)
+        expect(page).to have_content 'Пожалуйста, завершите регистрацию'
+        fill_in 'Email', with: 'user@mail.com'
+        fill_in 'Пароль', with: 'secret'
+        fill_in 'Подтверждение пароля', with: 'secret'
+        fill_in 'Ник', with: 'nickname'
+        click_on 'Зарегистрироваться'
+
+        expect(current_path).to eq(root_path)
+        expect(page).to have_link 'user@mail.com'
+        expect(page).to have_link 'Выход'
+      end
     end
   end
 end

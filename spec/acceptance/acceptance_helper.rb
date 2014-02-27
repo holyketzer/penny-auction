@@ -2,6 +2,7 @@ require 'spec_helper'
 
 RSpec.configure do |config|
   Capybara.javascript_driver = :webkit
+  OmniAuth.config.test_mode = true
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false

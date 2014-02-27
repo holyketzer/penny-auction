@@ -26,6 +26,9 @@ ru:
   profiles:
     show:
       title: 'Профиль'
+  registration:
+    new:
+      finish: 'Пожалуйста, завершите регистрацию'
   admin:
     auctions:
       index:
