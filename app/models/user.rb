@@ -17,15 +17,13 @@ class User < ActiveRecord::Base
     if authorization
       user = authorization.user
     else
-      # Vkontakte doesn't return email
-      email = auth.info[:email] || "#{auth.uid}@vk.com"
+      email = auth.info[:email]
+      nickname = auth.info[:nickname]
       user = User.where(email: email).first
       if user
         user.create_authorization(auth)
-      else
-        password = Devise.friendly_token[0, 20]
-        # How I can create unique nickname, it's better to ask an user but I don't know how
-        nickname = auth.info[:nickname] || auth.info[:name] 
+      elsif email.present? && nickname.present?
+        password = Devise.friendly_token[0, 20]        
         user = User.create(email: email, password: password, password_confirmation: password, nickname: nickname)
         user.create_authorization(auth)
       end
