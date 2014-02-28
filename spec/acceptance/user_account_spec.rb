@@ -113,6 +113,26 @@ feature 'User login', %q{
         expect(page).to have_link 'user@mail.com'
         expect(page).to have_link 'Выход'
       end
+
+      scenario 'facebook' do
+        visit new_user_session_path
+        OmniAuth.config.add_mock(:facebook, {uid: '12345', info: { email: 'test@mail.com' }})
+
+        click_on 'Войти через Facebook'
+
+        expect(current_path).to eq(new_user_registration_path)
+        expect(page).to have_content 'Пожалуйста, завершите регистрацию'
+        expect(find_field('Email').value).to eq('test@mail.com')
+
+        fill_in 'Пароль', with: 'secret'
+        fill_in 'Подтверждение пароля', with: 'secret'
+        fill_in 'Ник', with: 'nickname'
+        click_on 'Зарегистрироваться'
+
+        expect(current_path).to eq(root_path)
+        expect(page).to have_link 'test@mail.com'
+        expect(page).to have_link 'Выход'
+      end
     end
   end
 end
