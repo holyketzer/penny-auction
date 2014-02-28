@@ -81,8 +81,8 @@ feature 'User login', %q{
     end
   end
 
-  context 'OAuth login' do
-    context 'with full OAuth information' do
+  context 'OAuth registration' do
+    context 'with full user information' do
       scenario 'facebook' do
         visit new_user_session_path
         OmniAuth.config.add_mock(:facebook, {uid: '12345', info: { email: 'test@mail.com', nickname: 'Nick' }})
@@ -94,7 +94,7 @@ feature 'User login', %q{
       end
     end
 
-    context 'without full OAuth information' do
+    context 'without full user information' do
       scenario 'vkontakte' do
         visit new_user_session_path
         OmniAuth.config.add_mock(:vkontakte, {uid: '12345', info: { } })
@@ -111,7 +111,11 @@ feature 'User login', %q{
 
         expect(current_path).to eq(root_path)
         expect(page).to have_link 'user@mail.com'
-        expect(page).to have_link 'Выход'
+        click_on 'Выход'
+
+        visit new_user_session_path
+        click_on 'Войти через Vkontakte'
+        expect(page).to have_content 'Вход в систему выполнен с учётной записью из Vkontakte'
       end
 
       scenario 'facebook' do
