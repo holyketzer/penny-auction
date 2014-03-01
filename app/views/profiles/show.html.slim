@@ -24,3 +24,8 @@ div
         tr
           td = a.provider
           td = a.uid
+  
+  .associate-account
+    - User.omniauth_providers.each do |provider|
+      - unless current_user.authorizations.any? { |a| a.provider == provider.to_s }
+        =' link_to t('devise.buttons.associate_account', provider: provider.to_s.titleize), user_omniauth_authorize_path(provider), class: 'btn btn-primary'

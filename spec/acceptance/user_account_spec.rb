@@ -60,23 +60,47 @@ feature 'User login', %q{
       expect(page).to have_content 'Выход выполнен'
     end
 
-    scenario 'see profile' do
-      auth = create(:authorization, user: user)
-      visit profile_path
+    describe 'profile' do
+      let!(:auth) { nil }
+      before { visit profile_path }
 
-      expect(page).to have_content 'Профиль'
-      expect(page).to have_content 'Email'
-      expect(page).to have_content 'Ник'
+      context 'with Facebook authorization' do
+        let!(:auth) { create(:authorization, user: user, provider: 'facebook') }
 
-      expect(page).to have_content user.email
-      expect(page).to have_content user.nickname
+        scenario 'see details' do
+          expect(page).to have_content 'Профиль'
+          expect(page).to have_content 'Email'
+          expect(page).to have_content 'Ник'
 
-      within '.authorizations' do
-        expect(page).to have_content 'Соц. сеть'
-        expect(page).to have_content 'ID'
+          expect(page).to have_content user.email
+          expect(page).to have_content user.nickname
 
-        expect(page).to have_content auth.provider
-        expect(page).to have_content auth.uid
+          within '.authorizations' do
+            expect(page).to have_content 'Соц. сеть'
+            expect(page).to have_content 'ID'
+
+            expect(page).to have_content auth.provider
+            expect(page).to have_content auth.uid
+          end
+        end
+      
+        scenario 'user can associate account' do
+          within '.associate-account' do
+            expect(page).to have_link 'Привязать к Vkontakte'
+            expect(page).to_not have_link 'Привязать к Facebook'
+          end
+        end
+      end
+
+      context 'with Vkontakte authorization' do
+        let!(:auth) { create(:authorization, user: user, provider: 'vkontakte') }
+
+        scenario 'user can associate account' do               
+          within '.associate-account' do
+            expect(page).to_not have_link 'Привязать к Vkontakte'
+            expect(page).to have_link 'Привязать к Facebook'
+          end
+        end
       end
     end
   end
