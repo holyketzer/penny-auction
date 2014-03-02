@@ -16,10 +16,10 @@ describe User do
     it { should have_one(:image) }
   end
 
-  describe ".find_for_oauth" do
-    let!(:user) { create(:user) }
-    let(:auth) { OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456') }
+  let!(:user) { create(:user) }
+  let(:auth) { OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456') }
 
+  describe ".find_for_oauth" do    
     context 'user already has authorization' do
       it 'returns user' do
         user.authorizations.create(provider: 'facebook', uid: '123456')
@@ -88,6 +88,45 @@ describe User do
         it 'returns nil' do
           expect(User.find_for_oauth(auth)).to be_nil
         end
+      end
+    end
+  end
+
+  describe '#add_authorization' do
+    context 'authorization does not exist' do
+      it 'adds authorization to user' do
+        expect { user.add_authorization(auth) }.to change(user.authorizations, :count).by(1)
+      end
+
+      it 'returns true' do
+        expect(user.add_authorization(auth)).to be_true
+      end
+    end
+
+    context 'authorization already exists' do
+      context 'authorization associated with current user' do
+        before { user.create_authorization(auth) }
+
+        it 'does not add authorization' do
+          expect { user.add_authorization(auth) }.to_not change(user.authorizations, :count)
+        end
+
+        it 'returns true' do
+          expect(user.add_authorization(auth)).to be_true
+        end
+      end
+    end
+
+    context 'autorization associated with other user' do
+      let(:other) { create(:user) }
+      before { other.create_authorization(auth) }
+
+      it 'does not add authorization' do
+        expect { user.add_authorization(auth) }.to_not change(user.authorizations, :count)
+      end
+
+      it 'returns false' do
+        expect(user.add_authorization(auth)).to be_false
       end
     end
   end
