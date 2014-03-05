@@ -7,5 +7,9 @@ module Features
     def have_checked_field_with_value(value)
       expect(page).to have_xpath("//input[@value='#{value}' and @checked='checked']")
     end
+
+    def image_src(selector = nil)
+      find(selector || 'img')['src']
+    end
   end
 end

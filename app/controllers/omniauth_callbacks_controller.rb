@@ -19,12 +19,14 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       end
       redirect_to profile_path
     else
-      @user = User.find_for_oauth(auth)
-
+      @user = User.find_for_oauth(auth)      
+      avatar = Avatar.create(remote_source_url: auth.info[:image])      
       if @user && @user.persisted?
+        avatar.update!(user: @user) if avatar.source
         sign_in_and_redirect @user, event: :authentication
         set_flash_message(:notice, :success, kind: provider) if is_navigational_format?
       else 
+        # save avatar id in session
         flash[:notice] = t('registration.new.finish')
         session['devise.oauth'] = auth
         redirect_to new_user_registration_path

@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   has_many :authorizations
   has_many :bids
-  has_one :image, as: :imageable
+  has_one :avatar
 
   validates :nickname, presence: true
   validates :nickname, uniqueness: { case_sensitive: false }

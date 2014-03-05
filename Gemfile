@@ -79,6 +79,7 @@ group :development, :test do
   gem 'capybara-webkit'
   gem 'database_cleaner'
   gem 'timecop'
+  gem 'webmock'
 end
 
 group :test do

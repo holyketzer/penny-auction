@@ -1,4 +1,5 @@
 require 'acceptance/acceptance_helper'
+require 'webmock/rspec'
 
 feature 'User login', %q{  
   As an user
@@ -107,14 +108,23 @@ feature 'User login', %q{
 
   describe 'OAuth registration' do
     context 'with full user information' do
+      before do
+        stub_request(:get, 'www.imagehost.test/avatar.jpg').to_return(:body => File.new('spec/support/images/another image.jpg'), :status => 200)
+      end
+      
       scenario 'facebook' do
         visit new_user_session_path
-        OmniAuth.config.add_mock(:facebook, {uid: '12345', info: { email: 'test@mail.com', nickname: 'Nick' }})
+        OmniAuth.config.add_mock(:facebook, {uid: '12345', info: { email: 'test@mail.com', nickname: 'Nick', image: 'http://www.imagehost.test/avatar.jpg' }})        
 
         click_on 'Войти через Facebook'
 
         expect(current_path).to eq(root_path)
         expect(page).to have_content 'Вход в систему выполнен с учётной записью из Facebook'
+
+        visit profile_path
+        within '.avatar' do          
+          expect(image_src).to_not be_empty
+        end        
       end
     end
 
