@@ -27,11 +27,17 @@ feature 'User login', %q{
       fill_in 'Пароль', with: 'secret'
       fill_in 'Подтверждение пароля', with: 'secret'
       fill_in 'Ник', with: 'nickname'
+      attach_file 'Аватар', 'spec/support/images/tiger.jpg'
       click_on 'Зарегистрироваться'
 
       expect(current_path).to eq(root_path)
       expect(page).to have_link 'user@mail.com'
       expect(page).to have_link 'Выход'
+
+      visit profile_path
+      within '.avatar' do
+        expect(image_src).to_not be_empty
+      end
     end
 
     scenario "can't see profile" do

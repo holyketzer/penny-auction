@@ -6,10 +6,12 @@ class User < ActiveRecord::Base
   validates :nickname, presence: true
   validates :nickname, uniqueness: { case_sensitive: false }
 
+  accepts_nested_attributes_for :avatar
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, 
+         :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook, :vkontakte]
 
   def self.find_for_oauth(auth)
@@ -23,13 +25,13 @@ class User < ActiveRecord::Base
       if user
         user.create_authorization(auth)
       elsif email.present? && nickname.present?
-        password = Devise.friendly_token[0, 20]        
+        password = Devise.friendly_token[0, 20]
         user = User.create(email: email, password: password, password_confirmation: password, nickname: nickname)
         user.create_authorization(auth)
       end
     end
     user
-  end    
+  end
 
   def create_authorization(auth)
     self.authorizations.create!(provider: auth.provider, uid: auth.uid)

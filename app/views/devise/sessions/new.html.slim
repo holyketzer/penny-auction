@@ -2,20 +2,20 @@ h2 = t('devise.buttons.signin')
 
 = form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form-horizontal" }) do |f|
   .control-group
-    = f.label :email, t('devise.forms.email'), class: 'control-label'
+    = f.label :email, class: 'control-label'
     .controls
       = f.email_field :email, autofocus: true
 
   .control-group
-    = f.label :password, t('devise.forms.password'), class: 'control-label'
+    = f.label :password, class: 'control-label'
     .controls
       = f.password_field :password
 
   - if devise_mapping.rememberable?
-    .control-group      
-      = f.label :remember_me, t('devise.forms.remember_me'), class: 'control-label'
+    .control-group
+      = f.label :remember_me, class: 'control-label'
       .controls
-        = f.check_box :remember_me, class: 'checkbox'  
+        = f.check_box :remember_me, class: 'checkbox'
 
   .form-actions
     = f.submit t('devise.buttons.go'), class: 'btn btn-primary'

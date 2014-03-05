@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :user do    
+  factory :user do
     sequence(:email) { |n| "user#{n}@test.com" }
     password '12345678'
     password_confirmation '12345678'
@@ -21,7 +21,7 @@ FactoryGirl.define do
 
   factory :category do
     name 'Смарфтоны'
-    description 'Телефоны с большим сенсорным экраном'    
+    description 'Телефоны с большим сенсорным экраном'
 
     factory :main_category do
       name 'Электроника'
@@ -30,14 +30,14 @@ FactoryGirl.define do
 
     factory :sub_category do
       name 'Android'
-      description 'Телефоны с Android'    
+      description 'Телефоны с Android'
     end
 
     factory :new_category do
       name 'КПК'
-      description 'Карманые компьютеры'    
+      description 'Карманые компьютеры'
     end
-  end  
+  end
 
   factory :image do
     source File.open(File.join(Rails.root, 'spec/support/images/another image.jpg'))
@@ -50,7 +50,7 @@ FactoryGirl.define do
   factory :product do
     name 'Телефон Nexus 4'
     description 'Всегда последняя версия Android'
-    shop_price 9999.99    
+    shop_price 9999.99
     before(:create) do |product|
       FactoryGirl.create_list(:image, 1, imageable: product)
     end
@@ -59,22 +59,22 @@ FactoryGirl.define do
   factory :new_product, class: Product do
     name 'iPhone 5U'
     description 'Новый мега-смартфон'
-    shop_price 18888.88    
-  end  
+    shop_price 18888.88
+  end
 
-  factory :auction do    
+  factory :auction do
     start_price 199.78
     start_time Time.now + 10.minutes
     min_price 8990.10
     duration 567
     bid_time_step 120
-    bid_price_step 20.5    
+    bid_price_step 20.5
     product
     before(:create) do |auction|
       auction.image = auction.product.images.first
     end
 
-    trait :not_started do      
+    trait :not_started do
     end
 
     trait :active do

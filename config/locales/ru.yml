@@ -34,7 +34,7 @@ ru:
   admin:
     auctions:
       index:
-        title: 'Аукционы'        
+        title: 'Аукционы'
       new:
         title: 'Новый аукцион'
       edit:
@@ -48,7 +48,7 @@ ru:
         title: 'Редактирование категории'
     images:
       form:
-        title: 'Добавить изображение'    
+        title: 'Добавить изображение'
     products:
       index:
         title: 'Товары'
@@ -74,6 +74,8 @@ ru:
       authorization:
         provider: 'Соц. сеть'
         uid: 'ID'
+      avatar:
+        source: 'Аватар'
       bid:
         auction: 'Аукцион'
         user: 'Пользователь'
@@ -93,7 +95,10 @@ ru:
         category_id: 'Категория'
       user:
         email: 'Email'
+        password: 'Пароль'
+        password_confirmation: 'Подтверждение пароля'
         nickname: 'Ник'
+        remember_me: 'Запомнить меня'
     models:
       category: 'Категория'
       image: 'Изображение'
@@ -103,7 +108,7 @@ ru:
       messages:
         auction_saved: 'Аукцион сохранён'
         category_saved: 'Категория сохранена'
-        category_deleted: 'Категория удалена'        
+        category_deleted: 'Категория удалена'
         image_saved: 'Изображение сохранено'
         image_deleted: 'Изображение удалено'
         product_saved: 'Товар сохранён'
