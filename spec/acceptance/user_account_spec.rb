@@ -1,7 +1,7 @@
 require 'acceptance/acceptance_helper'
 require 'webmock/rspec'
 
-feature 'User login', %q{  
+feature 'User login', %q{
   As an user
   I want to login into auction
   In order to take part in auctions
@@ -47,14 +47,14 @@ feature 'User login', %q{
     end
 
     scenario 'login' do
-      expect(current_path).to eq(root_path)    
+      expect(current_path).to eq(root_path)
       expect(page).to have_link user.email
       expect(page).to have_link 'Выход'
       expect(page).to have_content 'Текущие аукционы'
-      expect(page).to have_content 'Вход выполнен'    
+      expect(page).to have_content 'Вход выполнен'
     end
 
-    scenario 'logout' do    
+    scenario 'logout' do
       click_on 'Выход'
 
       expect(page).to have_link 'Вход'
@@ -84,7 +84,7 @@ feature 'User login', %q{
             expect(page).to have_content auth.uid
           end
         end
-      
+
         scenario 'user can associate account' do
           within '.associate-account' do
             expect(page).to have_link 'Привязать к Vkontakte'
@@ -96,7 +96,7 @@ feature 'User login', %q{
       context 'with Vkontakte authorization' do
         let!(:auth) { create(:authorization, user: user, provider: 'vkontakte') }
 
-        scenario 'user can associate account' do               
+        scenario 'user can associate account' do
           within '.associate-account' do
             expect(page).to_not have_link 'Привязать к Vkontakte'
             expect(page).to have_link 'Привязать к Facebook'
@@ -107,14 +107,14 @@ feature 'User login', %q{
   end
 
   describe 'OAuth registration' do
+    before do
+      stub_request(:get, 'www.imagehost.test/avatar.jpg').to_return(:body => File.new('spec/support/images/another image.jpg'), :status => 200)
+    end
+
     context 'with full user information' do
-      before do
-        stub_request(:get, 'www.imagehost.test/avatar.jpg').to_return(:body => File.new('spec/support/images/another image.jpg'), :status => 200)
-      end
-      
       scenario 'facebook' do
         visit new_user_session_path
-        OmniAuth.config.add_mock(:facebook, {uid: '12345', info: { email: 'test@mail.com', nickname: 'Nick', image: 'http://www.imagehost.test/avatar.jpg' }})        
+        OmniAuth.config.add_mock(:facebook, {uid: '12345', info: { email: 'test@mail.com', nickname: 'Nick', image: 'http://www.imagehost.test/avatar.jpg' }})
 
         click_on 'Войти через Facebook'
 
@@ -122,9 +122,9 @@ feature 'User login', %q{
         expect(page).to have_content 'Вход в систему выполнен с учётной записью из Facebook'
 
         visit profile_path
-        within '.avatar' do          
+        within '.avatar' do
           expect(image_src).to_not be_empty
-        end        
+        end
       end
     end
 
@@ -154,7 +154,7 @@ feature 'User login', %q{
 
       scenario 'facebook' do
         visit new_user_session_path
-        OmniAuth.config.add_mock(:facebook, {uid: '12345', info: { email: 'test@mail.com' }})
+        OmniAuth.config.add_mock(:facebook, {uid: '12345', info: { email: 'test@mail.com', image: 'http://www.imagehost.test/avatar.jpg' }})
 
         click_on 'Войти через Facebook'
 
@@ -170,15 +170,20 @@ feature 'User login', %q{
         expect(current_path).to eq(root_path)
         expect(page).to have_link 'test@mail.com'
         expect(page).to have_link 'Выход'
+
+        visit profile_path
+        within '.avatar' do
+          expect(image_src).to_not be_empty
+        end
       end
     end
   end
 
-  describe 'OAuth association' do    
+  describe 'OAuth association' do
     context 'signed up with Facebook' do
       let!(:auth) { OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456') }
       let!(:vk_auth) { OmniAuth::AuthHash.new(provider: 'vkontakte', uid: '789400') }
-      before do 
+      before do
         OmniAuth.config.add_mock(vk_auth.provider, {uid: vk_auth.uid, info: { } })
         user.create_authorization(auth)
         login(user)
@@ -205,6 +210,6 @@ feature 'User login', %q{
           expect(page).to have_link 'Привязать к Vkontakte'
         end
       end
-    end    
+    end
   end
 end
