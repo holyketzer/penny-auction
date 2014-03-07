@@ -16,7 +16,7 @@ feature "Admin can manage auctions", %q{
 
   it_behaves_like "Admin accessible"
 
-  context "admin" do
+  context "as an admin" do
     background do
       login admin      
     end
@@ -55,6 +55,16 @@ feature "Admin can manage auctions", %q{
 
       expect(current_path).to match(admin_auctions_path)
       expect(page).to_not have_content auction.product.name
+    end
+
+    context 'with no any products' do
+      before { Product.delete_all }
+      scenario 'Admin should create new product before creating new auction' do
+        visit new_admin_auction_path
+
+        expect(page).to have_content 'Невозможно создать аукцион. Сначала создайте хотя бы один товар'
+        expect(current_path).to eq(new_admin_product_path)        
+      end
     end
 
     describe 'with AJAX', js: true do

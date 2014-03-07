@@ -11,6 +11,8 @@ ru:
       upload_image: 'Загрузить изображение'
       admin_mode: 'В админку'
       user_mode: 'На сайт'
+  messages:
+    create_product: 'Невозможно создать аукцион. Сначала создайте хотя бы один товар'
   index:
     auctions: 'Текущие аукционы'
   auctions:

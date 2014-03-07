@@ -3,7 +3,16 @@ class Admin::AuctionsController < Admin::BaseController
 
   before_filter :load_product, only: [:new, :create, :edit, :update]
 
-  def create
+  def new
+    if @products.empty?
+      flash[:alert] = t('messages.create_product')
+      redirect_to new_admin_product_path
+    else
+      super
+    end
+  end
+
+  def create    
     create!(notice: t('activerecord.successful.messages.auction_saved'))
   end
 
