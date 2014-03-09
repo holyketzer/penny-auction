@@ -28,6 +28,8 @@ ru:
   profiles:
     show:
       title: 'Профиль'
+    edit:
+      title: 'Редактировать профиль'
   registration:
     new:
       finish: 'Пожалуйста, завершите регистрацию'

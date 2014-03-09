@@ -14,6 +14,14 @@ FactoryGirl.define do
     end
   end
 
+  factory :avatar do
+    source File.open(File.join(Rails.root, 'spec/support/images/tiger.jpg'))
+
+    factory :new_avatar do
+      source File.open(File.join(Rails.root, 'spec/support/images/another image.jpg'))
+    end
+  end
+
   factory :authorization do
     provider 'facebook'
     sequence(:uid) { |n| n+1000 }

@@ -1,4 +1,4 @@
-PennyAuction::Application.routes.draw do  
+PennyAuction::Application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -9,7 +9,7 @@ PennyAuction::Application.routes.draw do
     resources :bids, only: [:create]
   end
 
-  resource :profile, only:[:show]
+  resource :profile, only:[:show, :edit]
 
   namespace :admin do
     root to: 'site#index'
@@ -19,10 +19,10 @@ PennyAuction::Application.routes.draw do
     end
 
     resources :products do
-      resources :images      
+      resources :images
     end
 
-    resources :auctions    
+    resources :auctions
 
     get 'image-selector/:product_id', to: 'auctions#image_selector'
   end
@@ -52,7 +52,7 @@ PennyAuction::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'

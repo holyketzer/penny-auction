@@ -69,7 +69,27 @@ feature 'User login', %q{
 
     describe 'profile' do
       let!(:auth) { nil }
+      let!(:avatar) { create(:avatar, user: user) }
       before { visit profile_path }
+
+      scenario 'add avatar' do
+        within('.page-header') { click_on 'Изменить' }
+
+        expect(current_path).to eq(edit_user_registration_path)
+        old_avatar_path = nil
+        within '.avatar' do
+          old_avatar_path = image_src
+          expect(old_avatar_path).to_not be_empty
+
+          attach_file 'Аватар', 'spec/support/images/another image.jpg'
+        end
+
+        click_on 'Сохранить'
+
+        expect(current_path).to eq(profile_path)
+        expect(page).to have_content 'Ваша учётная запись изменена'
+        within('.avatar') { expect(image_src).to_not eq(old_avatar_path) }
+      end
 
       context 'with Facebook authorization' do
         let!(:auth) { create(:authorization, user: user, provider: 'facebook') }

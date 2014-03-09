@@ -1,33 +1,5 @@
-h2= "Edit #{resource_name.to_s.humanize}"
+div class ="page-header"
+  h1 = t('profiles.edit.title')
 
-= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "form-horizontal" }) do |f|
-  = render 'shared/validation_errors', locals: { resource: resource }
-
-  .control-group
-    = f.label :email, class: 'control-label'
-    .controls
-      /= f.email_field :email, autofocus: true, class: 'text_field'
-      = f.label :email, resource.email, class: 'control-label'
-
-  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-    div= "Currently waiting confirmation for: #{resource.unconfirmed_email}"
-  
-  .control-group
-    = f.label :password, class: 'control-label'    
-    .controls
-      = f.password_field :password, autocomplete: "off"
-
-  .control-group
-    = f.label :password_confirmation, class: 'control-label'
-    .controls
-      = f.password_field :password_confirmation
-
-  .control-group
-    = f.label :current_password, class: 'control-label'
-    .controls
-      = f.password_field :current_password
-
-  .form-actions
-    = f.submit "Update", class: 'btn btn-primary'
-
-= link_to "Back", :root, class: 'btn'
+div
+  = render partial: "form"

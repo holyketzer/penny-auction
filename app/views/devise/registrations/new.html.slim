@@ -1,33 +1,5 @@
-h2 = t('devise.buttons.signup')
+div class ="page-header"
+  h1 = t('devise.buttons.signup')
 
-= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "form-horizontal" }) do |f|
-  = render 'shared/validation_errors', locals: { resource: resource }
-
-  .control-group
-    = f.label :email, class: 'control-label'
-    .controls
-      = f.email_field :email, autofocus: true
-
-  .control-group
-    = f.label :password, class: 'control-label'
-    .controls
-      = f.password_field :password
-
-  .control-group
-    = f.label :password_confirmation, class: 'control-label'
-    .controls
-      = f.password_field :password_confirmation
-
-  .control-group
-    = f.label :nickname, class: 'control-label'
-    .controls
-      = f.text_field :nickname
-
-  = f.fields_for :avatar do |avatar|
-    .control-group
-      = avatar.label :source, class: 'control-label'
-      .controls
-        = avatar.file_field :source
-
-  .form-actions
-    = f.submit t('devise.buttons.signup_go'), class: 'btn btn-primary'
+div
+  = render partial: "form"

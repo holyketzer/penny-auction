@@ -2,32 +2,33 @@
 
 div class ="page-header"
   h1 = t '.title'
+  = link_to t('helpers.links.edit'), edit_profile_path, class: 'btn btn-warning'
 
 div
   .avatar
     - if current_user.avatar
       = image_tag current_user.avatar.thumb_url
   p
-    strong = model_class.human_attribute_name(:email) + ':' 
+    strong = model_class.human_attribute_name(:email) + ':'
     br
     = current_user.email
   p
-    strong = model_class.human_attribute_name(:nickname) + ':' 
+    strong = model_class.human_attribute_name(:nickname) + ':'
     br
     = current_user.nickname
-    
+
   br
   table.table.table-bordered.authorizations
     - model_class = Authorization
     thead
       th = model_class.human_attribute_name(:provider)
       th = model_class.human_attribute_name(:uid)
-    tbody    
+    tbody
       - current_user.authorizations.each do |a|
         tr
           td = a.provider
           td = a.uid
-  
+
   .associate-account
     - User.omniauth_providers.each do |provider|
       - unless current_user.authorizations.any? { |a| a.provider == provider.to_s }
