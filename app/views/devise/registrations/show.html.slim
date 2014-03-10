@@ -1,8 +1,8 @@
 - model_class = User
 
 div class ="page-header"
-  h1 = t '.title'
-  = link_to t('helpers.links.edit'), edit_profile_path, class: 'btn btn-warning'
+  h1 = t 'profiles.show.title'
+  = link_to t('helpers.links.edit'), profile_edit_path, class: 'btn btn-warning'
 
 div
   .avatar

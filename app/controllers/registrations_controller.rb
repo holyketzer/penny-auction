@@ -10,6 +10,10 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def show
+    authenticate_scope!
+  end
+
   def create
     auth = session['devise.oauth']
     super do |user|

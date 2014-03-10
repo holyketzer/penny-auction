@@ -2,14 +2,16 @@ PennyAuction::Application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks', registrations: 'registrations' }
   root to: 'site#index'
+  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks', registrations: 'registrations' }
+  devise_scope :user do
+    get 'profile', to: 'registrations#show'
+    get 'profile/edit', to: 'registrations#edit'
+  end
 
   resources :auctions, only: [:index, :show] do
     resources :bids, only: [:create]
   end
-
-  resource :profile, only:[:show, :edit]
 
   namespace :admin do
     root to: 'site#index'

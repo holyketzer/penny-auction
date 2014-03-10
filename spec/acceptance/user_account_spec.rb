@@ -75,7 +75,7 @@ feature 'User login', %q{
       scenario 'add avatar' do
         within('.page-header') { click_on 'Изменить' }
 
-        expect(current_path).to eq(edit_user_registration_path)
+        expect(current_path).to eq(profile_edit_path)
         old_avatar_path = nil
         within '.avatar' do
           old_avatar_path = image_src
