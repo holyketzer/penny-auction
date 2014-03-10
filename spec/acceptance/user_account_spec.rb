@@ -72,7 +72,7 @@ feature 'User login', %q{
       let!(:avatar) { create(:avatar, user: user) }
       before { visit profile_path }
 
-      scenario 'add avatar' do
+      scenario 'change avatar' do
         within('.page-header') { click_on 'Изменить' }
 
         expect(current_path).to eq(profile_edit_path)
@@ -89,6 +89,19 @@ feature 'User login', %q{
         expect(current_path).to eq(profile_path)
         expect(page).to have_content 'Ваша учётная запись изменена'
         within('.avatar') { expect(image_src).to_not eq(old_avatar_path) }
+      end
+
+      scenario 'change nickname' do
+        within('.page-header') { click_on 'Изменить' }
+
+        avatar_path = within('.avatar') { image_src }
+        fill_in 'Ник', with: 'NewNickname'
+        click_on 'Сохранить'
+
+        expect(current_path).to eq(profile_path)
+        expect(page).to have_content 'Ваша учётная запись изменена'
+        expect(page).to have_content 'NewNickname'
+        within('.avatar') { expect(image_src).to eq(avatar_path) }
       end
 
       context 'with Facebook authorization' do

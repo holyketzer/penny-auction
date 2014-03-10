@@ -29,6 +29,9 @@ class RegistrationsController < Devise::RegistrationsController
   def update
     @user = User.find(current_user.id)
 
+    # Don't update avatar if no image is presented
+    params[:user].delete(:avatar_attributes) unless avatar_present?(params)
+
     successfully_updated = if needs_password?(@user, params)
       @user.update_with_password(devise_parameter_sanitizer.sanitize(:account_update))
     else
@@ -56,5 +59,9 @@ class RegistrationsController < Devise::RegistrationsController
   def needs_password?(user, params)
     user.email != params[:user][:email] ||
       params[:user][:password].present?
+  end
+
+  def avatar_present?(params)
+    params[:user][:avatar_attributes] && params[:user][:avatar_attributes][:source]
   end
 end
