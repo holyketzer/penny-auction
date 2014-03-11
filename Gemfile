@@ -52,6 +52,9 @@ gem 'omniauth-vkontakte'
 # Keep secrets in separate config
 gem 'figaro'
 
+# Authorization
+gem 'cancan'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

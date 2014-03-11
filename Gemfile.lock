@@ -35,6 +35,7 @@ GEM
       debug_inspector (>= 0.0.1)
     bond (0.4.3)
     builder (3.1.4)
+    cancan (1.6.10)
     capybara (2.2.1)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -321,6 +322,7 @@ PLATFORMS
 
 DEPENDENCIES
   ancestry
+  cancan
   capybara
   capybara-webkit
   carrierwave
