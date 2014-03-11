@@ -84,7 +84,7 @@ feature 'User login', %q{
           attach_file 'Аватар', 'spec/support/images/another image.jpg'
         end
 
-        click_on 'Сохранить'
+        expect { click_on 'Сохранить' }.to change(Avatar, :count).by(0)
 
         expect(current_path).to eq(profile_path)
         expect(page).to have_content 'Ваша учётная запись изменена'
