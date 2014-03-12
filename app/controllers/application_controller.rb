@@ -5,6 +5,12 @@ class ApplicationController < ActionController::Base
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
+  rescue_from CanCan::AccessDenied do
+    redirect_to :root, alert: t('devise.failure.unauthorized') #, status: 403
+  end
+
+  protected
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) << :nickname  << { avatar_attributes: [:source] }
 
