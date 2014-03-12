@@ -82,10 +82,10 @@ group :development, :test do
   gem 'capybara-webkit'
   gem 'database_cleaner'
   gem 'timecop'
-  gem 'webmock'
 end
 
 group :test do
   gem 'shoulda-matchers'
   gem 'capybara'
+  gem 'webmock'
 end
