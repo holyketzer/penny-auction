@@ -14,6 +14,13 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook, :vkontakte]
 
+  ROLES = %w[admin manager user bot]
+
+  # Define is_admin? and same role methods
+  ROLES.each do |role|
+    define_method("is_#{role}?") { self.role == role }
+  end
+
   def self.find_for_oauth(auth)
     authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first
     if authorization
