@@ -17,13 +17,7 @@ feature 'Manager', %q{
     visit admin_root_path
   end
 
-  scenario 'Manager successfully logging into admin area' do
-    expect(current_path).to eq(admin_root_path)
-    expect(page).to have_content 'Панель управления'
-    expect(page).to have_link 'Аукционы', href: admin_auctions_path, count: 2
-    expect(page).to have_link 'Категории', href: admin_categories_path, count: 2
-    expect(page).to have_link 'Товары', href: admin_products_path, count: 2
-  end
+  it_behaves_like 'Auction manager'
 
   scenario 'can manage products' do
     has_access_to new_admin_product_path
