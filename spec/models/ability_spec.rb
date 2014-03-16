@@ -10,12 +10,17 @@ describe Ability do
     it { should be_able_to :manage, :all }
   end
 
+  describe 'manager' do
+    let(:user) { create(:manager) }
+
+    it_behaves_like 'manager'
+  end
+
   describe 'user' do
     let(:user) { create(:user) }
 
     it_behaves_like 'guest'
-    it { should be_able_to :create, Bid }
-    it { should be_able_to :manage, :profile }
+    it_behaves_like 'user'
   end
 
   describe 'guest' do

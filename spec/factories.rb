@@ -11,6 +11,11 @@ FactoryGirl.define do
       password_confirmation 'topsecret'
       role 'admin'
     end
+
+    factory :manager do
+      email 'manager@test.com'
+      role 'manager'
+    end
   end
 
   factory :avatar do

@@ -78,14 +78,14 @@ group :development, :test do
   gem 'letter_opener'
   gem 'pry-rails'
   gem 'pry-plus'
-  gem 'factory_girl_rails'
-  gem 'capybara-webkit'
-  gem 'database_cleaner'
-  gem 'timecop'
 end
 
 group :test do
   gem 'shoulda-matchers'
   gem 'capybara'
   gem 'webmock'
+  gem 'factory_girl_rails'
+  gem 'capybara-webkit'
+  gem 'database_cleaner'
+  gem 'timecop'
 end

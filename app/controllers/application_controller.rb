@@ -6,7 +6,13 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
   rescue_from CanCan::AccessDenied do
-    redirect_to :root, alert: t('devise.failure.unauthorized') #, status: 403
+    # status: 403
+    if signed_in?
+      redirect_to :root, alert: t('devise.failure.unauthorized')
+    else
+      session[:return_to] = request.path
+      redirect_to new_user_session_path, alert: t('devise.failure.unauthenticated')
+    end
   end
 
   protected
