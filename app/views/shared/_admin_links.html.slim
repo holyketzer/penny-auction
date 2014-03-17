@@ -1,0 +1,4 @@
+li= link_to t('admin.products.index.title'), admin_products_path
+li= link_to t('admin.categories.index.title'), admin_categories_path
+li= link_to t('admin.auctions.index.title'), admin_auctions_path
+li= link_to t('admin.users.index.title'), admin_users_path if can?(:manage, User)

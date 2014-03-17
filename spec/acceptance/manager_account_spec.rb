@@ -19,6 +19,13 @@ feature 'Manager', %q{
 
   it_behaves_like 'Auction manager'
 
+  scenario 'Manager see additional buttons' do
+    visit admin_root_path
+
+    expect(page).to have_link 'На сайт', href: root_path
+    expect(page).to_not have_link 'Пользователи', href: admin_users_path
+  end
+
   scenario 'can manage products' do
     has_access_to new_admin_product_path
     has_access_to admin_products_path

@@ -28,10 +28,11 @@ feature 'Admin panel', %q{
 
     it_behaves_like 'Auction manager'
 
-    scenario 'Admin see "user mode" button' do
+    scenario 'Admin see additional buttons' do
       visit admin_root_path
 
       expect(page).to have_link 'На сайт', href: root_path
+      expect(page).to have_link 'Пользователи', href: admin_users_path, count: 2
     end
   end
 

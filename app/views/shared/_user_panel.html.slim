@@ -1,6 +1,6 @@
 .user-nav
   - if user_signed_in?
-    - if current_user.is_admin?
+    - if can? :read, :admin_panel
       - if request.path.starts_with?(admin_root_path)
         =' link_to t('helpers.links.user_mode'), root_path, class: 'btn btn-success'
       - else
