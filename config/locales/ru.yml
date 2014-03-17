@@ -58,6 +58,9 @@ ru:
         title: 'Новый товар'
       edit:
         title: 'Редактирование товара'
+    users:
+      index:
+        title: 'Пользователи'
   activerecord:
     attributes:
       auction:
@@ -96,11 +99,13 @@ ru:
         shop_price: 'Цена'
         category_id: 'Категория'
       user:
+        avatar: 'Аватар'
         email: 'Email'
         password: 'Пароль'
         password_confirmation: 'Подтверждение пароля'
         nickname: 'Ник'
         remember_me: 'Запомнить меня'
+        role: 'Роль'
     models:
       category: 'Категория'
       image: 'Изображение'

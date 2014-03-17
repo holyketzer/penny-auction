@@ -1,0 +1,19 @@
+- model_class = User
+div.page-header
+  h1 = @user.nickname
+
+- if @user.avatar
+  = image_tag @user.avatar.thumb_url
+
+p
+  strong = model_class.human_attribute_name(:email) + ':'
+  br
+  = @user.email
+
+p
+  strong = model_class.human_attribute_name(:role) + ':'
+  br
+  = @user.role
+
+.form-actions
+  = link_to t('helpers.links.back'), :back, class: 'btn'

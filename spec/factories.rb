@@ -1,20 +1,24 @@
 FactoryGirl.define do
   factory :user do
-    sequence(:email) { |n| "user#{n}@test.com" }
+    sequence(:email) { |n| "user-#{n}@test.com" }
     password '12345678'
     password_confirmation '12345678'
     sequence(:nickname) { |n| "user#{n}" }
 
     factory :admin do
-      email 'admin@test.com'
+      sequence(:email) { |n| "admin-#{n}@test.com" }
       password 'topsecret'
       password_confirmation 'topsecret'
       role 'admin'
     end
 
     factory :manager do
-      email 'manager@test.com'
+      sequence(:email) { |n| "manager-#{n}@test.com" }
       role 'manager'
+    end
+
+    trait :with_avatar do
+      avatar
     end
   end
 

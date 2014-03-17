@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature "Admin can manage products", %q{
+feature 'Admin can manage products', %q{
   In order to sell the products
   As an admin
   I want to be able to manage products
@@ -8,15 +8,15 @@ feature "Admin can manage products", %q{
 
   let(:path) { admin_products_path }
   let(:admin) { create(:admin) }
-    
+
   let!(:category) { create(:category) }
   let!(:new_category) { create(:new_category) }
   let!(:product) { create(:product, category: category) }
-  let!(:new_product) { build(:new_product, category: new_category) }  
+  let!(:new_product) { build(:new_product, category: new_category) }
 
-  it_behaves_like "Admin accessible"
+  it_behaves_like 'Admin accessible'
 
-  context "admin" do
+  context 'admin' do
     background do
       login admin
     end
@@ -26,14 +26,14 @@ feature "Admin can manage products", %q{
 
       expect(page).to have_link 'Создать', href: new_admin_product_path
       expect(page).to have_content 'Товары'
-      
+
       within '.list-header' do
         expect(page).to have_content 'Название'
         expect(page).to have_content 'Описание'
         expect(page).to have_content 'Цена'
         expect(page).to have_content 'Категория'
       end
-      
+
       within '.list-item' do
         expect(page).to have_content product.name
         expect(page).to have_content product.description
@@ -74,11 +74,11 @@ feature "Admin can manage products", %q{
       fill_in 'Цена', with: new_product.shop_price
       select new_product.category.name, from: 'Категория'
       expect { click_on 'Сохранить'  }.to change(Product, :count).by(0)
-      
+
       expect_to_be_on_product_show_page new_product
       expect(page).to have_content 'Товар сохранён'
     end
-    
+
     scenario 'Admin upload two images and associate it with existing product, then deletes first one' do
       # TODO: Looks like CarrierWave doesn't support russian file names, fix it
       # expect_to_upload_image 'spec/support/images/красивая картинка.jpg'
@@ -94,7 +94,7 @@ feature "Admin can manage products", %q{
 
     scenario 'Admin deletes existing product' do
       visit path
-      
+
       expect(page).to have_content product.name
       expect { click_on 'Удалить' }.to change(Product, :count).by(-1)
 

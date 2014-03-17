@@ -17,4 +17,5 @@ shared_examples_for 'manager' do
   it { should be_able_to :manage, Product }
   it { should be_able_to :manage, Category }
   it { should be_able_to :manage, Auction }
+  it { should be_able_to :read, :admin_panel }
 end
