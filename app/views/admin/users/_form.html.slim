@@ -1,0 +1,19 @@
+= form_for [:admin, @user], html: { class: "form-horizontal" } do |f|
+  = render 'shared/validation_errors', resource: @user
+  .wide-form
+    .control-group
+      = f.label :email, class: 'control-label'
+      .controls.field-value = @user.email
+    .control-group
+      = f.label :nickname, class: 'control-label'
+      .controls.field-value = @user.nickname
+
+    .control-group
+      = f.label :role, class: 'control-label'
+      .controls
+        = f.select :role, User::ROLES, {}, class: 'selectpicker'
+
+  .form-actions
+    = f.submit t('helpers.links.save'), class: 'btn btn-primary'
+    '
+    = link_to t('helpers.links.cancel'), :back, class: 'btn'

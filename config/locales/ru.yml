@@ -61,6 +61,8 @@ ru:
     users:
       index:
         title: 'Пользователи'
+      edit:
+        title: 'Редактирование прав пользователя'
   activerecord:
     attributes:
       auction:

@@ -39,6 +39,7 @@ feature 'Admin can manage users', %q{
           expect(page).to have_content dude.email
           expect(page).to have_content dude.nickname
           expect(page).to have_content dude.role
+          expect(page).to have_link 'Изменить', href: edit_admin_user_path(dude)
         end
       end
     end
@@ -55,6 +56,19 @@ feature 'Admin can manage users', %q{
         expect(page).to have_content dude.email
         expect(page).to have_content dude.role
       end
+    end
+
+    scenario 'Admin grant manager rights to user' do
+      visit edit_admin_user_path(user)
+
+      expect(page).to have_content 'Редактирование прав пользователя'
+      expect(page).to have_content user.email
+      expect(page).to have_content user.nickname
+      select 'manager', from: 'Роль'
+      click_on 'Сохранить'
+
+      expect(current_path).to eq admin_user_path(user)
+      expect(page).to have_content 'manager'
     end
   end
 end
