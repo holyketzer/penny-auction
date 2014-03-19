@@ -38,7 +38,7 @@ feature 'Admin can manage users', %q{
           expect(image_src).to eq(dude.avatar.small_thumb_url)
           expect(page).to have_content dude.email
           expect(page).to have_content dude.nickname
-          expect(page).to have_content dude.role
+          expect(page).to have_content dude.role.name
           expect(page).to have_link 'Изменить', href: edit_admin_user_path(dude)
         end
       end
@@ -54,7 +54,7 @@ feature 'Admin can manage users', %q{
 
         expect(image_src).to eq(dude.avatar.thumb_url)
         expect(page).to have_content dude.email
-        expect(page).to have_content dude.role
+        expect(page).to have_content dude.role.name
       end
     end
 

@@ -7,13 +7,13 @@ table.table.table-striped
       th = model_class.human_attribute_name(:avatar)
       th = model_class.human_attribute_name(:email)
       th = model_class.human_attribute_name(:nickname)
-      th = model_class.human_attribute_name(:role)
+      th = model_class.human_attribute_name(:role_id)
       th
   tbody
-    - @users.order(:role).each do |user|
+    - @users.each do |user|
       tr.list-item
         td = link_to((image_tag user.avatar.small_thumb_url), [:admin, user]) if user.avatar
         td = link_to user.email, [:admin, user]
         td = user.nickname
-        td = user.role
+        td = user.role.name
         td = link_to t('helpers.links.edit'), edit_admin_user_path(user), class: 'btn btn-mini'

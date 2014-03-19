@@ -10,6 +10,6 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def build_resource_params
-    [params.fetch(:user, {}).permit(:role)]
+    [params.fetch(:user, {}).permit(:role_id)]
   end
 end

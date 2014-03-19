@@ -9,9 +9,9 @@
       .controls.field-value = @user.nickname
 
     .control-group
-      = f.label :role, class: 'control-label'
+      = f.label :role_id, class: 'control-label'
       .controls
-        = f.select :role, User::ROLES, {}, class: 'selectpicker'
+        = f.collection_select :role_id, Role.order(:name), :id, :name, class: 'selectpicker'
 
   .form-actions
     = f.submit t('helpers.links.save'), class: 'btn btn-primary'

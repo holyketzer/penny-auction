@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_many :authorizations
   has_many :bids
   has_one :avatar
+  belongs_to :role
 
   validates :nickname, presence: true
   validates :nickname, uniqueness: { case_sensitive: false }
@@ -14,11 +15,10 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook, :vkontakte]
 
-  ROLES = %w[admin manager user bot]
+  before_create { |user| user.role = Role.default_role unless user.role }
 
-  # Define is_admin? and same role methods
-  ROLES.each do |role|
-    define_method("is_#{role}?") { self.role == role }
+  def is_admin?
+    role && role.name == 'admin'
   end
 
   def self.find_for_oauth(auth)

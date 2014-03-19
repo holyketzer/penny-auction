@@ -108,7 +108,7 @@ ru:
         password_confirmation: 'Подтверждение пароля'
         nickname: 'Ник'
         remember_me: 'Запомнить меня'
-        role: 'Роль'
+        role_id: 'Роль'
     models:
       category: 'Категория'
       image: 'Изображение'

@@ -4,17 +4,18 @@ FactoryGirl.define do
     password '12345678'
     password_confirmation '12345678'
     sequence(:nickname) { |n| "user#{n}" }
+    role Role.find_by(name: 'user')
 
     factory :admin do
       sequence(:email) { |n| "admin-#{n}@test.com" }
       password 'topsecret'
       password_confirmation 'topsecret'
-      role 'admin'
+      role Role.find_by(name: 'admin')
     end
 
     factory :manager do
       sequence(:email) { |n| "manager-#{n}@test.com" }
-      role 'manager'
+      role Role.find_by(name: 'manager')
     end
 
     trait :with_avatar do

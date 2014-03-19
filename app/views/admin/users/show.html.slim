@@ -11,9 +11,9 @@ p
   = @user.email
 
 p
-  strong = model_class.human_attribute_name(:role) + ':'
+  strong = model_class.human_attribute_name(:role_id) + ':'
   br
-  = @user.role
+  = @user.role.name
 
 .form-actions
   = link_to t('helpers.links.back'), admin_users_path, class: 'btn'

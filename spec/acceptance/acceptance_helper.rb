@@ -12,10 +12,13 @@ RSpec.configure do |config|
 
   config.include Features::SessionsHelpers, type: :feature
   config.include Features::CapybaraHelper
-  config.include ApplicationHelper  
+  config.include ApplicationHelper
+
+  config.add_setting(:seed_tables)
+  config.seed_tables = %w(roles)
 
   config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.clean_with(:truncation, except: config.seed_tables)
   end
 
   config.before(:each) do
@@ -23,7 +26,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each, js: true) do
-    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.strategy = :truncation, {except: config.seed_tables}
   end
 
   config.before(:each) do
