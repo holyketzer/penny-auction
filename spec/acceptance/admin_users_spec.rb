@@ -70,5 +70,12 @@ feature 'Admin can manage users', %q{
       expect(current_path).to eq admin_user_path(user)
       expect(page).to have_content 'manager'
     end
+
+    scenario 'Admin can not change his own role' do
+      visit edit_admin_user_path(admin)
+
+      expect(current_path).to eq admin_users_path
+      expect(page).to have_content 'Вы не можете изменить свою роль'
+    end
   end
 end

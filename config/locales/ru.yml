@@ -13,6 +13,7 @@ ru:
       user_mode: 'На сайт'
   messages:
     create_product: 'Невозможно создать аукцион. Сначала создайте хотя бы один товар'
+    cant_change_role: 'Вы не можете изменить свою роль'
   index:
     auctions: 'Текущие аукционы'
   auctions:
