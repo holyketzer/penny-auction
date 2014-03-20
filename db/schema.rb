@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140319194428) do
+ActiveRecord::Schema.define(version: 20140320062440) do
 
   create_table "auctions", force: true do |t|
     t.integer  "product_id"
@@ -75,6 +75,18 @@ ActiveRecord::Schema.define(version: 20140319194428) do
   end
 
   add_index "images", ["imageable_id", "imageable_type"], name: "index_images_on_imageable_id_and_imageable_type"
+
+  create_table "permissions", force: true do |t|
+    t.string   "name"
+    t.string   "action"
+    t.string   "subject"
+    t.integer  "subject_id"
+    t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "permissions", ["role_id"], name: "index_permissions_on_role_id"
 
   create_table "products", force: true do |t|
     t.string   "name"

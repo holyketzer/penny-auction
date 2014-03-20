@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :bids
   has_one :avatar
   belongs_to :role
+  has_many :permissions, through: :role
 
   validates :nickname, presence: true
   validates :nickname, uniqueness: { case_sensitive: false }
