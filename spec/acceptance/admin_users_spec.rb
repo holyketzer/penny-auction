@@ -1,7 +1,7 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Admin can manage users', %q{
-  In order to appoint managers nad bots
+  In order to appoint managers and bots
   As an admin
   I want to be able to manage users
  } do

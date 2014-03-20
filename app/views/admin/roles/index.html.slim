@@ -1,0 +1,13 @@
+- model_class = Role
+div.page-header
+  h1 = t '.title'
+table.table.table-striped
+  thead.list-header
+    tr
+      th = model_class.human_attribute_name(:name)
+      th
+  tbody
+    - @roles.each do |role|
+      tr.list-item
+        td = link_to role.name, [:admin, role]
+        td = link_to t('helpers.links.edit'), edit_admin_role_path(role), class: 'btn btn-mini'

@@ -33,6 +33,7 @@ feature 'Admin panel', %q{
 
       expect(page).to have_link 'На сайт', href: root_path
       expect(page).to have_link 'Пользователи', href: admin_users_path, count: 2
+      expect(page).to have_link 'Роли', href: admin_roles_path, count: 2
     end
   end
 

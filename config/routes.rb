@@ -28,6 +28,8 @@ PennyAuction::Application.routes.draw do
 
     resources :users, only: [:index, :show, :edit, :update]
 
+    resources :roles, only: [:index, :show, :edit, :update]
+
     get 'image-selector/:product_id', to: 'auctions#image_selector'
   end
 

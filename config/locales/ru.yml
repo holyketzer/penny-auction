@@ -59,6 +59,9 @@ ru:
         title: 'Новый товар'
       edit:
         title: 'Редактирование товара'
+    roles:
+      index:
+        title: 'Роли'
     users:
       index:
         title: 'Пользователи'
@@ -101,6 +104,8 @@ ru:
         description: 'Описание'
         shop_price: 'Цена'
         category_id: 'Категория'
+      role:
+        name: 'Название'
       user:
         avatar: 'Аватар'
         email: 'Email'

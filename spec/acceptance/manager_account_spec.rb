@@ -24,6 +24,7 @@ feature 'Manager', %q{
 
     expect(page).to have_link 'На сайт', href: root_path
     expect(page).to_not have_link 'Пользователи', href: admin_users_path
+    expect(page).to_not have_link 'Роли', href: admin_roles_path
   end
 
   scenario 'can manage products' do
