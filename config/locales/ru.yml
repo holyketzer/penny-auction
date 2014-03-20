@@ -11,9 +11,14 @@ ru:
       upload_image: 'Загрузить изображение'
       admin_mode: 'В админку'
       user_mode: 'На сайт'
+      turn_on: 'Включить'
+      turn_off: 'Выключить'
   messages:
     create_product: 'Невозможно создать аукцион. Сначала создайте хотя бы один товар'
     cant_change_role: 'Вы не можете изменить свою роль'
+    turned_on: 'Включено'
+    turned_off: 'Выключено'
+    cant_edit_admin_role: 'Невозможно изменить права для администратора'
   index:
     auctions: 'Текущие аукционы'
   auctions:
@@ -52,6 +57,9 @@ ru:
     images:
       form:
         title: 'Добавить изображение'
+    permissions:
+      index:
+        title: 'Настройка роли'
     products:
       index:
         title: 'Товары'
@@ -99,6 +107,9 @@ ru:
         image: 'Изображение'
       image:
         source: 'Картинка'
+      permission:
+        name: 'Права'
+        status: 'Состояние'
       product:
         name: 'Название'
         description: 'Описание'

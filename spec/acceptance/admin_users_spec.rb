@@ -58,7 +58,7 @@ feature 'Admin can manage users', %q{
       end
     end
 
-    scenario 'Admin grant manager rights to user' do
+    scenario 'Admin grant manager role to user' do
       visit edit_admin_user_path(user)
 
       expect(page).to have_content 'Редактирование прав пользователя'

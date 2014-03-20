@@ -15,7 +15,7 @@ RSpec.configure do |config|
   config.include ApplicationHelper
 
   config.add_setting(:seed_tables)
-  config.seed_tables = %w(roles)
+  config.seed_tables = %w(roles permissions role_permissions)
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation, except: config.seed_tables)

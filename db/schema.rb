@@ -81,12 +81,9 @@ ActiveRecord::Schema.define(version: 20140320062440) do
     t.string   "action"
     t.string   "subject"
     t.integer  "subject_id"
-    t.integer  "role_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "permissions", ["role_id"], name: "index_permissions_on_role_id"
 
   create_table "products", force: true do |t|
     t.string   "name"
@@ -98,6 +95,16 @@ ActiveRecord::Schema.define(version: 20140320062440) do
   end
 
   add_index "products", ["category_id"], name: "index_products_on_category_id"
+
+  create_table "role_permissions", force: true do |t|
+    t.integer  "role_id"
+    t.integer  "permission_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "role_permissions", ["permission_id"], name: "index_role_permissions_on_permission_id"
+  add_index "role_permissions", ["role_id"], name: "index_role_permissions_on_role_id"
 
   create_table "roles", force: true do |t|
     t.string "name"

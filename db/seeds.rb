@@ -1,29 +1,27 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
-[
-  { name: 'admin' },
-  { name: 'manager' },
-  { name: 'user' },
-  { name: 'bot' }
-].each do |role|
-  r = Role.where(role).first
-  Role.create!(role) unless p.present?
-end
+bot_permissions = []
 
-[
+user_permissions = [
+  { name: 'Просмотр аукционов', action: :read, subject: 'Auction' },
+  { name: 'Ставки', action: :create, subject: 'Bid' },
+  { name: 'Профиль', action: :manage, subject: :profile }
+]
+
+manager_permissions = user_permissions + [
   { name: 'Категории', action: :manage, subject: 'Category' },
   { name: 'Товары', action: :manage, subject: 'Product' },
   { name: 'Аукционы', action: :manage, subject: 'Auction' },
+  { name: 'Панель управления', action: :read, subject: :admin_panel }
+]
+
+admin_permissions = manager_permissions + [
   { name: 'Пользователи', action: :manage, subject: 'User' },
-  { name: 'Права', action: :manage, subject: 'Permission' },
+  { name: 'Права', action: :manage, subject: 'Permission' }
+]
 
-  { name: 'Панель управления', action: :read, subject: :admin_panel },
-  { name: 'Просмотр аукционов', action: :read, subject: 'Auction' },
-
-  { name: 'Ставки', action: :create, subject: 'Bid' },
-  { name: 'Профиль', action: :manage, subject: :profile }
-].each do |permission|
+admin_permissions.each do |permission|
   name = permission.delete(:name)
   p = Permission.where(permission).first
   if p.present?
@@ -31,4 +29,27 @@ end
   else
     Permission.create!(permission.merge(name: name))
   end
+end
+
+RolePermission.delete_all
+
+roles = [
+  { name: 'admin' },
+  { name: 'manager' },
+  { name: 'user' },
+  { name: 'bot' }
+]
+
+roles.each do |role|
+  r = Role.where(role).first
+  r = Role.create!(role) unless r.present?
+  puts "Role #{r.name}"
+
+  permissions = eval("#{role[:name]}_permissions")
+  permissions.each do |permission_hash|
+    permission = Permission.where(permission_hash).first
+    r.permissions << permission
+    puts "   granted permission #{permission.name}"
+  end
+  r.save!
 end
