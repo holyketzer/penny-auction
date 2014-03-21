@@ -2,13 +2,10 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    role = user && user.role.name
-    if role == 'admin'
+    if user && user.is_admin?
       admin_abilities
-    elsif role == 'manager'
-      manager_abilities
-    elsif role == 'user'
-      user_abilities
+    elsif user
+      user_abilities(user)
     else
       guest_abilities
     end
@@ -18,19 +15,19 @@ class Ability
     can :manage, :all
   end
 
-  def manager_abilities
-    user_abilities
-
-    can :manage, Product
-    can :manage, Category
-    can :manage, Auction
-    can :read, :admin_panel
-  end
-
-  def user_abilities
-    can :read, Auction
-    can :create, Bid
-    can :manage, :profile
+  def user_abilities(user)
+    user.permissions.each do |p|
+      begin
+        subject = p.subject.constantize
+        if p.subject_id
+          can p.action.to_sym, subject, id: p.subject_id
+        else
+          can p.action.to_sym, subject
+        end
+      rescue NameError
+        can p.action.to_sym, p.subject.to_sym
+      end
+    end
   end
 
   def guest_abilities
