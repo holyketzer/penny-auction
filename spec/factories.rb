@@ -37,7 +37,7 @@ FactoryGirl.define do
   end
 
   factory :category do
-    name 'Смарфтоны'
+    sequence(:name) { |n| "Техника-№#{n}" }
     description 'Телефоны с большим сенсорным экраном'
 
     factory :main_category do
@@ -68,6 +68,7 @@ FactoryGirl.define do
     name 'Телефон Nexus 4'
     description 'Всегда последняя версия Android'
     shop_price 9999.99
+    category
     before(:create) do |product|
       FactoryGirl.create_list(:image, 1, imageable: product)
     end
@@ -77,6 +78,7 @@ FactoryGirl.define do
     name 'iPhone 5U'
     description 'Новый мега-смартфон'
     shop_price 18888.88
+    category
   end
 
   factory :auction do
