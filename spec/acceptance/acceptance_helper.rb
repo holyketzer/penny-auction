@@ -17,6 +17,10 @@ RSpec.configure do |config|
   config.add_setting(:seed_tables)
   config.seed_tables = %w(roles permissions role_permissions)
 
+  config.before(:all) do
+    PennyAuction::Application.load_seed
+  end
+
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation, except: config.seed_tables)
   end

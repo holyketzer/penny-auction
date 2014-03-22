@@ -31,8 +31,6 @@ admin_permissions.each do |permission|
   end
 end
 
-RolePermission.delete_all
-
 roles = [
   { name: 'admin' },
   { name: 'manager' },
@@ -40,16 +38,17 @@ roles = [
   { name: 'bot' }
 ]
 
-roles.each do |role|
-  r = Role.where(role).first
-  r = Role.create!(role) unless r.present?
-  puts "Role #{r.name}"
+roles.each do |role_hash|
+  role = Role.where(role_hash).first
+  role = Role.create!(role_hash) unless role.present?
+  puts "Role #{role.name}"
 
-  permissions = eval("#{role[:name]}_permissions")
-  permissions.each do |permission_hash|
-    permission = Permission.where(permission_hash).first
-    r.permissions << permission
-    puts "   granted permission #{permission.name}"
+  if role.permissions.empty?
+    permissions = eval("#{role.name}_permissions")
+    permissions.each do |permission_hash|
+      permission = Permission.where(permission_hash).first
+      role.permissions << permission
+      puts "   granted permission #{permission.name}"
+    end
   end
-  r.save!
 end
