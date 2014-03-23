@@ -7,4 +7,12 @@ class Role < ActiveRecord::Base
   def self.default_role
     find_by name: 'user'
   end
+
+  def self.bot
+    find_by name: 'bot'
+  end
+
+  def self.admin
+    find_by name: 'admin'
+  end
 end

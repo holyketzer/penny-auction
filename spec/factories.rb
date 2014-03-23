@@ -18,6 +18,11 @@ FactoryGirl.define do
       role Role.find_by(name: 'manager')
     end
 
+    factory :bot do
+      sequence(:email) { |n| "bot-#{n}@test.com" }
+      role Role.find_by(name: 'bot')
+    end
+
     trait :with_avatar do
       avatar
     end

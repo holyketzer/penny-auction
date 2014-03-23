@@ -18,8 +18,18 @@ class User < ActiveRecord::Base
 
   before_create { |user| user.role = Role.default_role unless user.role }
 
-  def is_admin?
-    role && role.name == 'admin'
+  scope :bots, -> { where(role: Role.bot) }
+
+  def self.random_bot
+    bots.order('RANDOM()').first
+  end
+
+  def admin?
+    role == Role.admin
+  end
+
+  def bot?
+    role == Role.bot
   end
 
   def self.find_for_oauth(auth)
