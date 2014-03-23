@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe Ability do
+  # Initialize abilities
+  before(:all) { PennyAuction::Application.load_seed }
+
   subject(:ability) { Ability.new(user) }
   let(:user) { nil }
 
@@ -18,6 +21,13 @@ describe Ability do
 
   describe 'user' do
     let(:user) { create(:user) }
+
+    it_behaves_like 'guest'
+    it_behaves_like 'user'
+  end
+
+  describe 'bot' do
+    let(:user) { create(:bot) }
 
     it_behaves_like 'guest'
     it_behaves_like 'user'

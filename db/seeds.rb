@@ -1,13 +1,13 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
-bot_permissions = []
-
 user_permissions = [
   { name: 'Просмотр аукционов', action: :read, subject: 'Auction' },
   { name: 'Ставки', action: :create, subject: 'Bid' },
   { name: 'Профиль', action: :manage, subject: :profile }
 ]
+
+bot_permissions = user_permissions
 
 manager_permissions = user_permissions + [
   { name: 'Категории', action: :manage, subject: 'Category' },
