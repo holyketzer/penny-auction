@@ -70,7 +70,7 @@ FactoryGirl.define do
   end
 
   factory :product do
-    name 'Телефон Nexus 4'
+    sequence(:name) { |n| "Телефон Nexus #{n}" }
     description 'Всегда последняя версия Android'
     shop_price 9999.99
     category
@@ -94,8 +94,19 @@ FactoryGirl.define do
     bid_time_step 120
     bid_price_step 20.5
     product
-    before(:create) do |auction|
+
+    ignore do
+      finish_time nil
+    end
+
+    before(:create) do |auction, evaluator|
       auction.image = auction.product.images.first
+      if evaluator.finish_time
+        auction.start_time = evaluator.finish_time - auction.duration.seconds
+        # p 'evaluator'
+        # p auction.valid?
+        # p evaluator.finish_time
+      end
     end
 
     trait :not_started do

@@ -14,6 +14,11 @@ class Auction < ActiveRecord::Base
 
   before_create { |auction| auction.price = auction.start_price }
 
+  def self.finished_soon
+    # TODO: use PostgreSQL
+    Auction.all.select { |a| (a.time_left <= 5.seconds) && (a.time_left > 1.second) }
+  end
+
   def started?
     start_time < Time.now
   end

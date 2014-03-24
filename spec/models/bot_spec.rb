@@ -40,4 +40,25 @@ describe Bot do
       end
     end
   end
+
+  describe '#perform' do
+    let!(:auctions) { create_list(:auction, 5) }
+    let!(:bot) { Bot.new }
+
+    after { bot.perform }
+
+    it 'calls make_bid method for ended soon auctions' do
+      allow(Auction).to receive(:finished_soon).and_return(auctions)
+      auctions.each do |auction|
+        expect(Bot).to receive(:make_bid).with(auction)
+      end
+    end
+
+    it 'does not call make_bid method for non ended soon auctions' do
+      allow(Auction).to receive(:finished_soon).and_return([auctions.first])
+      auctions[1..-1].each do |auction|
+        expect(Bot).to_not receive(:make_bid).with(auction)
+      end
+    end
+  end
 end

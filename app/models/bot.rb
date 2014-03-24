@@ -5,4 +5,8 @@ class Bot
       Bid.create(auction: auction, user: User.random_bot)
     end
   end
+
+  def perform
+    Auction.finished_soon.each { |auction| Bot.make_bid(auction) }
+  end
 end
