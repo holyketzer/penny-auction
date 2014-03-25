@@ -1,6 +1,6 @@
 == README
 
-=== Penny auction 
+=== Penny auction
 
 What is it? See http://en.wikipedia.org/wiki/Bidding_fee_auction
 
@@ -14,9 +14,15 @@ Some tests need some prerequesites before use bundle install command, in Ubuntu 
 
 For capybara-webkit (https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit):
     sudo apt-get install qt4-qmake libqt4-dev
-    
+
 For Carrierwave imagemagick processing:
     sudo apt-get install imagemagick
-    
+
+=== Development prerequisites
+
 Before running app in development or test modes you should also run private_pub Faye wrapper (Faye is a publish-subscribe messaging system):
     rackup private_pub.ru -s thin -E production
+
+Bot subsystem uses Sidekiq gem so you need runned Redis for using this feature
+    redis-server
+    sidekiq

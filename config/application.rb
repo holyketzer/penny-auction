@@ -27,13 +27,17 @@ module PennyAuction
     config.generators do |generate|
       generate.assets false
       generate.jbuilder false
-      generate.helper false      
-      
+      generate.helper false
+
       # specs
       generate.controller_specs false
       generate.helper_specs false
       generate.routing_specs false
       generate.view_specs false
+    end
+
+    Sidekiq.configure_server do |config|
+      config.poll_interval = 1
     end
   end
 end

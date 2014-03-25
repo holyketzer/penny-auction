@@ -37,8 +37,10 @@ gem 'ancestry'
 gem 'carrierwave'
 gem 'mini_magick' # ensure that imagemagick is installed: 'sudo apt-get install imagemagick'
 gem 'slim-rails'
-gem 'devise'
 gem 'inherited_resources'
+
+# Authentication
+gem 'devise'
 
 # Comet (browser push)
 gem 'private_pub'
@@ -54,6 +56,11 @@ gem 'figaro'
 
 # Authorization
 gem 'cancan'
+
+# Delayed and sceduled jobs
+gem 'sidekiq'
+gem 'sidetiq'
+gem 'sinatra', '>= 1.3.0', require: false
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

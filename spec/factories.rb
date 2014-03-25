@@ -103,9 +103,6 @@ FactoryGirl.define do
       auction.image = auction.product.images.first
       if evaluator.finish_time
         auction.start_time = evaluator.finish_time - auction.duration.seconds
-        # p 'evaluator'
-        # p auction.valid?
-        # p evaluator.finish_time
       end
     end
 

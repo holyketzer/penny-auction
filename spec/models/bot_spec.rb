@@ -1,4 +1,5 @@
 require 'spec_helper'
+Sidekiq::Testing.inline!
 
 describe Bot do
   describe '.make_bid' do

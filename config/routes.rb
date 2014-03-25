@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 PennyAuction::Application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -33,6 +35,10 @@ PennyAuction::Application.routes.draw do
     end
 
     get 'image-selector/:product_id', to: 'auctions#image_selector'
+
+    authenticate :user, lambda { |u| u.admin? } do
+      mount Sidekiq::Web => '/sidekiq'
+    end
   end
 
   # Example resource route with options:

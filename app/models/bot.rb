@@ -1,4 +1,9 @@
 class Bot
+  include Sidekiq::Worker
+  include Sidetiq::Schedulable
+
+  recurrence { secondly(1) }
+
   def self.make_bid(auction)
     prev_bid = auction.bids.last
     if !prev_bid || !prev_bid.user.bot?
@@ -7,6 +12,6 @@ class Bot
   end
 
   def perform
-    Auction.finished_soon.each { |auction| Bot.make_bid(auction) }
+    Auction.finished_soon.each { |auction| Bot.delay.make_bid(auction) }
   end
 end
