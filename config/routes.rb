@@ -28,7 +28,7 @@ PennyAuction::Application.routes.draw do
 
     resources :auctions
 
-    resources :users, only: [:index, :show, :edit, :update]
+    resources :users, only: [:index, :show, :new, :create, :edit, :update]
 
     resources :roles, only: [:index, :show] do
       resources :permissions, only: [:index, :create, :destroy]

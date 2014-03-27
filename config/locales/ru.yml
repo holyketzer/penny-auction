@@ -2,6 +2,7 @@ ru:
   helpers:
     links:
       new: 'Создать'
+      new_bot: 'Добавить бота'
       save: 'Сохранить'
       edit: 'Изменить'
       destroy: 'Удалить'
@@ -73,6 +74,8 @@ ru:
     users:
       index:
         title: 'Пользователи'
+      new:
+        title: 'Создание бота'
       edit:
         title: 'Редактирование прав пользователя'
   activerecord:

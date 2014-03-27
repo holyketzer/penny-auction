@@ -1,17 +1,28 @@
 = form_for [:admin, @user], html: { class: "form-horizontal" } do |f|
   = render 'shared/validation_errors', resource: @user
+  - new_user = ['new', 'create'].include? action_name
+
   .wide-form
     .control-group
       = f.label :email, class: 'control-label'
-      .controls.field-value = @user.email
+      - if new_user
+        .controls
+          = f.email_field :email, class: 'text_field'
+      - else
+        .controls.field-value = @user.email
     .control-group
       = f.label :nickname, class: 'control-label'
-      .controls.field-value = @user.nickname
+      - if new_user
+        .controls
+          = f.text_field :nickname, class: 'text_field'
+      - else
+        .controls.field-value = @user.nickname
 
-    .control-group
-      = f.label :role_id, class: 'control-label'
-      .controls
-        = f.collection_select :role_id, Role.order(:name), :id, :name, class: 'selectpicker'
+    - unless new_user
+      .control-group
+        = f.label :role_id, class: 'control-label'
+        .controls
+          = f.collection_select :role_id, Role.order(:name), :id, :name, class: 'selectpicker'
 
   .form-actions
     = f.submit t('helpers.links.save'), class: 'btn btn-primary'

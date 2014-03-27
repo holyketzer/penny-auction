@@ -48,13 +48,7 @@ feature 'Admin can manage users', %q{
       users.each do |dude|
         visit admin_user_path dude
 
-        within '.page-header' do
-          expect(page).to have_content dude.nickname
-        end
-
-        expect(image_src).to eq(dude.avatar.thumb_url)
-        expect(page).to have_content dude.email
-        expect(page).to have_content dude.role.name
+        expect_user_view_page dude
       end
     end
 
@@ -76,6 +70,31 @@ feature 'Admin can manage users', %q{
 
       expect(current_path).to eq admin_users_path
       expect(page).to have_content 'Вы не можете изменить свою роль'
+    end
+
+    scenario 'Admin create a new bot' do
+      visit path
+      click_on 'Добавить бота'
+
+      expect(page).to have_content 'Создание бота'
+
+      bot = build(:bot)
+      fill_in 'Email', with: bot.email
+      fill_in 'Ник', with: bot.nickname
+      expect { click_on 'Сохранить' }.to change(User, :count).by(1)
+
+      expect(current_path).to match admin_user_path(id: '.+')
+      expect_user_view_page bot
+    end
+
+    def expect_user_view_page(dude)
+      within '.page-header' do
+        expect(page).to have_content dude.nickname
+      end
+
+      expect(image_src).to eq(dude.avatar.thumb_url) if dude.avatar
+      expect(page).to have_content dude.email
+      expect(page).to have_content dude.role.name
     end
   end
 end
