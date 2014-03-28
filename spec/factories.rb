@@ -23,6 +23,11 @@ FactoryGirl.define do
       role Role.find_by(name: 'bot')
     end
 
+    factory :locked_bot do
+      sequence(:email) { |n| "locked_bot-#{n}@test.com" }
+      role Role.find_by(name: 'locked_bot')
+    end
+
     trait :with_avatar do
       avatar
     end

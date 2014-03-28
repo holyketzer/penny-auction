@@ -1,6 +1,8 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
+locked_bot_permissions = []
+
 user_permissions = [
   { name: 'Просмотр аукционов', action: :read, subject: 'Auction' },
   { name: 'Ставки', action: :create, subject: 'Bid' },
@@ -35,7 +37,8 @@ roles = [
   { name: 'admin' },
   { name: 'manager' },
   { name: 'user' },
-  { name: 'bot' }
+  { name: 'bot' },
+  { name: 'locked_bot' }
 ]
 
 roles.each do |role_hash|

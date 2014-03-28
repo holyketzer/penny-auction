@@ -37,4 +37,11 @@ describe Ability do
     it_behaves_like 'guest'
     it { should_not be_able_to :create, Bid }
   end
+
+  describe 'locked bot' do
+    let(:user) { create(:locked_bot) }
+
+    it { should_not be_able_to :manage, :all }
+    it { should_not be_able_to :read, :all }
+  end
 end
