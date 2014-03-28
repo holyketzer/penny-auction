@@ -32,10 +32,8 @@ feature 'Admin can manage roles', %q{
       end
 
       roles.each do |role|
-        within '.list-item', text: role.name do
-          expect(page).to have_content role.name
-          expect(page).to have_link 'Изменить', href: admin_role_permissions_path(role)
-        end
+        expect(page).to have_content role.name
+        expect(page).to have_link 'Изменить', href: admin_role_permissions_path(role)
       end
     end
 
