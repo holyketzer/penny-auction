@@ -60,6 +60,13 @@ describe Auction do
           expect(auction.duration).to eq duration
         end
       end
+
+      describe '#publish_updates' do
+        it 'publish updates to channel /auctions/update' do
+          expect(PrivatePub).to receive(:publish_to).with('/auctions/update', auction_id: auction.id, time_left: auction.status_desc, price: auction.price)
+          auction.publish_updates
+        end
+      end
     end
   end
 
@@ -76,12 +83,10 @@ describe Auction do
       describe 'returns' do
         after { expect(Auction.finished_soon).to include(@auction) }
 
-        it 'finished in 2 seconds auction' do
-          @auction = create(:auction, finish_time: Time.now + 2.seconds)
-        end
-
-        it 'finished in 5 seconds auction' do
-          @auction = create(:auction, finish_time: Time.now + 5.seconds)
+        (2..5).each do |i|
+          it "finished in #{i} seconds auction" do
+            @auction = create(:auction, finish_time: Time.now + i.seconds)
+          end
         end
       end
 

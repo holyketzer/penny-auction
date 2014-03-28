@@ -1,6 +1,6 @@
 class Bid < ActiveRecord::Base
   belongs_to :auction
-  belongs_to :user  
+  belongs_to :user
 
   validates :auction, :user, presence: true
   validate :auction_active?, message: :auction_active
@@ -13,7 +13,7 @@ class Bid < ActiveRecord::Base
   private
 
   def auction_active?
-    if auction && !auction.active?      
+    if auction && !auction.active?
       if auction.finished?
         errors.add(:auction, :finished)
       else
@@ -30,5 +30,6 @@ class Bid < ActiveRecord::Base
 
   def update_auction
     auction.increase_price_and_time
+    auction.publish_updates
   end
 end

@@ -1,15 +1,16 @@
 require 'spec_helper'
 
 describe Bid do
-  let(:auction) { create(:auction) }  
+  let(:auction) { create(:auction) }
   let(:bid) { build(:bid, auction: auction) }
+  before { WebMock.allow_net_connect! }
 
-  describe 'associations' do    
+  describe 'associations' do
     it { should belong_to(:auction) }
     it { should belong_to(:user) }
   end
 
-  describe 'validations' do   
+  describe 'validations' do
     it { should validate_presence_of :auction }
     it { should validate_presence_of :user }
 
@@ -25,22 +26,28 @@ describe Bid do
 
     it 'not valid for same user twice' do
       allow(auction).to receive(:active?).and_return(true)
-      bid.save!      
+      bid.save!
 
       # reloading is needed to auction.bids filling
-      auction.reload       
+      auction.reload
       new_bid = build(:bid, auction: auction, user: bid.user)
-      
+
       expect(new_bid).to_not be_valid
     end
   end
 
   context 'when created' do
-    it "updates auction" do
+    before do
       allow(auction).to receive(:active?).and_return(true)
+    end
+    after { bid.save! }
 
+    it "updates auction" do
       expect(auction).to receive(:increase_price_and_time)
-      bid.save!
+    end
+
+    it 'publish updates of auction' do
+      expect(auction).to receive(:publish_updates)
     end
   end
 end
