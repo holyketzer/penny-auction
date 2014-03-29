@@ -63,7 +63,7 @@ describe Auction do
 
       describe '#publish_updates' do
         it 'publish updates to channel /auctions/update' do
-          expect(PrivatePub).to receive(:publish_to).with('/auctions/update', auction_id: auction.id, time_left: auction.status_desc, price: auction.price)
+          expect(PrivatePub).to receive(:publish_to).with('/auctions/update', auction_id: auction.id, time_left: status_desc(auction), price: auction.price)
           auction.publish_updates
         end
       end

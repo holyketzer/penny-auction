@@ -1,4 +1,6 @@
 class Auction < ActiveRecord::Base
+  include ApplicationHelper
+
   belongs_to :product
   belongs_to :image
   has_many :bids
@@ -54,31 +56,6 @@ class Auction < ActiveRecord::Base
   end
 
   def publish_updates
-    PrivatePub.publish_to '/auctions/update', auction_id: self.id, time_left: self.status_desc, price: self.price
-  end
-
-  def status_desc
-    status_desc_with do |delta|
-      Auction.timespan_to_s(delta)
-    end
-  end
-
-  def self.timespan_to_s(seconds)
-    hours = seconds / 3600
-    minutes = (seconds - hours*3600) / 60
-    seconds = seconds % 60
-    '%02d:%02d:%02d' % [hours, minutes, seconds]
-  end
-
-  private
-
-  def status_desc_with(&time_span_to_s)
-    if !self.started?
-      I18n.t('auctions.index.start_in', delta: time_span_to_s.call(self.start_in))
-    elsif self.finished?
-      I18n.t('auctions.index.finished_in', delta: time_span_to_s.call(-self.time_left))
-    else
-      I18n.t('auctions.index.finish_in', delta: time_span_to_s.call(self.time_left))
-    end
+    PrivatePub.publish_to '/auctions/update', auction_id: self.id, time_left: status_desc(self), price: self.price
   end
 end

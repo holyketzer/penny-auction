@@ -8,11 +8,26 @@ module ApplicationHelper
   end
 
   def status_desc(auction)
-    auction.status_desc
+    status_desc_with(auction) do |delta|
+      timespan_to_s(delta)
+    end
+  end
+
+  def status_desc_with(auction, &time_span_to_s)
+    if !auction.started?
+      I18n.t('auctions.index.start_in', delta: time_span_to_s.call(auction.start_in))
+    elsif auction.finished?
+      I18n.t('auctions.index.finished_in', delta: time_span_to_s.call(-auction.time_left))
+    else
+      I18n.t('auctions.index.finish_in', delta: time_span_to_s.call(auction.time_left))
+    end
   end
 
   def timespan_to_s(seconds)
-    Auction.timespan_to_s(seconds)
+    hours = seconds / 3600
+    minutes = (seconds - hours*3600) / 60
+    seconds = seconds % 60
+    '%02d:%02d:%02d' % [hours, minutes, seconds]
   end
 
   private

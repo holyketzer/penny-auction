@@ -44,14 +44,14 @@ roles = [
 roles.each do |role_hash|
   role = Role.where(role_hash).first
   role = Role.create!(role_hash) unless role.present?
-  puts "Role #{role.name}"
+  Rails.logger.debug "Role #{role.name}"
 
   if role.permissions.empty?
     permissions = eval("#{role.name}_permissions")
     permissions.each do |permission_hash|
       permission = Permission.where(permission_hash).first
       role.permissions << permission
-      puts "   granted permission #{permission.name}"
+      Rails.logger.debug "   granted permission #{permission.name}"
     end
   end
 end

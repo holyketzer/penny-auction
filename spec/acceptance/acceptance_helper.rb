@@ -12,7 +12,6 @@ RSpec.configure do |config|
 
   config.include Features::SessionsHelpers, type: :feature
   config.include Features::CapybaraHelper
-  config.include ApplicationHelper
 
   config.add_setting(:seed_tables)
   config.seed_tables = %w(roles permissions role_permissions)
