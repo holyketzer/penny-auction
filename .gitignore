@@ -18,6 +18,8 @@
 /public/uploads
 # Ignore application configuration
 /config/application.yml
+/config/database.yml
+/config/private_pub.yml
 
 # Ignore VIM swap
 *.swp
