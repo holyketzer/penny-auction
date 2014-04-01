@@ -192,28 +192,25 @@ feature 'User login', %q{
       end
 
       scenario 'facebook' do
-        visit new_user_session_path
         OmniAuth.config.add_mock(:facebook, {uid: '12345', info: { email: 'test@mail.com', image: 'http://www.imagehost.test/avatar.jpg' }})
 
-        click_on 'Войти через Facebook'
+        expect_successeful_facebok_login
+      end
+    end
 
-        expect(current_path).to eq(new_user_registration_path)
-        expect(page).to have_content 'Пожалуйста, завершите регистрацию'
-        expect(find_field('Email').value).to eq('test@mail.com')
+    context 'with http to https avatar url redirect' do
+      let(:avatar_url) { 'http://www.imagehost.com/avatar.jpg' }
+      let(:redirection_url) { 'https://cdn.imagehost.com/avatar.jpg' }
 
-        fill_in 'Пароль', with: 'secret'
-        fill_in 'Подтверждение пароля', with: 'secret'
-        fill_in 'Ник', with: 'nickname'
-        click_on 'Зарегистрироваться'
+      before do
+        stub_request(:get, avatar_url).to_return(status: 302, headers: { 'Location' => redirection_url, 'Content-Type' => 'image/jpeg' })
+        stub_request(:get, redirection_url).to_return(body: File.new('spec/support/images/another image.jpg'), status: 200)
+      end
 
-        expect(current_path).to eq(root_path)
-        expect(page).to have_link 'test@mail.com'
-        expect(page).to have_link 'Выход'
+      scenario 'facebook' do
+        OmniAuth.config.add_mock(:facebook, {uid: '12345', info: { email: 'test@mail.com', image: avatar_url }})
 
-        visit profile_path
-        within '.avatar' do
-          expect(image_src).to_not be_empty
-        end
+        expect_successeful_facebok_login
       end
     end
   end
@@ -249,6 +246,31 @@ feature 'User login', %q{
           expect(page).to have_link 'Привязать к Vkontakte'
         end
       end
+    end
+  end
+
+  private
+
+  def expect_successeful_facebok_login
+    visit new_user_session_path
+    click_on 'Войти через Facebook'
+
+    expect(current_path).to eq(new_user_registration_path)
+    expect(page).to have_content 'Пожалуйста, завершите регистрацию'
+    expect(find_field('Email').value).to eq('test@mail.com')
+
+    fill_in 'Пароль', with: 'secret'
+    fill_in 'Подтверждение пароля', with: 'secret'
+    fill_in 'Ник', with: 'nickname'
+    click_on 'Зарегистрироваться'
+
+    expect(current_path).to eq(root_path)
+    expect(page).to have_link 'test@mail.com'
+    expect(page).to have_link 'Выход'
+
+    visit profile_path
+    within '.avatar' do
+      expect(image_src).to_not be_empty
     end
   end
 end

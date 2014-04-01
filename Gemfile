@@ -50,6 +50,7 @@ gem 'thin'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
+gem 'open_uri_redirections'
 
 # Keep secrets in separate config
 gem 'figaro'
