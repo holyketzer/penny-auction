@@ -4,28 +4,28 @@ FactoryGirl.define do
     password '12345678'
     password_confirmation '12345678'
     sequence(:nickname) { |n| "user#{n}" }
-    role Role.find_by(name: 'user')
+    role { Role.find_by(name: 'user') }
 
     factory :admin do
       sequence(:email) { |n| "admin-#{n}@test.com" }
       password 'topsecret'
       password_confirmation 'topsecret'
-      role Role.find_by(name: 'admin')
+      role { Role.find_by(name: 'admin') }
     end
 
     factory :manager do
       sequence(:email) { |n| "manager-#{n}@test.com" }
-      role Role.find_by(name: 'manager')
+      role { Role.find_by(name: 'manager') }
     end
 
     factory :bot do
       sequence(:email) { |n| "bot-#{n}@test.com" }
-      role Role.find_by(name: 'bot')
+      role { Role.find_by(name: 'bot') }
     end
 
     factory :locked_bot do
       sequence(:email) { |n| "locked_bot-#{n}@test.com" }
-      role Role.find_by(name: 'locked_bot')
+      role { Role.find_by(name: 'locked_bot') }
     end
 
     trait :with_avatar do
@@ -94,10 +94,10 @@ FactoryGirl.define do
   factory :auction do
     start_price 199.78
     start_time Time.now + 10.minutes
-    min_price 8990.10
+    min_price 8760.15
     duration 567
     bid_time_step 120
-    bid_price_step 20.5
+    bid_price_step 20.55
     product
 
     ignore do

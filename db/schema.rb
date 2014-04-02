@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(version: 20140320062440) do
     t.decimal  "price",          precision: 8, scale: 2
   end
 
-  add_index "auctions", ["image_id"], name: "index_auctions_on_image_id"
-  add_index "auctions", ["product_id"], name: "index_auctions_on_product_id"
+  add_index "auctions", ["image_id"], name: "index_auctions_on_image_id", using: :btree
+  add_index "auctions", ["product_id"], name: "index_auctions_on_product_id", using: :btree
 
   create_table "authorizations", force: true do |t|
     t.string   "provider"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20140320062440) do
     t.datetime "updated_at"
   end
 
-  add_index "authorizations", ["user_id"], name: "index_authorizations_on_user_id"
+  add_index "authorizations", ["user_id"], name: "index_authorizations_on_user_id", using: :btree
 
   create_table "avatars", force: true do |t|
     t.integer  "user_id"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20140320062440) do
     t.datetime "updated_at"
   end
 
-  add_index "avatars", ["user_id"], name: "index_avatars_on_user_id"
+  add_index "avatars", ["user_id"], name: "index_avatars_on_user_id", using: :btree
 
   create_table "bids", force: true do |t|
     t.integer  "user_id"
@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(version: 20140320062440) do
     t.datetime "created_at"
   end
 
-  add_index "bids", ["auction_id"], name: "index_bids_on_auction_id"
-  add_index "bids", ["user_id"], name: "index_bids_on_user_id"
+  add_index "bids", ["auction_id"], name: "index_bids_on_auction_id", using: :btree
+  add_index "bids", ["user_id"], name: "index_bids_on_user_id", using: :btree
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20140320062440) do
     t.datetime "updated_at"
   end
 
-  add_index "categories", ["ancestry"], name: "index_categories_on_ancestry"
+  add_index "categories", ["ancestry"], name: "index_categories_on_ancestry", using: :btree
 
   create_table "images", force: true do |t|
     t.integer  "imageable_id"
@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 20140320062440) do
     t.string   "source"
   end
 
-  add_index "images", ["imageable_id", "imageable_type"], name: "index_images_on_imageable_id_and_imageable_type"
+  add_index "images", ["imageable_id", "imageable_type"], name: "index_images_on_imageable_id_and_imageable_type", using: :btree
 
   create_table "permissions", force: true do |t|
     t.string   "name"
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 20140320062440) do
     t.integer  "category_id"
   end
 
-  add_index "products", ["category_id"], name: "index_products_on_category_id"
+  add_index "products", ["category_id"], name: "index_products_on_category_id", using: :btree
 
   create_table "role_permissions", force: true do |t|
     t.integer  "role_id"
@@ -103,8 +103,8 @@ ActiveRecord::Schema.define(version: 20140320062440) do
     t.datetime "updated_at"
   end
 
-  add_index "role_permissions", ["permission_id"], name: "index_role_permissions_on_permission_id"
-  add_index "role_permissions", ["role_id"], name: "index_role_permissions_on_role_id"
+  add_index "role_permissions", ["permission_id"], name: "index_role_permissions_on_permission_id", using: :btree
+  add_index "role_permissions", ["role_id"], name: "index_role_permissions_on_role_id", using: :btree
 
   create_table "roles", force: true do |t|
     t.string "name"
@@ -127,8 +127,8 @@ ActiveRecord::Schema.define(version: 20140320062440) do
     t.integer  "role_id"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  add_index "users", ["role_id"], name: "index_users_on_role_id"
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree
 
 end

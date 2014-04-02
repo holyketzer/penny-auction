@@ -62,7 +62,7 @@ namespace :private_pub do
   end
 
   desc "Restart private_pub server"
-  task :restart, :roles => :app do
+  task :restart, roles: :app do
     run "cd #{current_path};RAILS_ENV=#{rails_env} bundle exec thin -C config/private_pub_thin.yml restart"
   end
 end
