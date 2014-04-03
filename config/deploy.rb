@@ -53,17 +53,17 @@ end
 namespace :private_pub do
   desc 'Start private_pub server'
   task :start, roles: :app do
-    run "cd #{current_path};RAILS_ENV=#{rails_env} bundle exec thin -C config/private_pub_thin.yml start"
+    run "cd #{current_path};RAILS_ENV=#{rails_env} #{bundle_cmd} exec thin -C #{current_path}/config/private_pub_thin.yml start"
   end
 
   desc 'Stop private_pub server'
   task :stop, roles: :app do
-    run "cd #{current_path};RAILS_ENV=#{rails_env} bundle exec thin -C config/private_pub_thin.yml stop"
+    run "cd #{current_path};RAILS_ENV=#{rails_env} #{bundle_cmd} exec thin -C #{current_path}/config/private_pub_thin.yml stop"
   end
 
   desc "Restart private_pub server"
   task :restart, roles: :app do
-    run "cd #{current_path};RAILS_ENV=#{rails_env} bundle exec thin -C config/private_pub_thin.yml restart"
+    run "cd #{current_path};RAILS_ENV=#{rails_env} #{bundle_cmd} exec thin -C #{current_path}/config/private_pub_thin.yml restart"
   end
 end
 
