@@ -15,7 +15,7 @@ feature 'User login', %q{
 
   context 'for unregistered user' do
     scenario 'Unauthenticated user can login or create account' do
-      expect(page).to have_content 'Текущие аукционы'
+      expect(page).to have_content 'Аукционы'
       expect(page).to have_link 'Вход'
       expect(page).to have_link 'Регистрация'
     end
@@ -56,7 +56,7 @@ feature 'User login', %q{
       expect(current_path).to eq(root_path)
       expect(page).to have_link user.email
       expect(page).to have_link 'Выход'
-      expect(page).to have_content 'Текущие аукционы'
+      expect(page).to have_content 'Аукционы'
       expect(page).to have_content 'Вход выполнен'
     end
 

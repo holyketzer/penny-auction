@@ -26,7 +26,7 @@ html lang="en"
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.brand href="#"Penny auction
+          = link_to 'Penny auction', root_path, class: 'brand'
           .container-fluid.nav-collapse
             ul.nav
               li = link_to t('auctions.index.title'), auctions_path
@@ -45,5 +45,5 @@ html lang="en"
             ul.nav.nav-list
               li.nav-header
                 li = link_to t('auctions.index.title'), auctions_path
-    
+
       = render 'shared/footer'

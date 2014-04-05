@@ -26,7 +26,7 @@ html lang="en"
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.brand href=admin_root_path Penny auction (admin mode)
+          = link_to 'Penny auction (admin mode)', admin_root_path, class: 'brand'
           .container-fluid.nav-collapse
             ul.nav
               = render 'shared/admin_links'
